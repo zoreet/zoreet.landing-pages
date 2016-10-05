@@ -2,22 +2,200 @@
 <html>
 <head>
 	<title>today</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 20px;
+			font-family: "Helvetica Neue", Arial, sans-serif;
+		}
+		#todos {
+			list-style: none inside;
+			margin: 0;
+			padding: 0;
+		}
+		.todo_item {
+			margin-bottom: 5px;
+		}
+		.todo_item .todo_item__check {
+			color: grey;
+			text-decoration: none;
+		}
+		.todo_item .todo_item__remove {
+			text-decoration: none;
+		}
+		.todo_item.true {
+			opacity: 0.2;
+		}
+		.todo_item.true .todo_item__check {
+			color:  green;
+		}
+
+		footer {
+			margin-top: 50px;
+		}
+	</style>
 </head>
 <body>
-	<h1>October 4, 2016</h1>
-	<ul id="todos">
-		<li class="todo_item"><input name="todo_item_0" value="Item 1" /></li>
-		<li class="todo_item"><input name="todo_item_1" value="Item 2" /></li>
-		<li class="todo_item"><input name="todo_item_2" value="Item 3" /></li>
-		<li class="todo_item"><input name="todo_item_3" value="Item 4" /></li>
-		<li id="add_new_todo_item" class="todo_item"><input name="new_todo_item" placeholder="Add new item" /></li>
-	</ul>
-	<div id="actions">
+	<h1></h1>
+	<ul id="todos"></ul>
+	<div id="add_new_todo_item" class="todo_item"><input id="new_todo_item" name="new_todo_item" placeholder="Add new item" /></div>
+<!-- 	<div id="actions">
 		<a href="#">Hide completed</a>
-	</div>
+	</div> -->
 	<footer>
 		today - web based to-do list where every day is a new start.
 		Made with &hearts; by <a href="http://zoreet.com">zoreet</a>.
 	</footer>
 </body>
+	<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="static/js/moment.min.js"></script>
+	<script type="text/javascript">
+		/*
+			todayData = {
+				items: [
+					1: {
+						text: "This is my taks",
+						status: false
+					}
+				]
+			}
+		*/
+		var todayData;
+		var todayDataDefault = {
+			today: "",
+			items: {}
+		}
+
+		$(function(){
+			todayApp.init();
+		});
+		var todayApp = {
+			/*
+				_______      _________________
+				`MM'`MM\     `M'`MM'MMMMMMMMMM
+				 MM  MMM\     M  MM /   MM   \
+				 MM  M\MM\    M  MM     MM
+				 MM  M \MM\   M  MM     MM
+				 MM  M  \MM\  M  MM     MM
+				 MM  M   \MM\ M  MM     MM
+				 MM  M    \MM\M  MM     MM
+				 MM  M     \MMM  MM     MM
+				 MM  M      \MM  MM     MM
+				_MM__M_      \M _MM_   _MM_
+			*/
+
+			init: function(){
+				today = moment();
+
+				todayData = JSON.parse( localStorage.getItem( "today" + today.format("YYYYMMDD") ) );
+				todayData = todayData ? todayData : todayDataDefault;
+
+				todayData.today = today.format("YYYYMMDD");
+
+				console.log(todayData);
+
+				todayApp.display();
+
+
+
+				$('h1').html( today.format('MMMM Do, YYYY') );
+
+				$('#new_todo_item').on('keypress',function(e){
+					if(e.which == 13) { // enter key
+						if(todayApp.add( $(this).val() )) {
+							$(this).val("");
+						}
+					}
+				});
+				$('#todos')
+					.on('click','.todo_item__remove',function(e){
+						e.preventDefault();
+						todayApp.remove( $(this) );
+					})
+					.on('click','.todo_item__check',function(e){
+						e.preventDefault();
+						todayApp.toggleStatus( $(this) );
+					})
+
+				var todayDataUpdated = new Event('todayDataUpdated');
+				$('body').on('todayDataUpdated', todayApp.update);
+			},
+
+			/*
+				___       ___       _      _______      ___
+				`MMb     dMM'      dM.     `MM'`MM\     `M'
+				 MMM.   ,PMM      ,MMb      MM  MMM\     M
+				 M`Mb   d'MM      d'YM.     MM  M\MM\    M
+				 M YM. ,P MM     ,P `Mb     MM  M \MM\   M
+				 M `Mb d' MM     d'  YM.    MM  M  \MM\  M
+				 M  YM.P  MM    ,P   `Mb    MM  M   \MM\ M
+				 M  `Mb'  MM    d'    YM.   MM  M    \MM\M
+				 M   YP   MM   ,MMMMMMMMb   MM  M     \MMM
+				 M   `'   MM   d'      YM.  MM  M      \MM
+				_M_      _MM__dM_     _dMM__MM__M_      \M
+			*/
+
+			add: function(text) {
+				text = $.trim(String(text));
+				id = $.now(),
+				status = false;
+
+				if(text !== "") {
+					todayData.items[id] = {
+						'text': text,
+						'status': status
+					};
+
+					$('body').trigger('todayDataUpdated');
+
+					return true;
+				}
+
+				return false;
+			},
+			display: function() {
+				var $todos = $('#todos');
+				var items = todayData.items;
+				var newMarkup = "";
+
+				for(item in items) {
+					id = item;
+					text = items[item].text;
+					status = items[item].status;
+
+					newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__check' data-id='" + id + "'>&#10003;</a><input name='todo_item_" + id + "' value='" + text + "' /><a href='' class='todo_item__remove' data-id='" + id + "'>x</a></li>";
+				}
+
+				$todos.html(newMarkup);
+			},
+			remove: function($el) {
+				delete todayData.items[$el.data('id')];
+				todayApp.update();
+				// $el.remove();
+			},
+			toggleStatus: function( $el ) {
+				id = $el.data('id');
+				todayData.items[id].status = !todayData.items[id].status;
+				todayApp.update();
+			},
+			update: function() {
+				localStorage.setItem("today"+todayData.today, JSON.stringify(todayData));
+				todayApp.display();
+			}
+
+			/*
+				__________    ____       ____    ____       ____
+				MMMMMMMMMM   6MMMMb     6MMMMb   `MM'      6MMMMb\
+				/   MM   \  8P    Y8   8P    Y8   MM      6M'    `
+				    MM     6M      Mb 6M      Mb  MM      MM
+				    MM     MM      MM MM      MM  MM      YM.
+				    MM     MM      MM MM      MM  MM       YMMMMb
+				    MM     MM      MM MM      MM  MM           `Mb
+				    MM     MM      MM MM      MM  MM            MM
+				    MM     YM      M9 YM      M9  MM            MM
+				    MM      8b    d8   8b    d8   MM    / L    ,M9
+				   _MM_      YMMMM9     YMMMM9   _MMMMMMM MYMMMM9
+			*/
+		}
+	</script>
 </html>
