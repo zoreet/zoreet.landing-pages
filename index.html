@@ -23,21 +23,34 @@
 		}
 
 		.todo_item .todo_item__check {
+			border-radius: 50%;
+			border: 1px solid;
 			color: grey;
 			display: inline-block;
-			padding: 10px 0;
-			text-decoration: none;
-			width: 40px;
+			font-size: 12px;
+			height: 20px;
+			line-height: 22px;
 			text-align: center;
+			text-decoration: none;
+			width: 20px;
+			margin-top: 8px; /* it should be 10, but since it's a circle id looks always a bit lower then it is */
 		}
 		.todo_item.true .todo_item__check {
 			color: #29CB6F;
 		}
 
 		.todo_item .todo_item__remove {
+			border-radius: 50%;
+			border: 1px solid;
+			color: darkred;
 			display: inline-block;
-			padding: 10px;
+			font-size: 12px;
+			height: 20px;
+			line-height: 20px;
+			padding: 0;
+			text-align: center;
 			text-decoration: none;
+			width: 20px;
 		}
 
 		.todo_item .input {
@@ -50,8 +63,7 @@
 			width: 80%;
 		}
 		.todo_item.true .input {
-			color: #29CB6F;
-			opacity: 0.3;
+			color: #ccc;
 		}
 
 		#new_todo_item {
@@ -59,7 +71,7 @@
 		}
 		.add_new_todo_item__icon {
 			padding: 10px 0;
-			width: 40px;
+			width: 20px;
 			text-align: center;
 			display: inline-block;
 		}
