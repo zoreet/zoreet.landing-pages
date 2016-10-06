@@ -88,6 +88,10 @@
 		<span href='' class='add_new_todo_item__icon'>&rarr;</span>
 		<div contenteditable id="new_todo_item" class="input"></div>
 	</div>
+	<div>Jump to:
+		<a href="" class="previousDay">Yesterday</a>
+		<a href="" class="today">Today</a>
+	</div>
 <!-- 	<div id="actions">
 		<a href="#">Hide completed</a>
 	</div> -->
@@ -106,7 +110,9 @@
 						text: "This is my taks",
 						status: false
 					}
-				]
+				],
+				today: "Fri Oct 07 2016 00:21:07 GMT+0200 (CEST)",
+				todayid: 20161007
 			}
 		*/
 		var todayData;
@@ -145,7 +151,6 @@
 
 
 
-				$('h1').html( today.format('MMMM Do, YYYY') );
 
 				$('#new_todo_item').on('keypress',function(e){
 					if(e.which == 13) { // enter key
@@ -173,6 +178,18 @@
 
 				var todayDataUpdated = new Event('todayDataUpdated');
 				$('body').on('todayDataUpdated', todayApp.save);
+
+				$('.previousDay').click(function(e){
+					e.preventDefault();
+					var date = new Date();
+					date.setDate( date.getDate() - 1 );
+					todayApp.switchDate( date );
+				});
+				$('.today').click(function(e){
+					e.preventDefault();
+					var date = new Date();
+					todayApp.switchDate( date );
+				})
 			},
 
 			/*
@@ -208,6 +225,8 @@
 				return false;
 			},
 			display: function() {
+				$('h1').html( moment(todayData.today).format('MMMM Do, YYYY') );
+
 				var $todos = $('#todos');
 				var items = todayData.items;
 				var newMarkup = "";
@@ -228,6 +247,13 @@
 			},
 			save: function() {
 				localStorage.setItem("today"+todayData.today, JSON.stringify(todayData));
+				todayApp.display();
+			},
+			switchDate: function( date ) {
+				dateid = moment(date).format("YYYYMMDD");
+				console.log(date, dateid)
+				todayData = JSON.parse( localStorage.getItem( "today" + dateid ) );
+				todayData = todayData ? todayData : todayDataDefault;
 				todayApp.display();
 			},
 			toggleStatus: function( id ) {
