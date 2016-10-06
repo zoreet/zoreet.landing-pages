@@ -111,8 +111,7 @@
 						status: false
 					}
 				],
-				today: "Fri Oct 07 2016 00:21:07 GMT+0200 (CEST)",
-				todayid: 20161007
+				today: 20161007
 			}
 		*/
 		var todayData;
@@ -178,9 +177,6 @@
 						todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
 					})
 
-				var todayDataUpdated = new Event('todayDataUpdated');
-				$('body').on('todayDataUpdated', todayApp.save);
-
 				$('.previousDay').click(function(e){
 					e.preventDefault();
 					var date = new Date();
@@ -219,7 +215,7 @@
 						'status': status
 					};
 
-					$('body').trigger('todayDataUpdated');
+					todayApp.save();
 
 					return true;
 				}
@@ -253,7 +249,6 @@
 			},
 			switchDate: function( date ) {
 				dateid = moment(date).format("YYYYMMDD");
-				console.log(date, dateid)
 				todayData = JSON.parse( localStorage.getItem( "today" + dateid ) );
 				todayData = todayData ? todayData : todayDataDefault;
 				todayApp.display();
