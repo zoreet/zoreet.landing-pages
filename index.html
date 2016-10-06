@@ -13,21 +13,35 @@
 			margin: 0;
 			padding: 0;
 		}
+
 		.todo_item {
 			margin-bottom: 5px;
 		}
+		#add_new_todo_item {
+			padding-left: 12px;
+		}
+
 		.todo_item .todo_item__check {
 			color: grey;
 			text-decoration: none;
 		}
+		.todo_item.true .todo_item__check {
+			color: #29CB6F;
+		}
+
 		.todo_item .todo_item__remove {
 			text-decoration: none;
 		}
-		.todo_item.true {
-			opacity: 0.2;
+
+		.todo_item input {
+			width: 80%;
+			max-width: 500px;
+			padding: 10px;
+			margin: 0 10px;
 		}
-		.todo_item.true .todo_item__check {
-			color:  green;
+		.todo_item.true input {
+			color: #29CB6F;
+			opacity: 0.3;
 		}
 
 		footer {
