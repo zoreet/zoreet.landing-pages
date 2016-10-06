@@ -130,9 +130,14 @@
 						e.preventDefault();
 						todayApp.toggleStatus( $(this) );
 					})
+					.on('keypress', '.todo_item input', function(e){
+						if(e.which == 13) { // enter key
+							todayApp.update( $(this) );
+						}
+					})
 
 				var todayDataUpdated = new Event('todayDataUpdated');
-				$('body').on('todayDataUpdated', todayApp.update);
+				$('body').on('todayDataUpdated', todayApp.save);
 			},
 
 			/*
@@ -177,24 +182,29 @@
 					text = items[item].text;
 					status = items[item].status;
 
-					newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__check' data-id='" + id + "'>&#10003;</a><input name='todo_item_" + id + "' value='" + text + "' /><a href='' class='todo_item__remove' data-id='" + id + "'>x</a></li>";
+					newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__check' data-id='" + id + "'>&#10003;</a><input name='todo_item_" + id + "' value='" + text + "' data-id='" + id + "' /><a href='' class='todo_item__remove' data-id='" + id + "'>x</a></li>";
 				}
 
 				$todos.html(newMarkup);
 			},
 			remove: function($el) {
 				delete todayData.items[$el.data('id')];
-				todayApp.update();
+				todayApp.save();
 				// $el.remove();
+			},
+			save: function() {
+				localStorage.setItem("today"+todayData.today, JSON.stringify(todayData));
+				todayApp.display();
 			},
 			toggleStatus: function( $el ) {
 				id = $el.data('id');
 				todayData.items[id].status = !todayData.items[id].status;
-				todayApp.update();
+				todayApp.save();
 			},
-			update: function() {
-				localStorage.setItem("today"+todayData.today, JSON.stringify(todayData));
-				todayApp.display();
+			update: function( $el ) {
+				console.log($el);
+				todayData.items[$el.data('id')].text = $el.val();
+				todayApp.save();
 			}
 
 			/*
