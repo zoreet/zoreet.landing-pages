@@ -151,7 +151,7 @@
 					if(e.which == 13) { // enter key
 						e.preventDefault();
 						if(todayApp.addItem( $.trim( $(this).html() ) ) ) {
-							$(this).val("");
+							$(this).html("");
 						}
 					}
 				});
