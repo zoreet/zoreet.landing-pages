@@ -17,31 +17,51 @@
 		.todo_item {
 			margin-bottom: 5px;
 		}
-		#add_new_todo_item {
-			padding-left: 12px;
+
+		.todo_item > * {
+			vertical-align: top;
 		}
 
 		.todo_item .todo_item__check {
 			color: grey;
+			display: inline-block;
+			padding: 10px 0;
 			text-decoration: none;
+			width: 40px;
+			text-align: center;
 		}
 		.todo_item.true .todo_item__check {
 			color: #29CB6F;
 		}
 
 		.todo_item .todo_item__remove {
+			display: inline-block;
+			padding: 10px;
 			text-decoration: none;
 		}
 
-		.todo_item input {
-			width: 80%;
-			max-width: 500px;
-			padding: 10px;
+		.todo_item .input {
+			display: inline-block;
+			font-size: 16px;
 			margin: 0 10px;
+			max-width: 500px;
+			outline: 0 none;
+			padding: 10px;
+			width: 80%;
 		}
-		.todo_item.true input {
+		.todo_item.true .input {
 			color: #29CB6F;
 			opacity: 0.3;
+		}
+
+		#new_todo_item {
+			border: 1px solid;
+		}
+		.add_new_todo_item__icon {
+			padding: 10px 0;
+			width: 40px;
+			text-align: center;
+			display: inline-block;
 		}
 
 		footer {
@@ -52,7 +72,10 @@
 <body>
 	<h1></h1>
 	<ul id="todos"></ul>
-	<div id="add_new_todo_item" class="todo_item"><input id="new_todo_item" name="new_todo_item" placeholder="Add new item" autofocus /></div>
+	<div id="add_new_todo_item" class="todo_item">
+		<span href='' class='add_new_todo_item__icon' data-id='" + id + "'>&rarr;</span>
+		<div contenteditable id="new_todo_item" class="input" name="new_todo_item" placeholder="Add new item" autofocus></div>
+	</div>
 <!-- 	<div id="actions">
 		<a href="#">Hide completed</a>
 	</div> -->
@@ -114,7 +137,8 @@
 
 				$('#new_todo_item').on('keypress',function(e){
 					if(e.which == 13) { // enter key
-						if(todayApp.addItem( $(this).val() )) {
+						e.preventDefault();
+						if(todayApp.addItem( $.trim( $(this).html() ) ) ) {
 							$(this).val("");
 						}
 					}
@@ -128,9 +152,10 @@
 						e.preventDefault();
 						todayApp.toggleStatus( $(this).data('id') );
 					})
-					.on('keypress', '.todo_item input', function(e){
+					.on('keypress', '.input', function(e){
 						if(e.which == 13) { // enter key
-							todayApp.updateItem( $(this).data('id'), $(this).val() );
+							e.preventDefault();
+							todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
 						}
 					})
 
@@ -180,7 +205,7 @@
 					text = items[item].text;
 					status = items[item].status;
 
-					newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__check' data-id='" + id + "'>&#10003;</a><input name='todo_item_" + id + "' value='" + text + "' data-id='" + id + "' /><a href='' class='todo_item__remove' data-id='" + id + "'>x</a></li>";
+					newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__check' data-id='" + id + "'>&#10003;</a><div class='input' contenteditable data-id='" + id + "'>" + text + "</div><a href='' class='todo_item__remove' data-id='" + id + "'>x</a></li>";
 				}
 
 				$todos.html(newMarkup);
