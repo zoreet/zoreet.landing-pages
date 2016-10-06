@@ -106,8 +106,6 @@
 
 				todayData.today = today.format("YYYYMMDD");
 
-				console.log(todayData);
-
 				todayApp.display();
 
 
@@ -116,7 +114,7 @@
 
 				$('#new_todo_item').on('keypress',function(e){
 					if(e.which == 13) { // enter key
-						if(todayApp.add( $(this).val() )) {
+						if(todayApp.addItem( $(this).val() )) {
 							$(this).val("");
 						}
 					}
@@ -124,15 +122,15 @@
 				$('#todos')
 					.on('click','.todo_item__remove',function(e){
 						e.preventDefault();
-						todayApp.remove( $(this) );
+						todayApp.removeItem( $(this).data('id') );
 					})
 					.on('click','.todo_item__check',function(e){
 						e.preventDefault();
-						todayApp.toggleStatus( $(this) );
+						todayApp.toggleStatus( $(this).data('id') );
 					})
 					.on('keypress', '.todo_item input', function(e){
 						if(e.which == 13) { // enter key
-							todayApp.update( $(this) );
+							todayApp.updateItem( $(this).data('id'), $(this).val() );
 						}
 					})
 
@@ -154,7 +152,7 @@
 				_M_      _MM__dM_     _dMM__MM__M_      \M
 			*/
 
-			add: function(text) {
+			addItem: function( text ) {
 				text = $.trim(String(text));
 				id = $.now(),
 				status = false;
@@ -187,23 +185,20 @@
 
 				$todos.html(newMarkup);
 			},
-			remove: function($el) {
-				delete todayData.items[$el.data('id')];
+			removeItem: function( id ) {
+				delete todayData.items[id];
 				todayApp.save();
-				// $el.remove();
 			},
 			save: function() {
 				localStorage.setItem("today"+todayData.today, JSON.stringify(todayData));
 				todayApp.display();
 			},
-			toggleStatus: function( $el ) {
-				id = $el.data('id');
+			toggleStatus: function( id ) {
 				todayData.items[id].status = !todayData.items[id].status;
 				todayApp.save();
 			},
-			update: function( $el ) {
-				console.log($el);
-				todayData.items[$el.data('id')].text = $el.val();
+			updateItem: function( id, text ) {
+				todayData.items[id].text = text;
 				todayApp.save();
 			}
 
