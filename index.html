@@ -172,8 +172,10 @@
 					.on('keypress', '.input', function(e){
 						if(e.which == 13) { // enter key
 							e.preventDefault();
-							todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
 						}
+					})
+					.on('input', '.input', function(e){
+						todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
 					})
 
 				var todayDataUpdated = new Event('todayDataUpdated');
@@ -245,9 +247,9 @@
 				delete todayData.items[id];
 				todayApp.save();
 			},
-			save: function() {
+			save: function( norefresh ) {
 				localStorage.setItem("today"+todayData.today, JSON.stringify(todayData));
-				todayApp.display();
+				if(!norefresh) todayApp.display();
 			},
 			switchDate: function( date ) {
 				dateid = moment(date).format("YYYYMMDD");
@@ -258,11 +260,11 @@
 			},
 			toggleStatus: function( id ) {
 				todayData.items[id].status = !todayData.items[id].status;
-				todayApp.save();
+				todayApp.save(true);
 			},
 			updateItem: function( id, text ) {
 				todayData.items[id].text = text;
-				todayApp.save();
+				todayApp.save(true);
 			}
 
 			/*
