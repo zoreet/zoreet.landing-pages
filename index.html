@@ -223,7 +223,7 @@
 				return false;
 			},
 			display: function() {
-				$('h1').html( moment(todayData.today).format('MMMM Do, YYYY') );
+				$('h1').html( moment(todayData.today).format('dddd, MMMM Do, YYYY') );
 
 				var $todos = $('#todos');
 				var items = todayData.items;
