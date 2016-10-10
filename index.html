@@ -141,7 +141,7 @@
 			init: function(){
 				today = moment();
 
-				todayData = JSON.parse( localStorage.getItem( "today" + today.format("YYYYMMDD") ) );
+				todayData = JSON.parse( localStorage.getItem( "today" + today.format("YYYYMMDD") ), todayApp.parseJSON );
 				todayData = todayData ? todayData : todayDataDefault;
 
 				todayData.today = today.format("YYYYMMDD");
@@ -249,18 +249,18 @@
 			},
 			switchDate: function( date ) {
 				dateid = moment(date).format("YYYYMMDD");
-				todayData = JSON.parse( localStorage.getItem( "today" + dateid ) );
+				todayData = JSON.parse( localStorage.getItem( "today" + dateid ), todayApp.parseJSON );
 				todayData = todayData ? todayData : todayDataDefault;
 				todayApp.display();
 			},
 			toggleStatus: function( id ) {
 				todayData.items[id].status = !todayData.items[id].status;
-				todayApp.save(true);
+				todayApp.save();
 			},
 			updateItem: function( id, text ) {
 				todayData.items[id].text = text;
 				todayApp.save(true);
-			}
+			},
 
 			/*
 				__________    ____       ____    ____       ____
@@ -275,6 +275,11 @@
 				    MM      8b    d8   8b    d8   MM    / L    ,M9
 				   _MM_      YMMMM9     YMMMM9   _MMMMMMM MYMMMM9
 			*/
+			parseJSON(k,v) {
+				if(v=="true") return true;
+				if(v=="false") return false;
+				return v;
+			}
 		}
 	</script>
 </html>
