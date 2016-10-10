@@ -41,6 +41,14 @@ var todayApp = {
 					}
 				}
 			})
+			.on('paste', '.input', function(e){
+				var $this = this;
+				// it looks like the event is fired just before the content goes in
+				// so a small delay makes sure we catch the new code in setTimeout
+				setTimeout(function(){
+					$("*", $this).removeAttr('style');
+				}, 10)
+			})
 
 		$('.previousDay').click(function(e){
 			e.preventDefault();
