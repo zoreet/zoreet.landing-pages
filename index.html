@@ -16,47 +16,52 @@
 
 		.todo_item {
 			margin-bottom: 5px;
+			padding: 0 30px;
+			position: relative;
 		}
 
 		.todo_item > * {
 			vertical-align: top;
 		}
 
-		.todo_item .todo_item__check {
+		.todo_item .todo_item__icon {
 			border-radius: 50%;
-			border: 1px solid;
-			color: grey;
+			background-color: #dedede;
+			color: #111;
 			display: inline-block;
 			font-size: 12px;
 			height: 20px;
+			left: 0;
 			line-height: 22px;
+			position: absolute;
 			text-align: center;
 			text-decoration: none;
+			top: 10px;
 			width: 20px;
-			margin-top: 8px; /* it should be 10, but since it's a circle id looks always a bit lower then it is */
 		}
+		.todo_item .todo_item__add {
+			background-color: #fc0;
+			font-size: 16px;
+			line-height: 17px;
+		}
+		.todo_item .todo_item__check:hover,
 		.todo_item.true .todo_item__check {
-			color: #29CB6F;
+			background-color: #29CB6F;
+			color: #fff;
 		}
 
 		.todo_item .todo_item__remove {
-			border-radius: 50%;
-			border: 1px solid;
-			color: darkred;
-			display: inline-block;
-			font-size: 12px;
-			height: 20px;
-			line-height: 20px;
-			padding: 0;
-			text-align: center;
-			text-decoration: none;
-			width: 20px;
+			left: auto;
+			line-height: 18px;
+			right: 0;
+		}
+		.todo_item .todo_item__remove:hover {
+			background-color: red;
 		}
 
 		.todo_item .input {
 			display: inline-block;
 			font-size: 16px;
-			margin: 0 10px;
 			max-width: 500px;
 			outline: 0 none;
 			padding: 10px;
@@ -64,16 +69,6 @@
 		}
 		.todo_item.true .input {
 			color: #ccc;
-		}
-
-		#new_todo_item {
-			border: 1px solid;
-		}
-		.add_new_todo_item__icon {
-			padding: 10px 0;
-			width: 20px;
-			text-align: center;
-			display: inline-block;
 		}
 
 		footer {
@@ -84,9 +79,9 @@
 <body>
 	<h1></h1>
 	<ul id="todos"></ul>
-	<div class="add_new_todo_item todo_item">
-		<span href='' class='add_new_todo_item__icon'>&rarr;</span>
-		<div contenteditable id="new_todo_item" class="input"></div>
+	<div class="todo_item">
+		<a href="" class="todo_item__add todo_item__icon">+</a>
+		<div class="input add_new_item" contenteditable></div>
 	</div>
 	<div>Jump to:
 		<a href="" class="previousDay">Yesterday</a>

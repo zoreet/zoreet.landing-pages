@@ -21,31 +21,25 @@ var todayApp = {
 
 
 
-
-		$('#new_todo_item').on('keypress',function(e){
-			if(e.which == 13) { // enter key
-				e.preventDefault();
-				if(todayApp.addItem( $.trim( $(this).html() ) ) ) {
-					$(this).html("");
-				}
-			}
-		});
-		$('#todos')
-			.on('click','.todo_item__remove',function(e){
-				e.preventDefault();
-				todayApp.removeItem( $(this).data('id') );
-			})
+		$('body')
 			.on('click','.todo_item__check',function(e){
 				e.preventDefault();
 				todayApp.toggleStatus( $(this).data('id') );
 			})
-			.on('keypress', '.input', function(e){
+			.on('click','.todo_item__remove',function(e){
+				e.preventDefault();
+				todayApp.removeItem( $(this).data('id') );
+			})
+			.on('keydown', '.input', function(e){
 				if(e.which == 13) { // enter key
 					e.preventDefault();
+					if( $(this).hasClass('add_new_item') ) {
+						todayApp.addItem( $(this).html() );
+						$(this).html("");
+					} else {
+						todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
+					}
 				}
-			})
-			.on('input', '.input', function(e){
-				todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
 			})
 
 		$('.previousDay').click(function(e){
@@ -85,11 +79,7 @@ var todayApp = {
 
 			todayData.save();
 			todayApp.display();
-
-			return true;
 		}
-
-		return false;
 	},
 	display: function() {
 		$('h1').html( moment(todayData.today).format('dddd, MMMM Do, YYYY') );
@@ -103,7 +93,7 @@ var todayApp = {
 			text = items[item].text;
 			status = items[item].status;
 
-			newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__check' data-id='" + id + "'>&#10003;</a><div class='input' contenteditable data-id='" + id + "'>" + text + "</div><a href='' class='todo_item__remove' data-id='" + id + "'>x</a></li>";
+			newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__icon todo_item__check' data-id='" + id + "'>&#10003;</a><div class='input' contenteditable data-id='" + id + "'>" + text + "</div><a href='' class='todo_item__icon todo_item__remove' data-id='" + id + "'>x</a></li>";
 		}
 
 		$todos.html(newMarkup);
