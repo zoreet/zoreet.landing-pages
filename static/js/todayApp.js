@@ -31,14 +31,12 @@ var todayApp = {
 				todayApp.removeItem( $(this).data('id') );
 			})
 			.on('keydown', '.input', function(e){
-				if(e.which == 13) { // enter key
+				if(e.which == 13 && $(this).hasClass('add_new_item')) { // enter key
 					e.preventDefault();
-					if( $(this).hasClass('add_new_item') ) {
-						todayApp.addItem( $(this).html() );
-						$(this).html("");
-					} else {
-						todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
-					}
+					todayApp.addItem( $(this).html() );
+					$(this).html("");
+				} else {
+					todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
 				}
 			})
 			.on('paste', '.input', function(e){
