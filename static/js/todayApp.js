@@ -1,140 +1,187 @@
 var todayApp = {
-	/*
-		_______      _________________
-		`MM'`MM\     `M'`MM'MMMMMMMMMM
-		 MM  MMM\     M  MM /   MM   \
-		 MM  M\MM\    M  MM     MM
-		 MM  M \MM\   M  MM     MM
-		 MM  M  \MM\  M  MM     MM
-		 MM  M   \MM\ M  MM     MM
-		 MM  M    \MM\M  MM     MM
-		 MM  M     \MMM  MM     MM
-		 MM  M      \MM  MM     MM
-		_MM__M_      \M _MM_   _MM_
-	*/
-
-	init: function(){
-
-		todayData.get();
-
-		todayApp.display();
-
-
-
-		$('body')
-			.on('click','.todo_item__check',function(e){
-				e.preventDefault();
-				todayApp.toggleStatus( $(this).data('id') );
-			})
-			.on('click','.todo_item__remove',function(e){
-				e.preventDefault();
-				todayApp.removeItem( $(this).data('id') );
-			})
-			.on('keydown', '.input', function(e){
-				if(e.which == 13 && $(this).hasClass('add_new_item')) { // enter key
-					e.preventDefault();
-					todayApp.addItem( $(this).html() );
-					$(this).html("");
-				} else {
-					todayApp.updateItem( $(this).data('id'), $.trim( $(this).html() ) );
-				}
-			})
-			.on('paste', '.input', function(e){
-				var $this = this;
-				// it looks like the event is fired just before the content goes in
-				// so a small delay makes sure we catch the new code in setTimeout
-				setTimeout(function(){
-					$("*", $this).removeAttr('style');
-				}, 10)
-			})
-
-		$('.previousDay').click(function(e){
+	init: function() {
+		$('.previousDay').on('click', function(e) {
 			e.preventDefault();
-			todayApp.shiftDate( -1 );
+			yesterday =  moment( todayApp.day ).subtract(1, "days").format("YYYYMMDD");
+
+			todayApp.loadDate( yesterday );
 		});
-		$('.today').click(function(e){
+		$('.today').on('click', function(e) {
 			e.preventDefault();
-			todayApp.shiftDate( 0 );
+			today =  moment( $.now() ).format("YYYYMMDD");
+
+			todayApp.loadDate( yesterday );
 		})
+		this.loadDate( this.day );
 	},
+	day: moment( $.now() ).format( "YYYYMMDD" ),
+	data: {
+		items: [],
+		// log: [],
+	},
+	template: $( '#TodayItem--template' ).html(),
 
-	/*
-		___       ___       _      _______      ___
-		`MMb     dMM'      dM.     `MM'`MM\     `M'
-		 MMM.   ,PMM      ,MMb      MM  MMM\     M
-		 M`Mb   d'MM      d'YM.     MM  M\MM\    M
-		 M YM. ,P MM     ,P `Mb     MM  M \MM\   M
-		 M `Mb d' MM     d'  YM.    MM  M  \MM\  M
-		 M  YM.P  MM    ,P   `Mb    MM  M   \MM\ M
-		 M  `Mb'  MM    d'    YM.   MM  M    \MM\M
-		 M   YP   MM   ,MMMMMMMMb   MM  M     \MMM
-		 M   `'   MM   d'      YM.  MM  M      \MM
-		_M_      _MM__dM_     _dMM__MM__M_      \M
-	*/
+	loadDate: function( date ) {
+		this.day = date;
+		var dateID = "today" + date;
+		var tempData = JSON.parse(
+				localStorage.getItem( dateID ),
+				this.fixBooleanAsString
+			 );
 
-	addItem: function( text ) {
-		text = $.trim(String(text));
-		id = $.now(),
-		status = false;
-
-		if(text !== "") {
-			todayData.items[id] = {
-				'text': text,
-				'status': status
-			};
-
-			todayData.save();
-			todayApp.display();
+		$('h1').html( moment(this.day).format('dddd, MMMM Do, YYYY') );
+		$("#todos").html("");
+		if(!tempData.items.length) {
+			// debugger;
+			new TodayItem( 0 ); // add it at the end
+		} else {
+			// debugger;
+			for( item in tempData.items ) {
+				// debugger;
+				new TodayItem( $( '#todos .todo_item' ).length, tempData.items[item] );
+			}
 		}
 	},
-	display: function() {
-		$('h1').html( moment(todayData.today).format('dddd, MMMM Do, YYYY') );
+	saveDate: function() {
+		localStorage.setItem( "today" + this.day, JSON.stringify( this.data ) );
+	},
+	// logChange: function( id, action, newValue ) {
 
-		var $todos = $('#todos');
-		var items = todayData.items;
-		var newMarkup = "";
+	// },
+	// replayChanges: function( start, end ) {
 
-		for(item in items) {
-			id = item;
-			text = items[item].text;
-			status = items[item].status;
+	// },
+	// undoChanges: function( start, end ) {
 
-			newMarkup+= "<li class='todo_item " + status + "' id='" + id + "'><a href='' class='todo_item__icon todo_item__check' data-id='" + id + "'>&#10003;</a><div class='input' contenteditable data-id='" + id + "'>" + text + "</div><a href='' class='todo_item__icon todo_item__remove' data-id='" + id + "'>x</a></li>";
+	// },
+	fixBooleanAsString: function( k,v ) {
+		if( v=="true" ) return true;
+		if( v=="false" ) return false;
+		return v;
+	},
+	setCaretPosition: function(el, atStart) {
+		el = el[0]
+
+		if( !el ) {
+			return;
 		}
 
-		$todos.html(newMarkup);
-	},
-	removeItem: function( id ) {
-		delete todayData.items[id];
-		todayData.save();
-		todayApp.display();
-	},
-	shiftDate: function( position ) {
-		todayData.shiftDate( position );
-		todayData.get();
-		todayApp.display();
-	},
-	toggleStatus: function( id ) {
-		todayData.items[id].status = !todayData.items[id].status;
-		todayData.save();
-		todayApp.display();
-	},
-	updateItem: function( id, text ) {
-		todayData.items[id].text = text;
-		todayData.save();
-	},
+        el.focus();
+        if (typeof window.getSelection != "undefined"
+                && typeof document.createRange != "undefined") {
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            range.collapse(atStart);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } else if (typeof document.body.createTextRange != "undefined") {
+            var textRange = document.body.createTextRange();
+            textRange.moveToElementText(el);
+            textRange.collapse(atStart);
+            textRange.select();
+        }
+    }
+}
 
-	/*
-		__________    ____       ____    ____       ____
-		MMMMMMMMMM   6MMMMb     6MMMMb   `MM'      6MMMMb\
-		/   MM   \  8P    Y8   8P    Y8   MM      6M'    `
-		    MM     6M      Mb 6M      Mb  MM      MM
-		    MM     MM      MM MM      MM  MM      YM.
-		    MM     MM      MM MM      MM  MM       YMMMMb
-		    MM     MM      MM MM      MM  MM           `Mb
-		    MM     MM      MM MM      MM  MM            MM
-		    MM     YM      M9 YM      M9  MM            MM
-		    MM      8b    d8   8b    d8   MM    / L    ,M9
-		   _MM_      YMMMM9     YMMMM9   _MMMMMMM MYMMMM9
-	*/
+
+
+
+
+var TodayItem = function( position, item ) {
+	if( !item ) {
+		item = {
+			id: $.now(),
+			text: "",
+			status: false
+		}
+	}
+
+	this.id = item.id;
+	this.text = item.text;
+	this.status= item.status;
+	var that = this;
+
+	this.$item = $( todayApp.template )
+		.addClass( this.status ? 'true' : '' )
+		.data( 'id', this.id )
+		.find( '.input' )
+			.html( this.text )
+			.on( 'keydown', function(e){
+				switch( e.which ) {
+					case 8: // backspace
+						if( !$(this).html().length ) {
+							e.preventDefault();
+							that.remove();
+						}
+						break;
+
+					case 13: // enter
+						e.preventDefault();
+						new TodayItem( that.$item.index() + 1 );
+						break;
+				}
+			} )
+			.on( 'keyup', function(e){
+				that.updateText( $(this).html() );
+			} )
+		.end()
+		.find( '.todo_item__check' )
+			.on( 'click', function( e ){
+				that.toggleStatus( e );
+			} )
+		.end();
+
+
+	if( position ) {
+		$afterElement = $( '.todo_item:eq(' + (position-1) + ')', '#todos' );
+		this.$item.insertAfter( $afterElement );
+	} else {
+		this.$item.appendTo( '#todos' );
+	}
+
+	todayApp.setCaretPosition( $('.input', this.$item), false ); // at the end
+
+	if(todayApp.data.items[ position ]) {
+		todayApp.data.items.splice(position, 0, item);
+	} else {
+		todayApp.data.items.push(item);
+	}
+
+	todayApp.saveDate();
+}
+
+TodayItem.prototype.updateText = function( text ) {
+	var index = this.$item.index();
+
+	if( !todayApp.data.items[index] ) {
+		return false;
+	}
+	todayApp.data.items[index].text = text;
+	todayApp.saveDate();
+}
+TodayItem.prototype.toggleStatus = function() {
+	var index = this.$item.index();
+	this.status = !this.status;
+	this.$item.toggleClass( 'true' );
+
+	todayApp.data.items[index].status = this.status;
+
+	todayApp.saveDate();
+
+}
+TodayItem.prototype.remove = function() {
+	var index = this.$item.index();
+
+	todayApp.data.items.splice( index, 1 );
+	todayApp.saveDate();
+
+
+	if( index ) { // if this is not the first item
+		todayApp.setCaretPosition( $('.input', this.$item.prev()), false );
+	} else {
+		todayApp.setCaretPosition( $('.input', this.$item.next()), false );
+	}
+
+	this.$item.remove();
 }
