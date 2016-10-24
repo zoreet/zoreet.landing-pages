@@ -129,6 +129,14 @@ var TodayItem = function( position, item ) {
 			.on( 'keyup', function(e){
 				that.updateText( $(this).html() );
 			} )
+			.on('paste', function(e){
+				var $this = this;
+				// it looks like the event is fired just before the content goes in
+				// so a small delay makes sure we catch the new code in setTimeout
+				setTimeout(function(){
+					$("*", $this).removeAttr('style');
+				}, 10)
+			})
 		.end()
 		.find( '.todo_item__check' )
 			.on( 'click', function( e ){
