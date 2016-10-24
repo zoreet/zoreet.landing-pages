@@ -24,6 +24,7 @@ var todayApp = {
 	loadDate: function( date ) {
 		this.day = date;
 		var dateID = "today" + date;
+		todayApp.data = { items: [] };
 		var tempData = JSON.parse(
 				localStorage.getItem( dateID ),
 				this.fixBooleanAsString
@@ -31,7 +32,8 @@ var todayApp = {
 
 		$('h1').html( moment(this.day).format('dddd, MMMM Do, YYYY') );
 		$("#todos").html("");
-		if(!tempData.items.length) {
+
+		if(!tempData || !tempData.items || !tempData.items.length) {
 			// debugger;
 			new TodayItem( 0 ); // add it at the end
 		} else {
@@ -89,7 +91,9 @@ var todayApp = {
 
 
 var TodayItem = function( position, item ) {
+	var save = true;
 	if( !item ) {
+		save = false;
 		item = {
 			id: $.now(),
 			text: "",
@@ -147,8 +151,9 @@ var TodayItem = function( position, item ) {
 	} else {
 		todayApp.data.items.push(item);
 	}
-
-	todayApp.saveDate();
+	if(save) {
+		todayApp.saveDate();
+	}
 }
 
 TodayItem.prototype.updateText = function( text ) {
