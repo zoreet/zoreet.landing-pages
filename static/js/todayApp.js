@@ -10,7 +10,7 @@ var todayApp = {
 			e.preventDefault();
 			today =  moment( $.now() ).format("YYYYMMDD");
 
-			todayApp.loadDate( yesterday );
+			todayApp.loadDate( today );
 		})
 		this.loadDate( this.day );
 	},
