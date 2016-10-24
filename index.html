@@ -7,6 +7,7 @@
 			margin: 0;
 			padding: 20px;
 			font-family: "Helvetica Neue", Arial, sans-serif;
+			-webkit-font-smoothing: antialiased;
 		}
 		#todos {
 			list-style: none inside;
@@ -64,6 +65,7 @@
 			display: inline-block;
 			font-size: 16px;
 			letter-spacing: 0.7px;
+			line-height: 1.3em;
 			max-width: 500px;
 			outline: 0 none;
 			padding: 10px;
@@ -73,6 +75,12 @@
 			color: #ccc;
 		}
 
+		.jumpto {
+			margin-bottom: 20px;
+		}
+		h1 {
+			margin: 20px 0 0;
+		}
 		footer {
 			margin-top: 50px;
 		}
@@ -80,11 +88,11 @@
 </head>
 <body>
 	<h1></h1>
-	<div id="todos"></div>
-	<div>Jump to:
+	<div class="jumpto">Jump to:
 		<a href="" class="previousDay">Yesterday</a>
 		<a href="" class="today">Today</a>
 	</div>
+	<div id="todos"></div>
 	<div id="TodayItem--template" style="display: none">
 		<div class='todo_item'>
 			<a href='#' class='todo_item__icon todo_item__check'>&#10003;</a>
