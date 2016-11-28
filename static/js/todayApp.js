@@ -1,200 +1,85 @@
-var todayApp = {
-	init: function() {
-		$('.previousDay').on('click', function(e) {
-			e.preventDefault();
-			yesterday =  moment( todayApp.day ).subtract(1, "days").format("YYYYMMDD");
+/*
+the motivations to build this app came out of my frustration with using todo apps. I always add a lot of items in the lists, more then i can handle. so every day when i check them i ALWAYS have unfinished stuff. and it just grows bigger and bigger to the point where i start feeling anxious.
 
-			todayApp.loadDate( yesterday );
-		});
-		$('.today').on('click', function(e) {
-			e.preventDefault();
-			today =  moment( $.now() ).format("YYYYMMDD");
+to solve this i set up today, a todo list that resets every day. forget the baggage of yesterday! i'm going to work on whatever is important today. i might not finish everything by the end, but if i don't remember tomorrow about it, it means it wasn't important to begin with. every day is a fresh start!
+*/
+var today = {
+	id: 0,
+	display: function( todos ) {
 
-			todayApp.loadDate( today );
-		})
-		this.loadDate( this.day );
-	},
-	day: moment( $.now() ).format( "YYYYMMDD" ),
-	data: {
-		items: [],
-		// log: [],
-	},
-	template: $( '#TodayItem--template' ).html(),
+		$('h1').html(
+			moment(today.id).format('dddd, MMMM Do, YYYY')
+		);
 
-	loadDate: function( date ) {
-		this.day = date;
-		var dateID = "today" + date;
-		todayApp.data = { items: [] };
-		var tempData = JSON.parse(
-				localStorage.getItem( dateID ),
-				this.fixBooleanAsString
-			 );
-
-		$('h1').html( moment(this.day).format('dddd, MMMM Do, YYYY') );
-		$("#todos").html("");
-
-		if(!tempData || !tempData.items || !tempData.items.length) {
-			// debugger;
-			new TodayItem( 0 ); // add it at the end
-		} else {
-			// debugger;
-			for( item in tempData.items ) {
-				// debugger;
-				new TodayItem( $( '#todos .todo_item' ).length, tempData.items[item] );
-			}
-		}
-	},
-	saveDate: function() {
-		localStorage.setItem( "today" + this.day, JSON.stringify( this.data ) );
-	},
-	// logChange: function( id, action, newValue ) {
-
-	// },
-	// replayChanges: function( start, end ) {
-
-	// },
-	// undoChanges: function( start, end ) {
-
-	// },
-	fixBooleanAsString: function( k,v ) {
-		if( v=="true" ) return true;
-		if( v=="false" ) return false;
-		return v;
-	},
-	setCaretPosition: function(el, atStart) {
-		el = el[0]
-
-		if( !el ) {
-			return;
-		}
-
-        el.focus();
-        if (typeof window.getSelection != "undefined"
-                && typeof document.createRange != "undefined") {
-            var range = document.createRange();
-            range.selectNodeContents(el);
-            range.collapse(atStart);
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-        } else if (typeof document.body.createTextRange != "undefined") {
-            var textRange = document.body.createTextRange();
-            textRange.moveToElementText(el);
-            textRange.collapse(atStart);
-            textRange.select();
-        }
-    }
-}
-
-
-
-
-
-var TodayItem = function( position, item ) {
-	var save = true;
-	if( !item ) {
-		save = false;
-		item = {
-			id: $.now(),
-			text: "",
-			status: false
-		}
-	}
-
-	this.id = item.id;
-	this.text = item.text;
-	this.status= item.status;
-	var that = this;
-
-	this.$item = $( todayApp.template )
-		.addClass( this.status ? 'true' : '' )
-		.data( 'id', this.id )
-		.find( '.input' )
-			.html( this.text )
-			.on( 'keydown', function(e){
-				switch( e.which ) {
-					case 8: // backspace
-						if( !$(this).html().length ) {
-							e.preventDefault();
-							that.remove();
-						}
-						break;
-
-					case 13: // enter
-						e.preventDefault();
-						new TodayItem( that.$item.index() + 1 );
-						break;
+		$("#todos")
+			.html( todos )
+			.on( 'input', function(e){
+				if( !$("div", this).length ) {
+					var html = $.trim( $(this).html() );
+					$(this).html("<div>" + html + "</div>");
 				}
-			} )
-			.on( 'keyup', function(e){
-				that.updateText( $(this).html() );
-			} )
-			.on('paste', function(e){
-				var $this = this;
-				// it looks like the event is fired just before the content goes in
-				// so a small delay makes sure we catch the new code in setTimeout
-				setTimeout(function(){
-					$("*", $this).removeAttr('style');
-				}, 10)
+				$("*", this).removeAttr('style');
+				today.save();
 			})
-		.end()
-		.find( '.todo_item__check' )
-			.on( 'click', function( e ){
-				that.toggleStatus( e );
-			} )
-		.end();
+			.on('click', 'div', function(e){
+				if(e.offsetX < 0) {
+					$(e.target).toggleClass('active');
+					today.save();
+				}
+			});
+	},
+	load: function( date ) {
+		if(date) {
+			this.id = moment( date ).format( "YYYYMMDD" );
+		} else {
+			this.id = moment( $.now() ).format( "YYYYMMDD" );
+		}
 
+		$.post(
+			"./loadData.php",
+			{
+				dateID: date
+			},
+			function( todos ) {
+				serverTodos = $('<div/>').html(todos).text(); // decode the html
+				serverTodos = serverTodos != "" ? serverTodos : "<div></div>";
 
-	if( position ) {
-		$afterElement = $( '.todo_item:eq(' + (position-1) + ')', '#todos' );
-		this.$item.insertAfter( $afterElement );
-	} else {
-		this.$item.appendTo( '#todos' );
-	}
+				today.display( serverTodos );
+			}
+		);
+	},
+	save: function() {
+		var todos = $.trim($('#todos').html());
 
-	todayApp.setCaretPosition( $('.input', this.$item), false ); // at the end
-
-	if(todayApp.data.items[ position ]) {
-		todayApp.data.items.splice(position, 0, item);
-	} else {
-		todayApp.data.items.push(item);
-	}
-	if(save) {
-		todayApp.saveDate();
+		$.post(
+			"./saveData.php",
+			{
+				dateID : today.id,
+				todos: todos
+			}
+		);
 	}
 }
 
-TodayItem.prototype.updateText = function( text ) {
-	var index = this.$item.index();
-
-	if( !todayApp.data.items[index] ) {
-		return false;
-	}
-	todayApp.data.items[index].text = text;
-	todayApp.saveDate();
-}
-TodayItem.prototype.toggleStatus = function() {
-	var index = this.$item.index();
-	this.status = !this.status;
-	this.$item.toggleClass( 'true' );
-
-	todayApp.data.items[index].status = this.status;
-
-	todayApp.saveDate();
-
-}
-TodayItem.prototype.remove = function() {
-	var index = this.$item.index();
-
-	todayApp.data.items.splice( index, 1 );
-	todayApp.saveDate();
 
 
-	if( index ) { // if this is not the first item
-		todayApp.setCaretPosition( $('.input', this.$item.prev()), false );
-	} else {
-		todayApp.setCaretPosition( $('.input', this.$item.next()), false );
-	}
+$(document).ready(function(){
 
-	this.$item.remove();
-}
+	today.load();
+
+	$('#yesterday').on('click', function(e){
+		e.preventDefault();
+		yesterday = moment( today.id ).subtract(1, "days").format("YYYYMMDD");
+		today.load( yesterday )
+	});
+	$('#today').on('click', function(e){
+		e.preventDefault();
+		today.load( moment( $.now() ).format( "YYYYMMDD" ) )
+	});
+	$('#tomorrow').on('click', function(e){
+		e.preventDefault();
+		tomorrow = moment( today.id ).add(1, "days").format("YYYYMMDD");
+		today.load( tomorrow )
+	});
+
+});

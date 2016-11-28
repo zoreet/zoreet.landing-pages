@@ -1,0 +1,73 @@
+body {
+	margin: 0;
+	padding: 20px;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+#todos {
+	outline: 0 none;
+	min-height: 20px;
+	padding-left: 24px;
+}
+#todos > div {
+	margin-bottom: 20px;
+	min-height: 20px;
+	outline: 0 none;
+	position: relative;
+	line-height: 20px;
+	font-size: 16px;
+	padding-left: 6px;
+}
+#todos > div.active {
+	color: #dedede;
+}
+#todos > div:before {
+	border-radius: 3px;
+	content: "";
+	cursor: pointer;
+	display: block;
+	height: 24px;
+	right: 100%;
+	position: absolute;
+	top: -2px;
+	width:  24px;
+    border: 1px solid #dedede;
+    box-sizing: border-box;
+}
+#todos > div.active:before {
+	background-color: green;
+	border-color: green;
+}
+#todos > div.active:after { /* tick */
+	box-shadow: 0 3px 0, -3px 0 0, -3px 3px;
+	color: #fff;
+	content: "";
+	display: block;
+	height: 5px;
+	left: -17px;
+	position: absolute;
+	top: 3px;
+	transform: rotate(-45deg);
+	width:  10px;
+}
+
+a,
+a:hover,
+a:active,
+a:visited {
+	color: blue;
+}
+
+.jumpto {
+	margin-bottom: 20px;
+}
+h1 {
+	margin: 20px 0 0;
+}
+footer {
+	margin-top: 50px;
+	font-size: 12px;
+}
+.heart {
+	color: red;
+}
