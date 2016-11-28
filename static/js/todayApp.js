@@ -38,7 +38,7 @@ var today = {
 		$.post(
 			"./loadData.php",
 			{
-				dateID: date
+				dateID: this.id
 			},
 			function( todos ) {
 				serverTodos = $('<div/>').html(todos).text(); // decode the html
