@@ -5,6 +5,7 @@
 	<title>today</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+	<link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ >
 </head>
 <body>
 	<h1></h1>
