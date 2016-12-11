@@ -25,6 +25,8 @@ var today = {
 			.off('click', 'div')
 			.on('click', 'div', function(e){
 				if(e.offsetX < 0) {
+					$(this).parent().blur();
+					window.getSelection().removeAllRanges();
 					$(e.target).toggleClass('active');
 					today.save();
 				}
