@@ -71,3 +71,18 @@ footer {
 .heart {
 	color: red;
 }
+
+
+@media only screen
+and (max-width : 414px) {
+	h1 {
+    	font-size: 20px;
+		margin: 0 0 5px;
+	}
+	#todos > div:before {
+		border-radius: 50%;
+	}
+	#todos > div.active:after {
+		top: 4px;
+	}
+}
