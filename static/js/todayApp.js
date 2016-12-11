@@ -13,6 +13,7 @@ var today = {
 
 		$("#todos")
 			.html( todos )
+			.off( 'input' )
 			.on( 'input', function(e){
 				if( !$("div", this).length ) {
 					var html = $.trim( $(this).html() );
@@ -21,6 +22,7 @@ var today = {
 				$("*", this).removeAttr('style');
 				today.save();
 			})
+			.off('click', 'div')
 			.on('click', 'div', function(e){
 				if(e.offsetX < 0) {
 					$(e.target).toggleClass('active');
