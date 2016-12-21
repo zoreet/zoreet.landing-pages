@@ -35,8 +35,8 @@ body {
     box-sizing: border-box;
 }
 #todos > div.active:before {
-	background-color: green;
-	border-color: green;
+	background-color: #68cf30;
+	border-color: transparent;
 }
 #todos > div.active:after { /* tick */
 	box-shadow: 0 3px 0, -3px 0 0, -3px 3px;
