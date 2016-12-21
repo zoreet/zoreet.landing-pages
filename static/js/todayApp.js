@@ -11,6 +11,18 @@ var today = {
 			moment(today.id).format('dddd, MMMM Do, YYYY')
 		);
 
+		/*
+		when you look in the past you want to focus more on what you have
+		accomplished, not on what is still left to do. think reporting, feeling good etc.
+		*/
+		var now = moment( $.now() ).format( "YYYYMMDD" );
+		dateHasPassed = moment(today.id).isBefore(now);
+		if( dateHasPassed ) {
+			$("#todos").addClass('in-the-past')
+		} else {
+			$("#todos").removeClass('in-the-past')
+		}
+
 		$("#todos")
 			.html( todos )
 			.off( 'input' )
