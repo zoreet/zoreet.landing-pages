@@ -27,11 +27,15 @@ var today = {
 			.html( todos )
 			.off( 'input' )
 			.on( 'input', function(e){
+				// make sure there's always a div in there aka a todo item
 				if( !$("div", this).length ) {
 					var html = $.trim( $(this).html() );
 					$(this).html("<div>" + html + "</div>");
 				}
+				// remove inline styles, they are not needed
 				$("*", this).removeAttr('style');
+
+				// save the info on the server
 				today.save();
 			})
 			.off('click', 'div')
@@ -42,7 +46,27 @@ var today = {
 					$(e.target).toggleClass('active');
 					today.save();
 				}
+			})
+			.on('paste', function(e){
+				// just after the user pasted, move all the nested divs up and
+				// convert them to todo items
+				setTimeout(
+					function(){
+						freeNestedDivs( $("#todos > div > div").first() );
+					}, 10
+				);
 			});
+
+			var freeNestedDivs = function(nestedDiv) {
+				console.log( $(nestedDiv), $(nestedDiv).length );
+				if( $(nestedDiv).length ) {
+					var parent = $(nestedDiv).parent();
+					$( parent ).replaceWith( $(parent).html() );
+					// freeNestedDivs( $("#todos > div > div").first() );
+				} else {
+					console.log('nu');
+				}
+			}
 	},
 	load: function( date ) {
 		if(date) {
