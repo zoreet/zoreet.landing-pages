@@ -7,10 +7,6 @@ var today = {
 	id: 0,
 	display: function( todos ) {
 
-		$('h1').html(
-			moment(today.id).format('dddd, MMMM Do, YYYY')
-		);
-
 		/*
 		when you look in the past you want to focus more on what you have
 		accomplished, not on what is still left to do. think reporting, feeling good etc.
@@ -22,6 +18,19 @@ var today = {
 		} else {
 			$("#todos").removeClass('in-the-past')
 		}
+
+		if(today.id == now) { //today
+			$('h1').html(
+				"<strong>Today</strong>, " +
+				moment(today.id).format('dddd MMMM Do')
+			);
+		} else {
+			$('h1').html(
+				"<strong>" + moment(today.id).format('dddd') + "</strong> " +
+				moment(today.id).format('MMMM Do YYYY')
+			);
+		}
+
 
 		$("#todos")
 			.html( todos )
