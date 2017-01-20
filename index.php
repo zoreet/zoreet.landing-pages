@@ -18,17 +18,19 @@
 	<meta name="theme-color" content="#ffffff">
 </head>
 <body>
-	<h1></h1>
-	<div class="jumpto">Jump to:
-		<a href="" id="yesterday">Yesterday</a>
-		<a href="" id="today">Today</a>
-		<a href="" id="tomorrow">Tomorrow</a>
+	<div class="jumpto">
+		<a href="" id="yesterday"></a>
+		<!-- <a href="" id="today">Today</a> -->
+		<h1></h1>
+		<a href="" id="tomorrow"></a>
 	</div>
-	<div id="todos" contenteditable="true"><div>Here</div></div>
-	<div id="TodayItem--template" style="display: none">
-		<div class='todo_item'>
-			<a href='#' class='todo_item__icon todo_item__check'>&#10003;</a>
-			<div class='input' contenteditable></div>
+	<div class="body">
+		<div id="todos" contenteditable="true"><div>Here</div></div>
+		<div id="TodayItem--template" style="display: none">
+			<div class='todo_item'>
+				<a href='#' class='todo_item__icon todo_item__check'>&#10003;</a>
+				<div class='input' contenteditable></div>
+			</div>
 		</div>
 	</div>
 

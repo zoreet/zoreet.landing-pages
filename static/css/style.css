@@ -1,22 +1,21 @@
 body {
-	margin: 0;
-	padding: 20px;
-	font-family: "Helvetica Neue", Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	margin: 0;
 }
 #todos {
-	outline: 0 none;
 	min-height: 20px;
+	outline: 0 none;
 	padding-left: 24px;
 }
 #todos > div {
+	font-size: 16px;
+	line-height: 20px;
 	margin-bottom: 20px;
 	min-height: 20px;
 	outline: 0 none;
-	position: relative;
-	line-height: 20px;
-	font-size: 16px;
 	padding-left: 6px;
+	position: relative;
 }
 #todos > div.active {
 	color: #dedede;
@@ -27,8 +26,8 @@ body {
 	cursor: pointer;
 	display: block;
 	height: 24px;
-	right: 100%;
 	position: absolute;
+	right: 100%;
 	top: -2px;
 	width:  24px;
     border: 1px solid #dedede;
@@ -36,7 +35,7 @@ body {
 }
 #todos > div.active:after { /* tick */
 	box-shadow: 0 3px 0, -3px 0 0, -3px 3px;
-	color: #68cf30;
+	color: #18c3aa; /* #29e5c9 -10 light */
 	content: "";
 	display: block;
 	height: 5px;
@@ -51,18 +50,62 @@ a,
 a:hover,
 a:active,
 a:visited {
-	color: blue;
+	color: #0cc0a5;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 .jumpto {
-	margin-bottom: 20px;
+	background-color: #29e5c9;
+	color: #111;
+	font-size: 12px;
+	height: 40px;
+	padding: 20px 40px;
+}
+.jumpto a {
+	color: #111;
+	display: block;
+	height: 40px;
+	position: absolute;
+	top: 20px;
+	width: 40px;
+}
+#yesterday {
+	left: 0;
+}
+#tomorrow {
+	right: 0;
+}
+#yesterday:after,
+#tomorrow:after {
+	box-shadow: -1px 1px 0 1px;
+	content: "";
+	display: block;
+	height: 10px;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform-origin: 50%;
+	transform: translateY(-50%) rotateZ(45deg);
+	width: 10px;
+}
+#tomorrow:after {
+	transform: translateX(-100%) translateY(-50%) rotateZ(225deg);
+}
+
+
+
+.body {
+	padding: 20px 10px;
 }
 h1 {
-	margin: 20px 0 0;
+	line-height: 38px;
+	margin: 0;
 }
 footer {
-	margin-top: 50px;
 	font-size: 12px;
+	margin-top: 10px;
+	padding: 10px;
 }
 .heart {
 	color: red;
@@ -71,9 +114,17 @@ footer {
 
 @media only screen
 and (max-width : 414px) { /* iPhone 7 ( in portrait mode ) and lower */
+	.jumpto {
+		padding-bottom: 0;
+		padding-top: 0;
+	}
+	.jumpto a {
+		top: 0;
+	}
 	h1 {
-    	font-size: 20px;
-		margin: 0 0 5px;
+		font-size: 16px;
+		font-weight: normal;
+		margin: 0;
 	}
 	#todos > div:before {
 		border-radius: 50%;
@@ -92,7 +143,7 @@ and (max-width : 414px) { /* iPhone 7 ( in portrait mode ) and lower */
 	color: inherit;
 }
 #todos.in-the-past > .active:before {
-	background-color: #68cf30;
+	background-color: hsla(171,98%,43%,1);
 	border-color: transparent;
 }
 #todos.in-the-past > .active:after {
