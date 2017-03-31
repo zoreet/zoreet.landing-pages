@@ -81,13 +81,9 @@ var today = {
 			});
 
 			var freeNestedDivs = function(nestedDiv) {
-				console.log( $(nestedDiv), $(nestedDiv).length );
 				if( $(nestedDiv).length ) {
 					var parent = $(nestedDiv).parent();
 					$( parent ).replaceWith( $(parent).html() );
-					// freeNestedDivs( $("#todos > div > div").first() );
-				} else {
-					console.log('nu');
 				}
 			}
 	},
