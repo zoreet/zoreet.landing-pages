@@ -7,6 +7,24 @@ $todos = $("#todos");
 CLASS_INTHEPAST = "in-the-past";
 var today = {
 	id: 0,
+	init: function( dateid ) {
+		today.load(dateid);
+
+		$('#yesterday').on('click', function(e){
+			e.preventDefault();
+			yesterday = moment( today.id ).subtract(1, "days").format("YYYYMMDD");
+			today.load( yesterday )
+		});
+		$('#today').on('click', function(e){
+			e.preventDefault();
+			today.load( moment( $.now() ).format( "YYYYMMDD" ) )
+		});
+		$('#tomorrow').on('click', function(e){
+			e.preventDefault();
+			tomorrow = moment( today.id ).add(1, "days").format("YYYYMMDD");
+			today.load( tomorrow )
+		});
+	},
 	display: function( todos ) {
 
 		/*
@@ -88,11 +106,14 @@ var today = {
 			}
 	},
 	load: function( date ) {
+
 		if(date) {
-			this.id = moment( date ).format( "YYYYMMDD" );
+			this.id = date;
 		} else {
 			this.id = moment( $.now() ).format( "YYYYMMDD" );
 		}
+
+		window.history.replaceState('myState', 'Title', '/?date=' + this.id);
 
 		$.post(
 			"./loadData.php",
@@ -119,26 +140,3 @@ var today = {
 		);
 	}
 }
-
-
-
-$(document).ready(function(){
-
-	today.load();
-
-	$('#yesterday').on('click', function(e){
-		e.preventDefault();
-		yesterday = moment( today.id ).subtract(1, "days").format("YYYYMMDD");
-		today.load( yesterday )
-	});
-	$('#today').on('click', function(e){
-		e.preventDefault();
-		today.load( moment( $.now() ).format( "YYYYMMDD" ) )
-	});
-	$('#tomorrow').on('click', function(e){
-		e.preventDefault();
-		tomorrow = moment( today.id ).add(1, "days").format("YYYYMMDD");
-		today.load( tomorrow )
-	});
-
-});

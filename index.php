@@ -42,4 +42,9 @@
 	<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="static/js/moment.min.js"></script>
 	<script type="text/javascript" src="static/js/todayApp.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			today.init("<?php echo $_GET['date']; ?>")
+		});
+	</script>
 </html>
