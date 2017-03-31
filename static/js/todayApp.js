@@ -52,7 +52,19 @@ var today = {
 				if(e.offsetX < 0) {
 					$(this).parent().blur();
 					window.getSelection().removeAllRanges();
-					$(e.target).toggleClass('active');
+
+					$item = $(e.target);
+
+					$item.toggleClass('active');
+
+					// everytime you tick an item it should go to the top of the done pile
+					// and when you untick it, it goes at the bottom of the to do pile
+					$item.remove();
+					if($('.active:first').length) {
+						$('.active:first').before(e.target);
+					} else {
+						$item.appendTo('#todos');
+					}
 					today.save();
 				}
 			})
