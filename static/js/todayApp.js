@@ -3,6 +3,8 @@ the motivations to build this app came out of my frustration with using todo app
 
 to solve this i set up today, a todo list that resets every day. forget the baggage of yesterday! i'm going to work on whatever is important today. i might not finish everything by the end, but if i don't remember tomorrow about it, it means it wasn't important to begin with. every day is a fresh start!
 */
+$todos = $("#todos");
+CLASS_INTHEPAST = "in-the-past";
 var today = {
 	id: 0,
 	display: function( todos ) {
@@ -14,9 +16,9 @@ var today = {
 		var now = moment( $.now() ).format( "YYYYMMDD" );
 		dateHasPassed = moment(today.id).isBefore(now);
 		if( dateHasPassed ) {
-			$("#todos").addClass('in-the-past')
+			$todos.addClass(CLASS_INTHEPAST)
 		} else {
-			$("#todos").removeClass('in-the-past')
+			$todos.removeClass(CLASS_INTHEPAST)
 		}
 
 		if(today.id == now) { //today
@@ -32,7 +34,7 @@ var today = {
 		}
 
 
-		$("#todos")
+		$todos
 			.html( todos )
 			.off( 'input' )
 			.on( 'input', function(e){
@@ -110,7 +112,7 @@ var today = {
 		);
 	},
 	save: function() {
-		var todos = $.trim($('#todos').html());
+		var todos = $.trim($todos.html());
 
 		$.post(
 			"./saveData.php",
