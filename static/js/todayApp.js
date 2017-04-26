@@ -67,8 +67,18 @@ var today = {
 				// save the info on the server
 				today.save();
 			})
+			.on('keyup', function(e){
+				if(
+					( e.keyCode > 36 && e.keyCode < 41 ) // arrow keys
+					|| e.keyCode == 13
+				) {
+					findFocusedNode();
+				}
+			})
 			.off('click', 'div')
 			.on('click', 'div', function(e){
+				findFocusedNode();
+
 				if(e.offsetX < 0) {
 					$(this).parent().blur();
 					window.getSelection().removeAllRanges();
@@ -94,6 +104,7 @@ var today = {
 				setTimeout(
 					function(){
 						freeNestedDivs( $("#todos > div > div").first() );
+						findFocusedNode();
 					}, 10
 				);
 			});
@@ -103,6 +114,13 @@ var today = {
 					var parent = $(nestedDiv).parent();
 					$( parent ).replaceWith( $(parent).html() );
 				}
+			}
+
+			var findFocusedNode = function() {
+   				var node = document.getSelection().anchorNode;
+   				var focusedNode = (node.nodeType == 3 ? node.parentNode : node);
+				$('.focused').removeClass('focused');
+				$(focusedNode).addClass('focused');
 			}
 	},
 	load: function( date ) {
@@ -129,7 +147,7 @@ var today = {
 		);
 	},
 	save: function() {
-		var todos = $.trim($todos.html());
+		var todos = $.trim($todos.html()).replace('focused','');
 
 		$.post(
 			"./saveData.php",
