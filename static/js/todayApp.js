@@ -64,6 +64,13 @@ var today = {
 				// remove inline styles, they are not needed
 				$("*", this).removeAttr('style');
 
+				// wrap accidental text nodes in a div
+				$(this)
+					.contents()
+					.filter(function() {
+						return this.nodeType === 3; //Node.TEXT_NODE
+					}).wrap('<div/>');
+
 				// save the info on the server
 				today.save();
 			})
