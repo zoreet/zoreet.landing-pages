@@ -131,7 +131,12 @@ var today = {
 			this.id = moment( $.now() ).format( "YYYYMMDD" );
 		}
 
-		window.history.replaceState('myState', 'Title', '/?date=' + this.id);
+		var now = moment( $.now() ).format( "YYYYMMDD" );
+		if(this.id === now ) {
+			window.history.replaceState('myState', 'Title', '/');
+		} else {
+			window.history.replaceState('myState', 'Title', '/?date=' + this.id);
+		}
 
 		$.post(
 			"./loadData.php",
