@@ -125,7 +125,7 @@ var today = {
 
 			var findFocusedNode = function() {
    				var node = document.getSelection().anchorNode;
-   				var focusedNode = (node.nodeType == 3 ? node.parentNode : node);
+   				var focusedNode = (node.nodeType == 3 ? $(node).closest('div')[0] : node);
 				$('.focused').removeClass('focused');
 				$(focusedNode).addClass('focused');
 			}
