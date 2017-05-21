@@ -36,7 +36,6 @@
 		Made with <span class="heart">&hearts;</span> by <a href="http://zoreet.com">zoreet</a>.
 	</footer>
 </body>
-	<script type="text/javascript" src="static/js/moment.min.js"></script>
 	<script type="text/javascript" src="dist/js/main.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){

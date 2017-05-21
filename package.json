@@ -15,7 +15,7 @@
   "homepage": "https://github.com/zoreet/essencial-web-starter-kit#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "rm -rf static/js/jquery.min.js && ln -s ../../node_modules/jquery/dist/jquery.min.js static/js/jquery.min.js",
+    "postinstall": "rm -rf static/js/jquery.min.js && ln -s ../../node_modules/jquery/dist/jquery.min.js static/js/jquery.min.js && rm -rf static/js/moment.min.js && ln -s ../../node_modules/moment/min/moment.min.js static/js/moment.min.js",
     "scss": "node-sass --output-style compressed -o dist/css static/scss",
     "uglify": "mkdir -p dist/js && uglifyjs static/js/*.js -m -o dist/js/main.js && uglifyjs static/js/*.js -m -c -o dist/js/main.min.js",
     "build:css": "npm run scss",
@@ -28,6 +28,7 @@
     "node-sass": "^4.5.3"
   },
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1"
   }
 }
