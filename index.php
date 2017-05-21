@@ -4,7 +4,7 @@
 <head>
 	<title>today</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="dist/css/style.css">
 
 	<link rel="icon" type="image/png" href="/static/img/favicon/favicon-16x16.png" sizes="16x16">
 	<link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
@@ -36,9 +36,8 @@
 		Made with <span class="heart">&hearts;</span> by <a href="http://zoreet.com">zoreet</a>.
 	</footer>
 </body>
-	<script type="text/javascript" src="static/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="static/js/moment.min.js"></script>
-	<script type="text/javascript" src="static/js/todayApp.js"></script>
+	<script type="text/javascript" src="dist/js/main.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			today.init("<?php echo $_GET['date']; ?>")
