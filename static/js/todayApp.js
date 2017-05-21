@@ -93,6 +93,7 @@ var today = {
 					$item = $(e.target);
 
 					$item.toggleClass('active');
+					$item.removeClass('focused');
 
 					// everytime you tick an item it should go to the top of the done pile
 					// and when you untick it, it goes at the bottom of the to do pile
