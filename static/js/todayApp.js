@@ -46,7 +46,7 @@ var today = {
 			);
 		} else {
 			$('h1').html(
-				"<strong>" + moment(today.id).format('dddd') + "</strong> " +
+				"<strong>" + moment(today.id).format('dddd') + "</strong>, " +
 				moment(today.id).format('MMMM Do YYYY')
 			);
 		}
