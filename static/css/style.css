@@ -17,9 +17,7 @@ body {
 	padding-left: 6px;
 	position: relative;
 }
-#todos > div.active:not(.focused) {
-	color: #dedede;
-}
+
 #todos > div:before {
 	border-radius: 3px;
 	content: "";
@@ -136,16 +134,11 @@ and (max-width : 414px) { /* iPhone 7 ( in portrait mode ) and lower */
 
 
 
-#todos.in-the-past > div:not(.focused) {
+#todos.in-the-past > div {
 	color: #dedede;
 }
-#todos.in-the-past > .active {
-	color: inherit;
-}
-#todos.in-the-past > .active:before {
-	background-color: hsla(171,98%,43%,1);
-	border-color: transparent;
-}
-#todos.in-the-past > .active:after {
-	color: #fff;
+
+#todos.in-the-past > .active,
+#todos.in-the-past > .focused {
+	color: inherit
 }
