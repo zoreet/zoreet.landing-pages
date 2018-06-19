@@ -1,18 +1,18 @@
 {
-  "name": "essencial-web-starter-kit",
+  "name": "Today",
   "version": "1.0.0",
-  "description": "All the minimum requirements for a modern website.",
+  "description": "Web based Todo list where every day is a new start.",
   "main": "index.html",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zoreet/essencial-web-starter-kit.git"
+    "url": "git+https://github.com/zoreet/today.git"
   },
   "author": "zoreet",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zoreet/essencial-web-starter-kit/issues"
+    "url": "https://github.com/zoreet/today/issues"
   },
-  "homepage": "https://github.com/zoreet/essencial-web-starter-kit#readme",
+  "homepage": "https://github.com/zoreet/today#readme",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "rm -rf static/js/jquery.min.js && ln -s ../../node_modules/jquery/dist/jquery.min.js static/js/jquery.min.js && rm -rf static/js/moment.min.js && ln -s ../../node_modules/moment/min/moment.min.js static/js/moment.min.js",
