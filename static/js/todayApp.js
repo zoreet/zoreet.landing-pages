@@ -113,6 +113,7 @@ var today = {
 					function(){
 						freeNestedDivs( $("#todos > div > div").first() );
 						findFocusedNode();
+						boldTags();
 					}, 10
 				);
 			});
@@ -122,6 +123,10 @@ var today = {
 					var parent = $(nestedDiv).parent();
 					$( parent ).replaceWith( $(parent).html() );
 				}
+			}
+			var boldTags = function() {
+				var boldedTags = $todos.html().replace(/[A-Za-z0-9]+(_[A-Za-z0-9]+)+/igm, '<strong>$&</strong>');
+				$todos.html(boldedTags);
 			}
 
 			var findFocusedNode = function() {
