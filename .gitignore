@@ -2,6 +2,7 @@
 # PRIVATE STUFF
 # -------------------------
 data/
+dist/
 # -------------------------
 
 # ignore all files starting with . or ~
