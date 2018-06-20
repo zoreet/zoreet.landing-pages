@@ -31,6 +31,9 @@ body {
     border: 1px solid #dedede;
     box-sizing: border-box;
 }
+#todos:not(.in-the-past) > div.active {
+	color: #dedede;
+}
 #todos > div.active:after { /* tick */
 	box-shadow: 0 3px 0, -3px 0 0, -3px 3px;
 	color: #18c3aa; /* #29e5c9 -10 light */
