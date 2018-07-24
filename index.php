@@ -17,9 +17,9 @@
 <body>
 	<div class="jumpto">
 		<a href="" id="yesterday"></a>
+		<a href="" id="tomorrow"></a>
 		<!-- <a href="" id="today">Today</a> -->
 		<h1></h1>
-		<a href="" id="tomorrow"></a>
 	</div>
 	<div class="body">
 		<div id="todos" contenteditable="true"><div>Here</div></div>
