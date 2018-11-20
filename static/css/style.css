@@ -3,6 +3,7 @@ body {
 	font-family: "Helvetica Neue", Arial, sans-serif;
 	margin: 0;
 }
+
 #todos {
 	min-height: 20px;
 	outline: 0 none;

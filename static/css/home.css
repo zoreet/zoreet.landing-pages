@@ -1,0 +1,37 @@
+body {
+	-webkit-font-smoothing: antialiased;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	margin: 0;
+}
+
+.home-page {
+	text-align: center
+}
+.hero {
+  background-color: #29e5c9;
+  color: #111;
+  font-size: 20px;
+  line-height: 1.5em;
+  padding: 20px 0
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.body {
+  margin: 0 auto;
+  max-width: 700px;
+  text-align: left;
+}
+p {
+  line-height: 1.35em;
+}
+
+#loginStatus {
+  display: none
+}
