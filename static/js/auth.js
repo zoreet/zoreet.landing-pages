@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
     clientID: 'Zz9d2EICFe1981TC5Ym7dfva9Y1jECmP',
     responseType: 'token id_token',
     scope: 'openid',
-    redirectUri: '/app.html'
+    redirectUri: window.location.origin + '/app.html'
   })
 
   var loginStatus = document.getElementById('loginStatus')
