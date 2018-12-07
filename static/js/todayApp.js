@@ -42,14 +42,12 @@ var today = {
     }
 
     if (today.id == now) { // today
-      $('h1').html(
-        '<strong>Today</strong>, ' +
-        moment(today.id).format('dddd MMMM Do')
-      )
+      $('h1').html('Today')
     } else {
-      $('h1').html(
-        '<strong>' + moment(today.id).format('dddd') + '</strong>, ' +
-        moment(today.id).format('MMMM Do YYYY')
+      $('h3').html(
+        moment(today.id).format('dddd')
+        + ' - '
+        + moment(today.id).format('MMMM Do')
       )
     }
 
