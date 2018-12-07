@@ -1,21 +1,29 @@
 // app.js
-
 window.addEventListener('load', function () {
   var webAuth = new auth0.WebAuth({
     domain: 'todayapp.eu.auth0.com',
     clientID: 'Zz9d2EICFe1981TC5Ym7dfva9Y1jECmP',
     responseType: 'token id_token',
-    scope: 'openid',
+    scope: 'openid email profile',
     redirectUri: window.location.origin + '/app.html'
   })
-
-  var loginStatus = document.getElementById('loginStatus')
 
   // buttons and event listeners
   var loginBtn = document.getElementById('btn-login')
   var signupBtn = document.getElementById('btn-signup')
   var logoutBtn = document.getElementById('btn-logout')
+  var openBtn = document.getElementById('btn-open')
 
+  loginBtn.addEventListener('click', function (e) {
+    e.preventDefault()
+    webAuth.authorize()
+  })
+  if (openBtn) {
+    openBtn.addEventListener('click', function (e) {
+      e.preventDefault()
+      window.location.href = "/app.html"
+    })
+  }
   loginBtn.addEventListener('click', function (e) {
     e.preventDefault()
     webAuth.authorize()
@@ -37,9 +45,10 @@ window.addEventListener('load', function () {
       } else if (err) {
         alert(
           'Error: ' + err.error + '. Check the console for further details.'
-        )
+          )
       }
       if (isAuthenticated()) {
+        displayButtons()
         today.init()
       }
       displayButtons()
@@ -47,13 +56,19 @@ window.addEventListener('load', function () {
   }
 
   function setSession (authResult) {
+    console.log(authResult)
     // Set the time that the Access Token will expire at
     var expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     )
+    var user = JSON.stringify({
+      email: authResult.idTokenPayload.email,
+      nickname: authResult.idTokenPayload.nickname,
+    })
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    localStorage.setItem('user', user)
   }
 
   function logout () {
@@ -75,12 +90,9 @@ window.addEventListener('load', function () {
     if (isAuthenticated()) {
       loginBtn.style.display = 'none'
       logoutBtn.style.display = 'inline-block'
-      loginStatus.innerHTML = 'You are logged in!'
     } else {
       loginBtn.style.display = 'inline-block'
       logoutBtn.style.display = 'none'
-      loginStatus.innerHTML =
-        'You are not logged in! Please sign up or log in to continue.'
     }
   }
 

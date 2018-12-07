@@ -10,6 +10,9 @@ var today = {
   token: null,
   init: function (dateid) {
     today.token = localStorage.getItem('id_token')
+    today.user = JSON.parse(localStorage.getItem('user'))
+
+    $('#loginStatus').html('Logged in as ' + today.user.nickname)
 
     today.load(dateid)
 
@@ -44,10 +47,9 @@ var today = {
     if (today.id == now) { // today
       $('h1').html('Today')
     } else {
-      $('h3').html(
-        moment(today.id).format('dddd')
-        + ' - '
-        + moment(today.id).format('MMMM Do')
+      $('h1').html(
+        // moment(today.id).format('dddd') + ' - ' + 
+        moment(today.id).format('MMMM Do')
       )
     }
 
