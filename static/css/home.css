@@ -1,14 +1,21 @@
 body {
 	-webkit-font-smoothing: antialiased;
-	font-family: "Helvetica Neue", Arial, sans-serif;
+	/* background: #EAEAEA; */
+	color: #0D0106;
+	font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;;
+	font-size: 16px;
 	margin: 0;
+	padding: 0;
+}
+::selection {
+	background: #2BE4A4;
 }
 
 .home-page {
 	text-align: center
 }
 .hero {
-  background-color: #29e5c9;
+  background-color: #2BE4A4;
   color: #111;
   font-size: 20px;
   line-height: 1.5em;

@@ -7,6 +7,7 @@ var $todos = $('#todos')
 CLASS_INTHEPAST = 'in-the-past'
 var today = {
   id: 0,
+  todayId: moment().format('YYYYMMDD'),
   token: null,
   init: function (dateid) {
     today.token = localStorage.getItem('id_token')
@@ -18,16 +19,16 @@ var today = {
 
     $('#yesterday').on('click', function (e) {
       e.preventDefault()
-      yesterday = moment(today.id).subtract(1, 'days').format('YYYYMMDD')
+      yesterday = moment(today.todayId).subtract(1, 'days').format('YYYYMMDD')
       today.load(yesterday)
     })
     $('#today').on('click', function (e) {
       e.preventDefault()
-      today.load(moment($.now()).format('YYYYMMDD'))
+      today.load(moment(today.todayId).format('YYYYMMDD'))
     })
     $('#tomorrow').on('click', function (e) {
       e.preventDefault()
-      tomorrow = moment(today.id).add(1, 'days').format('YYYYMMDD')
+      tomorrow = moment(today.todayId).add(1, 'days').format('YYYYMMDD')
       today.load(tomorrow)
     })
   },
@@ -45,12 +46,11 @@ var today = {
     }
 
     if (today.id == now) { // today
-      $('h1').html('Today')
+      $('#day-title').html('Today');
+      $('#date').html(moment(today.id).format('dddd, MMMM Do'))
     } else {
-      $('h1').html(
-        // moment(today.id).format('dddd') + ' - ' + 
-        moment(today.id).format('MMMM Do')
-      )
+      $('#day-title').html( moment(today.id).format('MMMM Do'))
+      $('#date').html(moment(today.id).format('dddd'))
     }
 
     // console.log('yo', todos)
@@ -181,3 +181,15 @@ var today = {
     })
   }
 }
+
+
+$(function(){
+  $('#open-menu').on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('body').addClass('show-menu');
+    $('#editor').one('click', function () {
+      $('.show-menu').removeClass('show-menu')
+    })
+  });
+})
