@@ -54,9 +54,9 @@ var today = {
 
     if (today.id == now) { // today
       $('#day-title').html('Today');
-      $('#date').html(moment(today.id).format('dddd, MMMM Do'))
+      $('#date').html(moment(today.id).format('dddd, MMMM Do YYYY'))
     } else {
-      $('#day-title').html( moment(today.id).format('MMMM Do'))
+      $('#day-title').html( moment(today.id).format('MMMM Do YYYY'))
       $('#date').html(moment(today.id).format('dddd'))
     }
 
