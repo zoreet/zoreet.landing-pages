@@ -110,7 +110,7 @@ var today = {
           if ($('.active:first').length) {
             $('.active:first').before(e.target)
           } else {
-            $item.appendTo('#todos')
+            $item.appendTo('#planned .todos')
           }
           today.save()
         }
@@ -120,7 +120,7 @@ var today = {
         // convert them to todo items
         setTimeout(
           function () {
-            freeNestedDivs($('#todos > div > div').first())
+            freeNestedDivs($('#planned .todos > div > div').first())
             findFocusedNode()
           }, 10
         )
