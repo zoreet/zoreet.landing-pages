@@ -13,7 +13,7 @@ var today = {
     today.token = localStorage.getItem('id_token')
     today.user = JSON.parse(localStorage.getItem('user'))
 
-    $('#loginStatus').html('Logged in as ' + today.user.nickname)
+    $('#user--email').html(today.user.email)
 
     today.load(dateid)
 
