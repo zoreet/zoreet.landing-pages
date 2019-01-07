@@ -7,7 +7,7 @@ var $todos = $('#todos')
 CLASS_INTHEPAST = 'in-the-past'
 var today = {
   id: 0,
-  todayId: moment().format('YYYYMMDD'),
+  today: moment().format('YYYYMMDD'),
   token: null,
   init: function (dateid) {
     today.token = localStorage.getItem('id_token')
@@ -31,6 +31,13 @@ var today = {
       tomorrow = moment(today.todayId).add(1, 'days').format('YYYYMMDD')
       today.load(tomorrow)
     })
+    $('#date-picker')
+      .on('change', function (e) {
+        var date = $(this).val()
+        date = date.replace(new RegExp('-', 'g'), '')
+        today.load(date)
+      })
+      .val(moment(today.todayId).format('YYYY-MM-DD'))
   },
   display: function (todos) {
     /*
