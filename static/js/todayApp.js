@@ -3,7 +3,7 @@ the motivations to build this app came out of my frustration with using todo app
 
 to solve this i set up today, a todo list that resets every day. forget the baggage of yesterday! i'm going to work on whatever is important today. i might not finish everything by the end, but if i don't remember tomorrow about it, it means it wasn't important to begin with. every day is a fresh start!
 */
-var $todos = $('#todos')
+var $todos = $('#planned .todos')
 CLASS_INTHEPAST = 'in-the-past'
 var today = {
   id: 0,

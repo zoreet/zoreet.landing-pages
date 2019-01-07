@@ -234,13 +234,17 @@ input {
 	width:  24px;
 }
 
-.todos > div.done:before {
+.todos > div.active {
+	color: #aaa
+}
+.todos > div.active:before {
 	background-color: #2BE4A4;
 	border-color: #2BE4A4
 }
-.todos > div.done:after { /* tick */
+.todos > div.active:after { /* tick */
 	box-shadow: 0 3px 0, -3px 0 0, -3px 3px;
-	color: #0D0106; /* #29e5c9 -10 light */
+	/* color: #0D0106; #29e5c9 -10 light */
+	color: #fff;
 	content: "";
 	display: block;
 	height: 5px;
