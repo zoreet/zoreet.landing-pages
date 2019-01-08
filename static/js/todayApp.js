@@ -16,10 +16,14 @@ let today = {
       data: {
         user: this.user,
         token: localStorage.getItem('id_token'),
+        isLoading: false,
         date: moment(Date.now()).format('YYYYMMDD'),
         today: moment(Date.now()).format('YYYYMMDD'),
         yesterday: moment(Date.now()).subtract(1, 'days').format('YYYYMMDD'),
         tomorrow: moment(Date.now()).add(1, 'days').format('YYYYMMDD')
+      },
+      mounted: function () {
+        document.querySelector('#app').classList.remove('loading')
       },
       computed: {
         dateForPicker: {

@@ -300,3 +300,26 @@ input {
 		padding-right: 32px;
 	}
 }
+
+#editor .isLoading > * {
+	display: none
+}
+#editor .isLoading:after {
+	border-radius: 50%;
+	content: "";
+	display: block;
+	left: 50%;
+	margin: -14px 0 0 -14px;
+	position: absolute;
+	top: 50%;
+	width: 28px;
+  animation: rotate 0.8s infinite linear;
+  border: 8px solid;
+  border-right-color: transparent;
+  height: 28px;
+}
+
+@keyframes rotate {
+  0%    { transform: rotate(0deg); }
+  100%  { transform: rotate(360deg); }
+}

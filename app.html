@@ -7,6 +7,22 @@
 
   <link rel="stylesheet" type="text/css" href="static/css/app.css">
   <link rel="stylesheet" type="text/css" href="static/css/login.css">
+  <style>
+    #app.loading {
+      pointer-events: none;
+    }
+    #app.loading:after {
+      background: #dedede;
+      content: "Loading...";
+      display: block;
+      height: 100vh;
+      line-height: 100vh;
+      position: fixed;
+      text-align: center;
+      width: 100vw;
+      z-index: 999;
+    }
+  </style>
 
   <link rel="icon" type="image/png" href="/static/img/favicon/favicon-16x16.png" sizes="16x16">
   <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
@@ -18,7 +34,7 @@
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" class="loading">
     <div id="menu" class="pannel">
       <a href="/" class="pannel--header">
         <h1><strong>zoreet</strong>.com</h1>
@@ -70,7 +86,7 @@
           <h2 id="day-title" v-html="dateTitle"></h2>
           <h4 id="date">{{dateSubtitle}}</h4>
       </div>
-      <div class="pannel--content">
+      <div class="pannel--content" :class="{isLoading: isLoading}">
         <section id="planned" class="todos">
         </section>
         <section id="done" class="todos">
