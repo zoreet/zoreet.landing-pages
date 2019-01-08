@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" type="text/css" href="static/css/app.css">
   <link rel="stylesheet" type="text/css" href="static/css/login.css">
-  
+
   <link rel="icon" type="image/png" href="/static/img/favicon/favicon-16x16.png" sizes="16x16">
   <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
@@ -27,15 +27,36 @@
       <div class="pannel--content">
         <section id="jump" class="section">
           <h2>Jump to</h2>
+
           <div class="buttons">
-            <a id="today" href="#" class="button">Today</a>
-            <a id="yesterday" href="#" class="button">Yesterday</a>
-            <a id="tomorrow" href="#" class="button">Tomorrow</a>
+            <a
+              id="yesterday"
+              href="#"
+              class="button"
+              v-if="date !== yesterday"
+              @click.prevent="jumpToYesterday"
+            >Yesterday</a>
+
+            <a
+              id="today"
+              href="#"
+              class="button"
+              v-if="date !== today"
+              @click.prevent="jumpToToday"
+            >Today</a>
+
+            <a
+              id="tomorrow"
+              href="#"
+              class="button"
+              v-if="date !== tomorrow"
+              @click.prevent="jumpToTomorrow"
+            >Tomorrow</a>
           </div>
         </section>
         <section id="pick-a-date" class="section">
-          <h2>Pick a date</h2>  
-          <input id="date-picker" type="date" :value="date">
+          <h2>Pick a date</h2>
+          <input id="date-picker" type="date" v-model="dateForPicker">
         </section>
         <section id="user" class="section">
           <div id="user--email">{{user.email}}</div>
@@ -46,8 +67,8 @@
     <div id="editor" class="pannel">
       <div class="pannel--header">
           <a id="open-menu" class="button" href="#menu">☰</a>
-          <h2 id="day-title"></h2>
-          <h4 id="date"></h4>
+          <h2 id="day-title" v-html="dateTitle"></h2>
+          <h4 id="date">{{dateSubtitle}}</h4>
       </div>
       <div class="pannel--content">
         <section id="planned" class="todos">
