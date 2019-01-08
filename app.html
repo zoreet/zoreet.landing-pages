@@ -18,48 +18,51 @@
 </head>
 
 <body>
-  <div id="menu" class="pannel">
-    <a href="/" class="pannel--header">
-      <h1><strong>zoreet</strong>.com</h1>
-      <div class="subtitle">Guilt-free To-Do List</div>
-    </a>
-    <div class="pannel--content">
-      <section id="jump" class="section">
-        <h2>Jump to</h2>
-        <div class="buttons">
-          <a id="today" href="#" class="button">Today</a>
-          <a id="yesterday" href="#" class="button">Yesterday</a>
-          <a id="tomorrow" href="#" class="button">Tomorrow</a>
-        </div>
-      </section>
-      <section id="pick-a-date" class="section">
-        <h2>Pick a date</h2>  
-        <input id="date-picker" type="date" value="2018-07-14">
-      </section>
-      <section id="user" class="section">
-        <div id="user--email"></div>
-        <a id="btn-logout" href="#" class="button">Log out</a>
-      </section>
+  <div id="app">
+    <div id="menu" class="pannel">
+      <a href="/" class="pannel--header">
+        <h1><strong>zoreet</strong>.com</h1>
+        <div class="subtitle">Guilt-free To-Do List</div>
+      </a>
+      <div class="pannel--content">
+        <section id="jump" class="section">
+          <h2>Jump to</h2>
+          <div class="buttons">
+            <a id="today" href="#" class="button">Today</a>
+            <a id="yesterday" href="#" class="button">Yesterday</a>
+            <a id="tomorrow" href="#" class="button">Tomorrow</a>
+          </div>
+        </section>
+        <section id="pick-a-date" class="section">
+          <h2>Pick a date</h2>  
+          <input id="date-picker" type="date" :value="date">
+        </section>
+        <section id="user" class="section">
+          <div id="user--email">{{user.email}}</div>
+          <a id="btn-logout" href="#" class="button">Log out</a>
+        </section>
+      </div>
     </div>
-  </div>
-  <div id="editor" class="pannel">
-    <div class="pannel--header">
-        <a id="open-menu" class="button" href="#menu">☰</a>
-        <h2 id="day-title"></h2>
-        <h4 id="date"></h4>
-    </div>
-    <div class="pannel--content">
-      <section id="planned">
-        <div class="todos" contenteditable="true">
-          <div></div>
-        </div>
-      </section>
+    <div id="editor" class="pannel">
+      <div class="pannel--header">
+          <a id="open-menu" class="button" href="#menu">☰</a>
+          <h2 id="day-title"></h2>
+          <h4 id="date"></h4>
+      </div>
+      <div class="pannel--content">
+        <section id="planned" class="todos">
+        </section>
+        <section id="done" class="todos">
+        </section>
+      </div>
     </div>
   </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
 <script src="static/js/jquery.min.js"></script>
+<script src="static/js/auth.js"></script>
 <script src="static/js/moment.min.js"></script>
 <script src="static/js/todayApp.js"></script>
-<script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
-<script src="static/js/auth.js"></script>
+
 </html>
