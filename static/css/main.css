@@ -23,13 +23,27 @@ a {
 	color: #2BE4A4;
 	text-decoration: none;
 	display: inline-block;
+	transition: all .3s;
 }
+.button:hover,
 .button.--full {
 	background-color: #2BE4A4;
 	color: #191919;
 }
+.button.--full:hover {
+	filter: brightness(1.2)
+}
+.button:active,
+.button.--full:active {
+	filter: brightness(0.7)
+}
+
 .button.--secondary {
 	color: #fff;
+}
+.button.--secondary:hover {
+	color: #191919;
+	background-color: #fff;
 }
 
 .container {
@@ -110,6 +124,7 @@ h1 {
 	animation-delay: 2.5s;
 	margin-top: 24px;
 	font-size: 14px;
+	color: #aaa;
 }
 
 
