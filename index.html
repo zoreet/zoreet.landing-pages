@@ -3,12 +3,103 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Today - Guilt-free To-Do App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="/static/css/main.css" />
-  <script src="/static/js/main.js"></script>
+
+  <link rel="icon" type="image/png" href="/static/img/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/static/img/favicon/manifest.json">
+  <link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#29e5c9">
+  <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-  Hello world
+  <div class="header">
+    <div class="container">
+      <a href="/" class="logo"><strong>today</strong>todoapp.com</a>
+      <div class="header-actions">
+        <a class="header-action" href="#">log in</a>
+        <a class="header-action button" href="#" class="">sign up - it's free</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="hero-image"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>
+          <span class="highlight">today I will</span>
+          <div>
+            <div class="word-container">
+              <div class="word" style="animation-delay: 0.5s">book</div>
+            </div>
+            <div class="word-container">
+              <div class="word" style="animation-delay: 0.7s">my</div>
+            </div>
+            <div class="word-container">
+              <div class="word" style="animation-delay: 0.9s">vacation</div>
+            </div>
+          </div>
+      </h1>
+      <p class="hero-lead animate"><strong>today</strong> is a day-by-day to-do list that helps you focus on what you can achieve right now. plan ahead, let go of unfinished tasks, and celebrate your achievements.</p>
+      <a id="signup" href="#" class="button --full animate">sign up - it's free</a>
+      <a id="login" href="#" class="button --secondary animate">log in</a>
+      <p class="disclaimer animate">after you sign up or log in, this site uses cookies to identify who you are. we also store your to-dos <em>duh!</em> but only until you decide to remove them. that's it :)</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div id="how-it-works" class="animate">
+      <h2 class="title2">how it works</h2>
+      <div class='screenshots'>
+        <div class="day">
+          <div class='fake-app past'>
+            <div class='fake-app-header'>yesterday</div>
+            <ul class='fake-app-tasks'>
+              <li class='fake-app-task --done'>research vacation spots</li>
+              <li class='fake-app-task --done'>check who's comming</li>
+              <li class='fake-app-task'>decide on a destination</li>
+            </ul>
+          </div>
+          <div class="explain">when you look back at past days the focus is on celebrating what you've acomplished</div>
+        </div>
+        <div class="day">
+          <div class='fake-app'>
+            <div class='fake-app-header present'>today i will</div>
+            <ul class='fake-app-tasks'>
+              <li class='fake-app-task'>decide on a destination</li>
+              <li class='fake-app-task'>check prices for flights</li>
+              <li class='fake-app-task --done'>decide on a date</li>
+            </ul>
+          </div>
+          <div class="explain">today it's time to focus on getting things done</div>
+        </div>
+        <div class="day">
+          <div class='fake-app'>
+            <div class='fake-app-header'>tomorrow i will</div>
+            <ul class='fake-app-tasks'>
+              <li class='fake-app-task'>book the flight</li>
+              <li class='fake-app-task'>decide: hotel or airbnb?</li>
+              <li class='fake-app-task'>start up an itinerary</li>
+            </ul>
+          </div>
+          <div class="explain">you can also plan ahead tasks you know you'll need to do on a certain day</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script> -->
+  <!-- <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
+  <script src="/static/js/main.js"></script>
+  <script src="http://richtr.github.io/NoSleep.js/dist/NoSleep.min.js"></script>
+  <script>
+      if(window.outerWidth < 1440) {
+        var noSleep = new NoSleep();
+        noSleep.enable(); // keep the screen on!
+      }
+    
+  </script>
 </body>
 </html>
