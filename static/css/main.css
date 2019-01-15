@@ -146,7 +146,6 @@ h1 {
 	background: url('/static/img/oliver-sjostrom-633771-unsplash.jpg') no-repeat 100% 70%;
 	background-size: cover;
 	z-index: -1;
-	box-shadow: 0 -50vw 0 red;
 }
 .hero-image:before {
 	content: "";
