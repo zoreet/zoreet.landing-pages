@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Today - Guilt-free To-Do App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="/static/css/main.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/css/landing.css" />
 
   <link rel="icon" type="image/png" href="/static/img/favicon/favicon-16x16.png" sizes="16x16">
   <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
@@ -20,8 +20,8 @@
     <div class="container">
       <a href="/" class="logo"><strong>today</strong>todoapp.com</a>
       <div class="header-actions">
-        <a class="header-action" href="#">log in</a>
-        <a class="header-action button" href="#" class="">sign up - it's free</a>
+        <a class="header-action js-login" href="#">log in</a>
+        <a class="header-action button js-login" href="#" class="">sign up - it's free</a>
       </div>
     </div>
   </div>
@@ -44,8 +44,8 @@
           </div>
       </h1>
       <p class="hero-lead animate"><strong>today</strong> is a day-by-day to-do list that helps you focus on what you can achieve right now. plan ahead, let go of unfinished tasks, and celebrate your achievements.</p>
-      <a id="signup" href="#" class="button --full animate">sign up - it's free</a>
-      <a id="login" href="#" class="button --secondary animate">log in</a>
+      <a id="signup" href="#" class="button --full animate js-login">sign up - it's free</a>
+      <a id="login" href="#" class="button --secondary animate js-login">log in</a>
       <p class="disclaimer animate">after you sign up or log in, this site uses cookies to identify who you are. we also store your to-dos <em>duh!</em> but only until you decide to remove them. that's it :)</p>
       </div>
     </div>
@@ -90,6 +90,7 @@
       </div>
     </div>
   </div>
-  <script src="/static/js/main.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
+  <script src="/static/js/landing.js"></script>
 </body>
 </html>
