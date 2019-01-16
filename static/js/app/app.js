@@ -1,7 +1,7 @@
 let app = new Vue({
   el: '#app',
   data: {
-    user: this.user,
+    user: JSON.parse(localStorage.getItem('user')),
     token: localStorage.getItem('id_token'),
     isLoading: false,
     showMenu: false,
@@ -164,6 +164,12 @@ let app = new Vue({
     },
     toggleTaskState (task) {
       task.done = !task.done
+      this.tasks = this.tasks.sort((a,b) => {
+        if( b.done && !a.done ) {
+          return -1
+        }
+        return 0
+      })
       this.saveTasks()
     },
 
