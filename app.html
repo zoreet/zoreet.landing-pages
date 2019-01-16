@@ -5,6 +5,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Today - Guilt-free To-Do App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" href="/static/img/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/static/img/favicon/manifest.json">
+  <link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#29e5c9">
+  <meta name="theme-color" content="#ffffff">
+
   <style>
     #app.loading {
       pointer-events: none;
@@ -83,21 +92,23 @@
       </div>
       <div class="pannel--content" :class="{isLoading: isLoading}">
         <section id="planned" class="todos">
-          <div v-for="(task, index) in tasks" :key="task.id" class="task" :class="{active: task.done}">
-            <div class="task-checkbox" @click="toggleTaskState(task)"></div>
-            <input
-              v-if="task.editing"
-              class="task-input"
-              type="text"
-              v-model="task.title"
-              @blur="doneEdit(task)"
-              @keyup.enter="doneEdit(task)"
-              @keyup.escape="cancelEdit(task)"
-              @keydown.backspace="removeTask(task.title, index)"
-              v-focus
-            />
-            <div v-else class="task-label" @dlbclick="editTask(task)">{{task.title}}</div>
-          </div>
+          <transition-group name="flip-list">
+            <div v-for="(task, index) in tasks" :key="task.id" class="task" :class="{active: task.done}">
+              <div class="task-checkbox" @click="toggleTaskState(task)"></div>
+              <input
+                v-if="task.editing"
+                class="task-input"
+                type="text"
+                v-model="task.title"
+                @blur="doneEdit(task)"
+                @keyup.enter="doneEdit(task)"
+                @keyup.escape="cancelEdit(task)"
+                @keydown.backspace="removeTask(task.title, index)"
+                v-focus
+              />
+              <div v-else class="task-label" @dblclick="editTask(task)">{{task.title}}</div>
+            </div>
+          </transition-group>
           <div class="task">
             <div class="task-checkbox --add" @click="toggleTaskState(task)"></div>
             <input type="text" class="task-input" placeholder="What needs to be done" v-model="newTask" @keyup.enter="addTask">
