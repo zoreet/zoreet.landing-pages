@@ -207,9 +207,8 @@ input {
 .todos {
 	min-height: 20px;
 	outline: 0 none;
-	padding-left: 24px;
 }
-.todos > div {
+.task {
 	font-size: 16px;
 	line-height: 20px;
 	margin-bottom: 20px;
@@ -217,42 +216,73 @@ input {
 	min-height: 20px;
 	outline: 0 none;
 	padding-left: 6px;
-	position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.todos > div:before {
+.task-checkbox {
 	border-radius: 6px;
 	border: 1px solid #dedede;
 	box-sizing: border-box;
-	content: "";
-	cursor: pointer;
 	display: block;
 	height: 24px;
-	position: absolute;
-	right: 100%;
-	top: -2px;
-	width:  24px;
+  width: 24px;
+  cursor: pointer;
+  flex: 0 0 24px;
+  position: relative;
 }
 
-.todos > div.active {
+.task.active {
 	color: #aaa
 }
-.todos > div.active:before {
+.task.active .task-checkbox {
 	background-color: #2BE4A4;
 	border-color: #2BE4A4
 }
-.todos > div.active:after { /* tick */
-	box-shadow: 0 3px 0, -3px 0 0, -3px 3px;
-	/* color: #0D0106; #29e5c9 -10 light */
-	color: #fff;
+.task.active .task-checkbox:after { /* tick */
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
 	content: "";
 	display: block;
 	height: 5px;
-	left: -17px;
+	left: 5px;
 	position: absolute;
-	top: 3px;
+	top: 6px;
 	transform: rotate(-45deg);
 	width:  10px;
+}
+.task-input {
+  border: 0 none;
+  color: inherit;
+  font-size: inherit;
+  padding: 10px;
+  width: 100%;
+  border-radius: 0;
+  line-height: 20px;
+}
+.task-input:focus {
+  outline: none;
+}
+.task-checkbox.--add {
+  border-color: transparent;
+}
+.task-checkbox.--add:after {
+  color: #666;
+  content: "+";
+  display: block;
+  font-size: 24px;
+  left: 0;
+  line-height: 19px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+}
+
+.task-label {
+  padding: 10px;
+  flex: 1 0 auto;
+  line-height: 20px;
 }
 
 
@@ -322,4 +352,14 @@ input {
 @keyframes rotate {
   0%    { transform: rotate(0deg); }
   100%  { transform: rotate(360deg); }
+}
+
+
+#saveImportedData {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
 }
