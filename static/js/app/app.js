@@ -175,6 +175,15 @@ let app = new Vue({
 
     toggleMenu () {
       this.showMenu = !this.showMenu
+    },
+
+    logout () {
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('id_token')
+      localStorage.removeItem('expires_at')
+      localStorage.removeItem('user')
+
+      window.location.href = "/"
     }
   }
 })
