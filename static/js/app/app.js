@@ -4,6 +4,7 @@ let app = new Vue({
     user: this.user,
     token: localStorage.getItem('id_token'),
     isLoading: false,
+    showMenu: false,
     beforeEditCache: '',
     newTask: '',
     date: moment(Date.now()).format('YYYYMMDD'),
@@ -164,6 +165,10 @@ let app = new Vue({
     toggleTaskState (task) {
       task.done = !task.done
       this.saveTasks()
+    },
+
+    toggleMenu () {
+      this.showMenu = !this.showMenu
     }
   }
 })

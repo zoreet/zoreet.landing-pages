@@ -74,9 +74,10 @@
         </section>
       </div>
     </div>
-    <div id="editor" class="pannel">
+    <div id="editor" class="pannel" :class="{'show-menu': showMenu}">
+      <div id="close-menu" v-if="showMenu" @click.prevent="toggleMenu"></div>
       <div class="pannel--header">
-        <a id="open-menu" class="button" href="#menu">☰</a>
+        <a id="open-menu" class="button" href="#menu" @click.prevent="toggleMenu">☰</a>
         <h2 id="day-title" v-html="dateTitle"></h2>
         <h4 id="date">{{dateSubtitle}}</h4>
       </div>

@@ -147,12 +147,9 @@ input {
 	transition: left .3s;
 	/* display: none; */
 }
-.show-menu #editor {
+#editor.show-menu {
 	left: calc(100% - 40px);
 	box-shadow: -10px 0 12px rgba(0,0,0,.1)
-}
-.show-menu #editor > * {
-	pointer-events: none;
 }
 
 #editor .pannel--header {
@@ -198,6 +195,15 @@ input {
 	text-align: center;
 	text-decoration: none;
 	width: 40px;
+}
+#close-menu {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  background-color: rgba(0,0,0,.2);
+  z-index: 100;
 }
 
 #planned {
