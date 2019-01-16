@@ -1,7 +1,7 @@
 let app = new Vue({
   el: '#app',
   data: {
-    user: JSON.parse(localStorage.getItem('user')),
+    user: {},
     token: localStorage.getItem('id_token'),
     isLoading: false,
     showMenu: false,
@@ -11,11 +11,24 @@ let app = new Vue({
     today: moment(Date.now()).format('YYYYMMDD'),
     yesterday: moment(Date.now()).subtract(1, 'days').format('YYYYMMDD'),
     tomorrow: moment(Date.now()).add(1, 'days').format('YYYYMMDD'),
-    tasks: [],
+    tasks: []
   },
   mounted: function () {
     document.querySelector('#app').classList.remove('loading')
-    this.getTasks()
+    this.token = localStorage.getItem('id_token')
+
+    if (this.token) {
+      this.user = JSON.parse(localStorage.getItem('user'))
+      this.getTasks()
+
+      let expiresIn = (localStorage.getItem('expires_at') - Date.now())
+      window.setTimeout(() => {
+        window.location.href = '/'
+      }, expiresIn)
+
+    } else {
+      window.location.replace('/')
+    }
   },
   directives: {
     focus: {
@@ -78,7 +91,7 @@ let app = new Vue({
       this.date = moment(this.date).subtract(1, 'days').format('YYYYMMDD')
       this.getTasks()
     },
-    jumpToNextDay() {
+    jumpToNextDay () {
       this.date = moment(this.date).add(1, 'days').format('YYYYMMDD')
       this.getTasks()
     },
@@ -89,7 +102,6 @@ let app = new Vue({
           headers: { 'Authorization': 'Bearer ' + this.token }
         })
         .then(response => {
-
           let rawTasks = response.data.day.tasks
           let tasks
 
@@ -164,8 +176,8 @@ let app = new Vue({
     },
     toggleTaskState (task) {
       task.done = !task.done
-      this.tasks = this.tasks.sort((a,b) => {
-        if( b.done && !a.done ) {
+      this.tasks = this.tasks.sort((a, b) => {
+        if (b.done && !a.done) {
           return -1
         }
         return 0
@@ -183,7 +195,7 @@ let app = new Vue({
       localStorage.removeItem('expires_at')
       localStorage.removeItem('user')
 
-      window.location.href = "/"
+      window.location.href = '/'
     }
   }
 })
