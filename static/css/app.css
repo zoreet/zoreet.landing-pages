@@ -369,3 +369,7 @@ input {
   border-radius: 8px;
   background: #fff;
 }
+
+.flip-list-move {
+  transition: transform .3s;
+}
