@@ -134,7 +134,7 @@ let app = new Vue({
       this.tasks.push({
         id: Date.now(),
         title: this.newTask,
-        completed: false,
+        done: false,
         editing: false
       })
 
