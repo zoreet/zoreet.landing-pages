@@ -67,13 +67,6 @@
         <section id="pick-a-date" class="section">
           <h2>Pick a date</h2>
           <input id="date-picker" type="date" v-model="dateForPicker" @change="jumpToDay">
-          <div class="buttons">
-            <a href="#" class="button" @click.prevent="jumpToPrevDay">Prev</a>         
-            <a href="#" class="button" @click.prevent="jumpToNextDay">Next</a>
-          </div>
-          <div class="buttons">
-            <a href="#" class="button" v-if="importedData " @click.prevent="saveTasks">Save</a>
-          </div>
         </section>
         <section id="user" class="section">
           <div id="user--email">{{user.email}}</div>

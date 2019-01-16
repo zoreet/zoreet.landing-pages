@@ -11,7 +11,6 @@ let app = new Vue({
     yesterday: moment(Date.now()).subtract(1, 'days').format('YYYYMMDD'),
     tomorrow: moment(Date.now()).add(1, 'days').format('YYYYMMDD'),
     tasks: [],
-    importedData: false
   },
   mounted: function () {
     document.querySelector('#app').classList.remove('loading')
@@ -96,7 +95,6 @@ let app = new Vue({
           try {
             tasks = JSON.parse(rawTasks)
             this.tasks = tasks
-            this.importedData = false
           } catch (e) {
             this.tasks = rawTasks
               .replace(/<br>/g, '')
@@ -116,8 +114,6 @@ let app = new Vue({
                 }
               })
               .filter(task => task.title.length)
-
-            this.importedData = true
           }
         })
     },
@@ -127,8 +123,6 @@ let app = new Vue({
           { tasks: JSON.stringify(this.tasks) },
           { headers: { 'Authorization': 'Bearer ' + this.token } }
         )
-
-      this.importedData = false
     },
 
     addTask () {
