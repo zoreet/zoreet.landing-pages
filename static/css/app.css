@@ -278,7 +278,8 @@ input {
   width: 100%;
 }
 .task-input:focus {
-  outline: none;
+	outline: none;
+	color: #0D0106;
 }
 .task-checkbox.--add {
   border-color: transparent;
