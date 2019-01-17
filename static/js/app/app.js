@@ -107,6 +107,8 @@ let app = new Vue({
           let rawTasks = response.data.day.tasks
           let tasks
 
+          this.showMenu = false
+
           try {
             tasks = JSON.parse(rawTasks)
             this.tasks = tasks
