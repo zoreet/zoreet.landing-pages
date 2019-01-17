@@ -117,7 +117,7 @@ h1 {
 
 .hero-lead {
 	animation-delay: 2s;
-	line-height: 1.5em; 
+	line-height: 1.5em;
 	margin: 24px 0 18px;
 }
 
@@ -276,7 +276,7 @@ h1 {
 
 
 
-@media only screen and (max-width: 900px) { /* iPhone Xr Portrait */
+@media only screen and (max-width: 414px) { /* iPhone Xr Portrait */
 	.container {
 		padding: 0 24px;
 	}
@@ -361,15 +361,19 @@ h1 {
 	}
 }
 
-
 @media only screen and (max-width: 375px) { /* iPhone 8 Portrait */
-	.title1 {
+	h1 {
+		font-size: 38px
+	}
+}
+
+@media only screen and (max-width: 320px) { /* iPhone 5 Portrait */
+	h1 {
 		font-size: 32px
 	}
 }
 
-
-@media only screen and (max-width: 3751024px) { /* iPhone 8 Portrait */
+@media only screen and (max-width: 1024px) { /* iPad Landscape */
 	.container {
 		padding: 0 32px;
 	}
