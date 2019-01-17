@@ -85,7 +85,7 @@
         </section>
         <section id="pick-a-date" class="section">
           <h2>Pick a date</h2>
-          <input id="date-picker" type="date" v-model="dateForPicker" @change="jumpToDay">
+          <input id="date-picker" type="date" v-model="dateForPicker" @blur="jumpToDay">
         </section>
         <section id="user" class="section">
           <div id="user--email">{{user.email}}</div>
