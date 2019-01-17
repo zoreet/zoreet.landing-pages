@@ -180,6 +180,9 @@ let app = new Vue({
       })
 
       this.newTask = ''
+      Vue.nextTick(function () {
+        document.getElementById('add-task').focus()
+      })
       this.saveTasks()
     },
     editTask (task) {
@@ -193,22 +196,34 @@ let app = new Vue({
       task.editing = false
       this.saveTasks()
     },
+    doneEditJumpNext(index) {
+      let task = this.tasks[index]
+
+      if (task.title.trim() == '') {
+        task.title = this.beforeEditCache
+      }
+      task.editing = false
+      document.querySelectorAll('.task-input')[index + 1].focus()
+      this.saveTasks()
+    },
     cancelEdit (task) {
       task.title = this.beforeEditCache
       task.editing = false
     },
-    removeTask (title, index, event) {
-      if (title.length == 0) {
+    removeTask (index, event) {
+      let task = this.tasks[index]
+      if (task.title.length == 0) {
         event.preventDefault()
-        this.tasks.splice(index, 1)
-        this.saveTasks()
 
         if (index) { // if there is a task before, jump to it
           document.querySelectorAll('.task-input')[index - 1].focus()
           this.editTask(this.tasks[index - 1])
-        } else {
-          document.getElementById('add-task').focus()
+        } else { // jump to the next
+          document.querySelectorAll('.task-input')[index + 1].focus()
         }
+
+        this.tasks.splice(index, 1)
+        this.saveTasks()
       }
     },
     toggleTaskState (task) {

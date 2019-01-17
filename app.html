@@ -109,9 +109,9 @@
               type="text"
               v-model="task.title"
               @blur="doneEdit(task)"
-              @keyup.enter="doneEdit(task)"
+              @keyup.enter="doneEditJumpNext(index)"
               @keyup.escape="cancelEdit(task)"
-              @keydown.backspace="removeTask(task.title, index, $event)"
+              @keydown.backspace="removeTask(index, $event)"
               @focus="editTask(task)"
               v-focus
             />
