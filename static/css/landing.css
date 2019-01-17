@@ -292,18 +292,20 @@ h1 {
 
 	.header {
 		background-color: #1A1A1A;
-		padding: 10px 0;
 		margin-bottom: -40px;
-	}
-	.header .container {
-		text-align: center;
-		display: block;
+		padding: 10px 0;
+		position: relative;
+    z-index: 10;
 	}
 	.header .logo {
 		font-size: 1.2em;
 	}
-	.header-actions {
+	#signup-header {
 		display: none;
+	}
+	#login-header {
+		padding-left: 0;
+		padding-right: 0;
 	}
 
 
