@@ -70,6 +70,32 @@ let app = new Vue({
       } else {
         return currentDate.format('dddd')
       }
+    },
+    inThePast () {
+      let date = moment(this.date)
+      let now = moment(this.today)
+
+      if (date.diff(now, 'days') < 0) {
+        return true
+      }
+      return false
+    },
+    sortedTasks () {
+      if (!this.inThePast) {
+        return this.tasks.sort((a, b) => {
+          if (b.done && !a.done) {
+            return -1
+          }
+          return 0
+        })
+      } else {
+        return this.tasks.sort((a, b) => {
+          if (a.done && !b.done) {
+            return -1
+          }
+          return 0
+        })
+      }
     }
   },
   methods: {
@@ -188,12 +214,6 @@ let app = new Vue({
     },
     toggleTaskState (task) {
       task.done = !task.done
-      this.tasks = this.tasks.sort((a, b) => {
-        if (b.done && !a.done) {
-          return -1
-        }
-        return 0
-      })
       this.saveTasks()
     },
 

@@ -103,7 +103,7 @@
       <div class="pannel--content" :class="{isLoading: isLoading}">
         <section id="planned" class="todos">
           <transition-group name="flip-list">
-            <div v-for="(task, index) in tasks" :key="task.id" class="task" :class="{active: task.done}">
+            <div v-for="(task, index) in sortedTasks" :key="task.id" class="task" :class="{active: task.done}">
               <div class="task-checkbox" @click="toggleTaskState(task)"></div>
               <input
                 class="task-input"
