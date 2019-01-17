@@ -297,10 +297,13 @@ input {
 }
 
 .task-label {
-  padding: 10px;
-  flex: 1 0 auto;
+	background: #fff;
+	flex: 1 0 auto;
+	left: 46px;
 	line-height: 20px;
-	cursor: pointer;
+	padding: 10px;
+	pointer-events: none;
+	position: absolute;
 }
 
 

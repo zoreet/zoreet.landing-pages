@@ -106,7 +106,6 @@
             <div v-for="(task, index) in tasks" :key="task.id" class="task" :class="{active: task.done}">
               <div class="task-checkbox" @click="toggleTaskState(task)"></div>
               <input
-                v-if="task.editing"
                 class="task-input"
                 type="text"
                 v-model="task.title"
@@ -114,9 +113,10 @@
                 @keyup.enter="doneEdit(task)"
                 @keyup.escape="cancelEdit(task)"
                 @keydown.backspace="removeTask(task.title, index)"
+                @focus="editTask(task)"
                 v-focus
               />
-              <div v-else class="task-label" @click="editTask(task)">{{task.title}}</div>
+              <div v-if="!task.editing" class="task-label">{{task.title}}</div>
             </div>
           </transition-group>
           <div class="task">
