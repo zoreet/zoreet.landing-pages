@@ -16,12 +16,14 @@ let app = new Vue({
   mounted: function () {
     document.querySelector('#app').classList.remove('loading')
     this.token = localStorage.getItem('id_token')
+    let expiresAt = localStorage.getItem('expires_at')
+    let now = Date.now()
 
-    if (this.token) {
+    if (this.token && expiresAt && now < expiresAt) {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.getTasks()
 
-      let expiresIn = (localStorage.getItem('expires_at') - Date.now())
+      let expiresIn = expiresAt - now
       window.setTimeout(() => {
         window.location.href = '/'
       }, expiresIn)
