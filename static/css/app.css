@@ -134,6 +134,9 @@ input {
 #pick-a-date {
 	flex: 1 0 auto;
 }
+#date-picker {
+	font-size: 16px;
+}
 
 #user {
 	align-items: center;
