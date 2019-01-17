@@ -297,7 +297,8 @@ input {
 .task-label {
   padding: 10px;
   flex: 1 0 auto;
-  line-height: 20px;
+	line-height: 20px;
+	cursor: pointer;
 }
 
 

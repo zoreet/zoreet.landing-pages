@@ -116,7 +116,7 @@
                 @keydown.backspace="removeTask(task.title, index)"
                 v-focus
               />
-              <div v-else class="task-label" @dblclick="editTask(task)">{{task.title}}</div>
+              <div v-else class="task-label" @click="editTask(task)">{{task.title}}</div>
             </div>
           </transition-group>
           <div class="task">
