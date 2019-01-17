@@ -124,6 +124,7 @@ let app = new Vue({
     },
 
     getTasks () {
+      this.isLoading = true
       axios
         .get('https://api.zoreet.com/days/' + this.date, {
           headers: { 'Authorization': 'Bearer ' + this.token }
@@ -133,6 +134,7 @@ let app = new Vue({
           let tasks
 
           this.showMenu = false
+          this.isLoading = false
 
           try {
             tasks = JSON.parse(rawTasks)
