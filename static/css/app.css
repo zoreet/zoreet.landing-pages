@@ -218,24 +218,23 @@ input {
   z-index: 100;
 }
 
-#planned {
-	flex: 1 0 auto;
-}
-
 .todos {
+	flex: 1 0 auto;
 	min-height: 20px;
 	outline: 0 none;
 }
 .task {
+	align-items: center;
+	animation: slideUp .3s forwards;
+	display: flex;
 	font-size: 16px;
 	line-height: 20px;
 	margin-bottom: 20px;
 	margin-top: 2px;
 	min-height: 20px;
 	outline: 0 none;
-	padding-left: 6px;
-  display: flex;
-  align-items: center;
+	position: relative;
+	transform: translateY(10px);
 }
 
 .task-checkbox {
@@ -250,9 +249,14 @@ input {
   position: relative;
 }
 
-.task.active {
+.task.active,
+.in-the-past .task {
 	color: #aaa
 }
+.in-the-past .task.active {
+	color: inherit
+}
+
 .task.active .task-checkbox {
 	background-color: #2BE4A4;
 	border-color: #2BE4A4
@@ -303,7 +307,7 @@ input {
 .task-label {
 	background: #fff;
 	flex: 1 0 auto;
-	left: 46px;
+	left: 24px;
 	line-height: 20px;
 	padding: 10px;
 	pointer-events: none;
@@ -391,4 +395,8 @@ input {
 
 .flip-list-move {
   transition: transform .3s;
+}
+
+@keyframes slideUp {
+	100% { transform: translateY(0) }
 }

@@ -27,7 +27,6 @@ let app = new Vue({
       window.setTimeout(() => {
         window.location.href = '/'
       }, expiresIn)
-
     } else {
       window.location.replace('/')
     }
@@ -204,8 +203,8 @@ let app = new Vue({
         this.tasks.splice(index, 1)
         this.saveTasks()
 
-        if (index) {
-          document.querySelectorAll(".task-input")[index - 1].focus()
+        if (index) { // if there is a task before, jump to it
+          document.querySelectorAll('.task-input')[index - 1].focus()
           this.editTask(this.tasks[index - 1])
         } else {
           document.getElementById('add-task').focus()
