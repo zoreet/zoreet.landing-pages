@@ -172,10 +172,18 @@ let app = new Vue({
       task.title = this.beforeEditCache
       task.editing = false
     },
-    removeTask (title, index) {
+    removeTask (title, index, event) {
       if (title.length == 0) {
+        event.preventDefault()
         this.tasks.splice(index, 1)
         this.saveTasks()
+
+        if (index) {
+          document.querySelectorAll(".task-input")[index - 1].focus()
+          this.editTask(this.tasks[index - 1])
+        } else {
+          document.getElementById('add-task').focus()
+        }
       }
     },
     toggleTaskState (task) {

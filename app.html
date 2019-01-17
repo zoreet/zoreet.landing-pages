@@ -112,7 +112,7 @@
                 @blur="doneEdit(task)"
                 @keyup.enter="doneEdit(task)"
                 @keyup.escape="cancelEdit(task)"
-                @keydown.backspace="removeTask(task.title, index)"
+                @keydown.backspace="removeTask(task.title, index, $event)"
                 @focus="editTask(task)"
                 v-focus
               />
