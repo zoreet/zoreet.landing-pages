@@ -2,7 +2,7 @@ let app = new Vue({
   el: '#app',
   data: {
     user: {},
-    token: localStorage.getItem('id_token'),
+    token: '',
     isLoading: false,
     showMenu: false,
     beforeEditCache: '',
@@ -15,8 +15,8 @@ let app = new Vue({
   },
   mounted: function () {
     document.querySelector('#app').classList.remove('loading')
-    this.token = localStorage.getItem('id_token')
-    let expiresAt = localStorage.getItem('expires_at')
+    this.token = localStorage.getItem('access_token')
+    let expiresAt = parseInt(localStorage.getItem('expires_at'))
     let now = Date.now()
 
     if (this.token && expiresAt && now < expiresAt) {

@@ -4,7 +4,8 @@ window.onload = function() {
     clientID: 'Zz9d2EICFe1981TC5Ym7dfva9Y1jECmP',
     responseType: 'token id_token',
     scope: 'openid email profile',
-    redirectUri: window.location.origin + '/auth.html'
+    redirectUri: window.location.origin + '/auth.html',
+    audience: 'todayapp'
   })
 
   document.querySelectorAll('.js-login').forEach((el) => {

@@ -4,7 +4,8 @@ window.onload = function () {
     clientID: 'Zz9d2EICFe1981TC5Ym7dfva9Y1jECmP',
     responseType: 'token id_token',
     scope: 'openid email profile',
-    redirectUri: window.location.origin + '/auth.html'
+    redirectUri: window.location.origin + '/auth.html',
+    audience: 'todayapp',
   })
 
   function handleAuthentication() {
@@ -23,10 +24,9 @@ window.onload = function () {
   }
 
   function setSession(authResult) {
-    console.log(authResult)
     // Set the time that the Access Token will expire at
     var expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
+      authResult.idTokenPayload.exp * 1000
     )
     var user = JSON.stringify({
       email: authResult.idTokenPayload.email,
