@@ -7,7 +7,7 @@ let app = new Vue({
     showMenu: false,
     beforeEditCache: '',
     newTask: '',
-    date: moment(Date.now()).format('YYYYMMDD'),
+    date: localStorage.getItem('current-date') || moment(Date.now()).format('YYYYMMDD'),
     today: moment(Date.now()).format('YYYYMMDD'),
     yesterday: moment(Date.now()).subtract(1, 'days').format('YYYYMMDD'),
     tomorrow: moment(Date.now()).add(1, 'days').format('YYYYMMDD'),
@@ -244,6 +244,11 @@ let app = new Vue({
       localStorage.removeItem('user')
 
       window.location.href = '/'
+    }
+  },
+  watch: {
+    'date': function() {
+      localStorage.setItem('current-date', this.date)
     }
   }
 })
