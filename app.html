@@ -120,7 +120,7 @@
             </div>
             <div class="task add-task" :key="20010101999">
               <div class="task-checkbox --add" @click="toggleTaskState(task)"></div>
-              <input id="add-task" type="text" class="task-input" placeholder="what needs to be done" v-model="newTask" @keyup.enter="addTask" v-focus>
+              <input id="add-task" type="text" class="task-input" :placeholder="addTaskPlaceholder" v-model="newTask" @keyup.enter="addTask" v-focus>
             </div>
             <div v-for="(task, index) in doneTasks" :key="task.id" class="task active">
               <div class="task-checkbox" @click="toggleTaskState(task)"></div>

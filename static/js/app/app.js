@@ -79,6 +79,17 @@ let app = new Vue({
       }
       return false
     },
+    addTaskPlaceholder () {
+      if(this.inThePast) {
+        return "Stuff I did"
+      }
+      if(this.today == this.date || this.tomorrow == this.date) {
+        return this.dateTitle + " I will..."
+      }
+
+      return "On this day I will..."
+
+    },
     doneTasks () {
       return this.tasks.filter( (task) => {
         return task.done
