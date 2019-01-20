@@ -1,4 +1,15 @@
 window.onload = function() {
+
+  isFirstLanding = !window.sessionStorage.getItem('activeSession')
+  tokenExpirationDate = window.localStorage.getItem('expires_at')
+  now = Date.now()
+
+  if(isFirstLanding && now < tokenExpirationDate) {
+    window.sessionStorage.setItem('activeSession', true)
+    window.location.href = '/app.html'
+    return
+  }
+
   var webAuth = new auth0.WebAuth({
     domain: 'todayapp.eu.auth0.com',
     clientID: 'Zz9d2EICFe1981TC5Ym7dfva9Y1jECmP',
