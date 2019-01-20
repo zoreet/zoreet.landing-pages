@@ -22,6 +22,7 @@ let app = new Vue({
     if (this.token && expiresAt && now < expiresAt) {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.getTasks()
+      window.sessionStorage.setItem('activeSession', true)
 
       let expiresIn = expiresAt - now
       window.setTimeout(() => {
