@@ -103,7 +103,7 @@
       <div class="pannel--content">
         <div class="todos" :class="{isLoading: isLoading, 'in-the-past': inThePast}">
           <transition-group name="flip-list">
-            <div v-for="(task, index) in sortedTasks" :key="task.id" class="task" :class="{active: task.done}">
+            <div v-for="(task, index) in unfinishedTasks" :key="task.id" class="task">
               <div class="task-checkbox" @click="toggleTaskState(task)"></div>
               <input
                 class="task-input"
@@ -118,11 +118,17 @@
               />
               <div v-if="!task.editing" class="task-label">{{task.title}}</div>
             </div>
+            <div class="task add-task" :key="20010101999">
+              <div class="task-checkbox --add" @click="toggleTaskState(task)"></div>
+              <input id="add-task" type="text" class="task-input" placeholder="what needs to be done" v-model="newTask" @keyup.enter="addTask" v-focus>
+            </div>
+            <div v-for="(task, index) in doneTasks" :key="task.id" class="task active">
+              <div class="task-checkbox" @click="toggleTaskState(task)"></div>
+              <input class="task-input" type="text" v-model="task.title" @blur="doneEdit(task)" @keyup.enter="doneEditJumpNext(index)"
+                @keyup.escape="cancelEdit(task)" @keydown.backspace="removeTask(index, $event)" @focus="editTask(task)" v-focus />
+              <div v-if="!task.editing" class="task-label">{{task.title}}</div>
+            </div>
           </transition-group>
-          <div class="task">
-            <div class="task-checkbox --add" @click="toggleTaskState(task)"></div>
-            <input id="add-task" type="text" class="task-input" placeholder="what needs to be done" v-model="newTask" @keyup.enter="addTask" v-focus>
-          </div>
         </div>
       </div>
     </div>

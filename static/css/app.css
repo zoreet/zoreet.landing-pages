@@ -326,7 +326,11 @@ input {
 	position: absolute;
 }
 
-
+.add-task + .task.active {
+	margin-top: 20px;
+	border-top: 1px solid #dedede;
+	padding-top: 20px;
+}
 
 
 

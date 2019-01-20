@@ -79,23 +79,17 @@ let app = new Vue({
       }
       return false
     },
-    sortedTasks () {
-      if (!this.inThePast) {
-        return this.tasks.sort((a, b) => {
-          if (b.done && !a.done) {
-            return -1
-          }
-          return 0
-        })
-      } else {
-        return this.tasks.sort((a, b) => {
-          if (a.done && !b.done) {
-            return -1
-          }
-          return 0
-        })
-      }
+    doneTasks () {
+      return this.tasks.filter( (task) => {
+        return task.done
+      } )
+    },
+    unfinishedTasks () {
+      return this.tasks.filter((task) => {
+        return !task.done
+      })
     }
+
   },
   methods: {
     jumpToToday () {
