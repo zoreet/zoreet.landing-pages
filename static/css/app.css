@@ -383,6 +383,10 @@ input {
 		padding-left: 32px;
 		padding-right: 32px;
 	}
+
+	#editor h2 {
+		margin-top: 0;
+	}
 }
 
 #editor .isLoading > * {
