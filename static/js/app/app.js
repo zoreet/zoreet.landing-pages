@@ -14,7 +14,7 @@ let app = new Vue({
     tasks: []
   },
   mounted: function () {
-    document.querySelector('#app').classList.remove('loading')
+    document.querySelector('body').classList.remove('loading')
     this.token = localStorage.getItem('access_token')
     let expiresAt = parseInt(localStorage.getItem('expires_at'))
     let now = Date.now()

@@ -26,11 +26,11 @@
   <meta property="og:image" content="http://zoreet.com/static/img/favicon/facebook.png/og-image.jpg">
 
   <style>
-    #app.loading {
+    body.loading {
       pointer-events: none;
     }
 
-    #app.loading:before {
+    body.loading:before {
       background: #dedede;
       content: "";
       display: block;
@@ -41,7 +41,7 @@
       width: 100vw;
       z-index: 999;
     }
-    #app.loading:after {
+    body.loading:after {
       border-radius: 50%;
       content: "";
       display: block;
@@ -64,8 +64,8 @@
   </style>
   <link rel="stylesheet" type="text/css" media="screen" href="/static/css/app.css" />
 </head>
-<body>
-  <div id="app" class="loading">
+<body class="loading">
+  <div id="app" :class="{'show-menu': showMenu}">
     <div id="menu" class="pannel">
       <a href="/" class="pannel--header">
         <h1><strong>zoreet</strong>.com</h1>
@@ -93,7 +93,7 @@
         </section>
       </div>
     </div>
-    <div id="editor" class="pannel" :class="{'show-menu': showMenu}">
+    <div id="editor" class="pannel">
       <div id="close-menu" v-if="showMenu" @click.prevent="toggleMenu"></div>
       <div class="pannel--header">
         <a id="open-menu" class="button" href="#menu" @click.prevent="toggleMenu">☰</a>

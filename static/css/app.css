@@ -102,6 +102,11 @@ input {
 
 #menu {
 	width: calc(100% - 40px);
+	transform: translateX(-40px);
+	transition: transform .3s;
+}
+.show-menu #menu {
+	transform: translateX(0px);
 }
 #menu * {
 	text-transform: lowercase
@@ -158,7 +163,7 @@ input {
 	transition: left .3s;
 	/* display: none; */
 }
-#editor.show-menu {
+.show-menu #editor {
 	left: calc(100% - 40px);
 	box-shadow: -10px 0 12px rgba(0,0,0,.1)
 }
