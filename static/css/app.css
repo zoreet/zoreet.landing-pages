@@ -338,9 +338,15 @@ input {
 
 
 @media only screen and (min-width : 1025px) {
+	.button {
+		border: 0 none;
+		background-color: #fff;
+	}
 	#menu {
 		width: 375px;
 		background-color: #EAEAEA;
+		color: #0D0106;
+		transform: translateX(0)
 	}
 	#menu .pannel--header,
 	#menu .section {
@@ -359,6 +365,9 @@ input {
 	}
 	input {
 		border-color: #fff;
+	}
+	#user {
+		border-top-color: #ccc
 	}
 
 
