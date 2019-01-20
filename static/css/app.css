@@ -60,13 +60,13 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .button {
-	background-color: #EAEAEA;
-	text-decoration: none;
 	border-radius: 6px;
-	padding: 8px 12px 9px;
-	color: #000;
-	font-size: 14px;
+	border: 1px solid;
+	color: inherit;
 	display: inline-block;
+	font-size: 14px;
+	padding: 8px 12px 9px;
+	text-decoration: none;
 }
 .button + .button {
 	margin-left: 4px;
@@ -104,6 +104,8 @@ input {
 	width: calc(100% - 40px);
 	transform: translateX(-40px);
 	transition: transform .3s;
+	background-color: #1A1A1A;
+	color: #fff;
 }
 .show-menu #menu {
 	transform: translateX(0px);
@@ -146,7 +148,7 @@ input {
 
 #user {
 	align-items: center;
-	border-top: 0.5px solid #C7C7CC;;
+	border-top: 0.5px solid #444;
 	display: flex;
 	justify-content: space-between;
 	padding-bottom: 16px;
@@ -203,6 +205,7 @@ input {
 
 #open-menu {
 	background: none;
+	border: 0 none;
 	top: 18px;
 	color: inherit;
 	display: inline-block;
@@ -335,9 +338,6 @@ input {
 
 
 @media only screen and (min-width : 1025px) {
-	.button {
-		background-color: #fff;
-	}
 	#menu {
 		width: 375px;
 		background-color: #EAEAEA;
