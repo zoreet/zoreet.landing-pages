@@ -69,7 +69,7 @@ a {
 
 
 .header {
-	background-color: #111;
+	background-color: #1A1A1A;
 	padding: 12px 0;
 }
 .header .container {
@@ -125,7 +125,7 @@ h1 {
 	animation-delay: 2.5s;
 	margin-top: 24px;
 	font-size: 14px;
-	color: #aaa;
+	color: #9B9B9B;
 }
 
 
@@ -230,7 +230,7 @@ h1 {
 }
 .past .fake-app-task,
 .fake-app-task.--done {
-	color: #CDCDCD
+	color: #dedede
 }
 .past .fake-app-task.--done {
 	color: #191919
