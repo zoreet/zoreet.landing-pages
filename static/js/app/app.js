@@ -218,19 +218,31 @@ let app = new Vue({
       task.title = this.beforeEditCache
       task.editing = false
     },
-    removeTask (index, event) {
-      let task = this.tasks[index]
-      if (task.title.length == 0) {
+    removeTask (task, event) {
+
+      let title = task.title;
+      let id = task.id;
+      if (title.length == 0) {
         event.preventDefault()
 
-        if (index) { // if there is a task before, jump to it
-          document.querySelectorAll('.task-input')[index - 1].focus()
-          this.editTask(this.tasks[index - 1])
-        } else { // jump to the next
-          document.querySelectorAll('.task-input')[index + 1].focus()
+        let index = 0;
+        for(;index<this.tasks.length; index++) {
+          if (this.tasks[index].id == id) {
+            break
+          }
         }
 
-        this.tasks.splice(index, 1)
+        let taskElement = event.target.closest('.task')
+        let prevTask = taskElement.previousSibling
+        let nextTask = taskElement.nextSibling
+
+        if (prevTask) { // if there is a task before, jump to it
+          prevTask.querySelector('.task-input').focus()
+        } else { // jump to the next
+          nextTask.querySelector('.task-input').focus()
+        }
+
+        this. tasks.splice(index, 1)
         this.saveTasks()
       }
     },
