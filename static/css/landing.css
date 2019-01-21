@@ -225,7 +225,8 @@ h1 {
 }
 .fake-app-task {
 	line-height: 24px;
-	height: 24px;
+	padding-left: 32px;
+	position: relative;
 	position: relative;
 }
 .past .fake-app-task,
@@ -241,12 +242,14 @@ h1 {
 .fake-app-task:before {
 	border-radius: 4px;
 	border: 1px solid #9B9B9B;
-	height: 24px;
-	width: 24px;
 	content: "";
-	display: inline-block;
-	vertical-align: top;
+	display: block;
+	height: 24px;
+	left: 0;
 	margin-right: 8px;
+	position: absolute;
+	top: 0;
+	width: 24px;
 }
 
 .past .fake-app-task:before,
