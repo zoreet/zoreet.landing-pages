@@ -244,8 +244,7 @@ input {
 	display: flex;
 	font-size: 16px;
 	line-height: 20px;
-	margin-bottom: 20px;
-	margin-top: 2px;
+	margin-bottom: 8px;
 	min-height: 20px;
 	outline: 0 none;
 	position: relative;
