@@ -11,11 +11,17 @@ let app = new Vue({
     today: moment(Date.now()).format('YYYYMMDD'),
     yesterday: moment(Date.now()).subtract(1, 'days').format('YYYYMMDD'),
     tomorrow: moment(Date.now()).add(1, 'days').format('YYYYMMDD'),
-    tasks: []
+    tasks: [],
+    online: true
   },
   mounted: function () {
     document.querySelector('body').classList.remove('loading')
     this.token = localStorage.getItem('access_token')
+
+    this.online = navigator.onLine
+    window.addEventListener('offline', this.online = false)
+    window.addEventListener('online', this.online = true)
+
     let expiresAt = parseInt(localStorage.getItem('expires_at'))
     let now = Date.now()
 
@@ -104,6 +110,11 @@ let app = new Vue({
 
   },
   methods: {
+    // ////////////////////////////////////////////////////////////
+    //
+    // NAVIGATION
+    //
+    // ////////////////////////////////////////////////////////////
     jumpToToday () {
       this.date = this.today
       this.getTasks()
@@ -128,9 +139,20 @@ let app = new Vue({
       this.date = moment(this.date).add(1, 'days').format('YYYYMMDD')
       this.getTasks()
     },
+    toggleMenu() {
+      this.showMenu = !this.showMenu
+    },
 
+    // ////////////////////////////////////////////////////////////
+    //
+    // NETWORK
+    //
+    // ////////////////////////////////////////////////////////////
     getTasks () {
       this.isLoading = true
+      if (!navigator.onLine) {
+        return 
+      }
       axios
         .get('https://api.zoreet.com/days/' + this.date, {
           headers: { 'Authorization': 'Bearer ' + this.token }
@@ -168,6 +190,9 @@ let app = new Vue({
         })
     },
     saveTasks () {
+      if (!navigator.onLine) {
+        return
+      }
       axios
         .post('https://api.zoreet.com/days/' + this.date,
           { tasks: JSON.stringify(this.tasks) },
@@ -175,6 +200,11 @@ let app = new Vue({
         )
     },
 
+    // ////////////////////////////////////////////////////////////
+    //
+    // TASKS
+    //
+    // ////////////////////////////////////////////////////////////
     addTask () {
       if (this.newTask.trim() == '') {
         return
@@ -251,10 +281,11 @@ let app = new Vue({
       this.saveTasks()
     },
 
-    toggleMenu () {
-      this.showMenu = !this.showMenu
-    },
-
+    // ////////////////////////////////////////////////////////////
+    //
+    // USER
+    //
+    // ////////////////////////////////////////////////////////////
     logout () {
       localStorage.removeItem('access_token')
       localStorage.removeItem('id_token')

@@ -230,13 +230,10 @@ input {
 .todos {
 	flex: 1 0 auto;
 	height: 100%;
-	left: 0;
 	min-height: 20px;
 	padding: 16px 16px 0;
 	outline: 0 none;
 	overflow: scroll;
-	position: absolute;
-	top: 0;
 	width: 100%;
 }
 .task {
@@ -336,6 +333,37 @@ input {
 
 
 
+#saveImportedData {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.flip-list-move {
+  transition: transform .3s;
+}
+
+
+.errors {
+	flex: 0 0 auto;
+	position: relative;
+	width: 100%;
+	z-index: 100;
+}
+
+.error {
+	font-size: 14px;
+	padding: 16px 46px;
+}
+.error.--offline {
+	background: #eaea5d;
+}
+
+
+
 @media only screen and (min-width : 1025px) {
 	.button {
 		border: 0 none;
@@ -378,7 +406,8 @@ input {
 		display: none;
 	}
 	#editor .pannel--header,
-	#editor .todos {
+	#editor .todos,
+	.error {
 		padding-left: 32px;
 		padding-right: 32px;
 	}
@@ -409,18 +438,4 @@ input {
 @keyframes rotate {
   0%    { transform: rotate(0deg); }
   100%  { transform: rotate(360deg); }
-}
-
-
-#saveImportedData {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #fff;
-}
-
-.flip-list-move {
-  transition: transform .3s;
 }
