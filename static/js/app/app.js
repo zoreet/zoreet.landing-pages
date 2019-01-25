@@ -20,8 +20,8 @@ let app = new Vue({
     this.token = localStorage.getItem('access_token')
 
     this.online = navigator.onLine
-    window.addEventListener('offline', this.online = false)
-    window.addEventListener('online', this.online = true)
+    window.addEventListener('offline', () => { this.online = false })
+    window.addEventListener('online', () => { this.online = true })
 
     let expiresAt = parseInt(localStorage.getItem('expires_at'))
     let now = new Date().getTime()
