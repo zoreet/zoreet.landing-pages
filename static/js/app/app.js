@@ -12,7 +12,8 @@ let app = new Vue({
     yesterday: moment(Date.now()).subtract(1, 'days').format('YYYYMMDD'),
     tomorrow: moment(Date.now()).add(1, 'days').format('YYYYMMDD'),
     tasks: [],
-    online: true
+    online: true,
+    error: '',
   },
   mounted: function () {
     document.querySelector('body').classList.remove('loading')
@@ -23,7 +24,7 @@ let app = new Vue({
     window.addEventListener('online', this.online = true)
 
     let expiresAt = parseInt(localStorage.getItem('expires_at'))
-    let now = Date.now()
+    let now = new Date().getTime()
 
     if (this.token && expiresAt && now < expiresAt) {
       this.user = JSON.parse(localStorage.getItem('user'))
@@ -163,6 +164,7 @@ let app = new Vue({
 
           this.showMenu = false
           this.isLoading = false
+          this.error = ''
 
           try {
             tasks = JSON.parse(rawTasks)
@@ -188,6 +190,12 @@ let app = new Vue({
               .filter(task => task.title.length)
           }
         })
+        .catch(error => {
+          let code = error.response.status
+          let message = error.response.data.error.message
+
+          this.error = message
+        })
     },
     saveTasks () {
       if (!navigator.onLine) {
@@ -198,6 +206,15 @@ let app = new Vue({
           { tasks: JSON.stringify(this.tasks) },
           { headers: { 'Authorization': 'Bearer ' + this.token } }
         )
+        .then(response => {
+          this.error = ''
+        })
+        .catch(error => {
+          let code = error.response.status
+          let message = error.response.data.error.message
+
+          this.error = message
+        })
     },
 
     // ////////////////////////////////////////////////////////////
@@ -211,7 +228,7 @@ let app = new Vue({
       }
 
       this.tasks.push({
-        id: Date.now(),
+        id: Date().getTime(),
         title: this.newTask,
         done: false,
         editing: false

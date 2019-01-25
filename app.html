@@ -103,6 +103,7 @@
       <div class="pannel--content">
         <div class="errors">
           <div class="error --offline" v-if="!online"><strong>damn! you're offline.</strong> zoreet requires an internet connection to work :(</div>
+          <div class="error" v-if="error"><strong>error: </strong> {{error}}</div>
         </div>
         <div class="todos" :class="{isLoading: isLoading, 'in-the-past': inThePast}">
           <transition-group name="flip-list">

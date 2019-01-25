@@ -357,9 +357,12 @@ input {
 .error {
 	font-size: 14px;
 	padding: 16px 46px;
+	background-color: #f8d7da;
+	color: #721c24;
 }
 .error.--offline {
-	background: #eaea5d;
+	background-color: #fff3cd;
+	color: #856404;
 }
 
 
