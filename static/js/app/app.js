@@ -227,8 +227,10 @@ let app = new Vue({
         return
       }
 
+      let id = new Date().getTime()
+
       this.tasks.push({
-        id: Date().getTime(),
+        id: id,
         title: this.newTask,
         done: false,
         editing: false
