@@ -25,9 +25,8 @@ window.onload = function () {
 
   function setSession(authResult) {
     // Set the time that the Access Token will expire at
-    var expiresAt = JSON.stringify(
-      authResult.idTokenPayload.exp * 1000
-    )
+    var expiresAt = new Date().getTime() + authResult.expiresIn * 1000
+
     var user = JSON.stringify({
       email: authResult.idTokenPayload.email,
       nickname: authResult.idTokenPayload.nickname
