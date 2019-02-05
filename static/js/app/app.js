@@ -16,8 +16,6 @@ let app = new Vue({
     error: '',
   },
   mounted: function () {
-    this.token = localStorage.getItem('access_token')
-
     this.online = navigator.onLine
     window.addEventListener('offline', () => { this.online = false })
     window.addEventListener('online', () => { this.online = true })
@@ -303,6 +301,7 @@ let app = new Vue({
     checkLogin() {
       let expiresAt = parseInt(localStorage.getItem('expires_at'))
       let now = new Date().getTime()
+      this.token = localStorage.getItem('access_token')
 
       if (this.token && expiresAt && now < expiresAt) {
         this.user = JSON.parse(localStorage.getItem('user'))
@@ -310,15 +309,48 @@ let app = new Vue({
         sessionStorage.setItem('activeSession', true)
 
         let expiresIn = expiresAt - now
-        window.setTimeout(() => {
-          this.login()
-        }, expiresIn)
+        this.scheduleRenewal(expiresIn)
       } else {
         this.login()
       }
     },
     login() {
       this.webAuth.authorize()
+    },
+    silentLogin() {
+      let that = this;
+      this.webAuth.checkSession({},
+        function (err, result) {
+          if (err) {
+            that.error = err
+          } else {
+            that.error = ''
+            that.token = result.accessToken
+            that.saveLoginData(result)
+            that.scheduleRenewal(result.expiresIn * 1000)
+          }
+        }
+      );
+    },
+    scheduleRenewal(expiresIn) {
+      if (!expiresIn)
+        return
+
+      window.setTimeout(() => {
+        this.silentLogin()
+      }, expiresIn)
+    },
+    saveLoginData(result) {
+      var expiresAt = new Date().getTime() + result.expiresIn * 1000
+      var user = JSON.stringify({
+        email: result.idTokenPayload.email,
+        nickname: result.idTokenPayload.nickname
+      })
+
+      localStorage.setItem('access_token', result.accessToken)
+      localStorage.setItem('id_token', result.idToken)
+      localStorage.setItem('expires_at', expiresAt)
+      localStorage.setItem('user', user)
     },
     logout() {
       document.querySelector('body').classList.add('loading')
