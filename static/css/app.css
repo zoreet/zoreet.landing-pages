@@ -1,3 +1,7 @@
+[v-cloak] {
+  display: none !important;
+}
+
 html,
 body {
   overflow: hidden;
@@ -289,6 +293,7 @@ input {
   width: 100%;
   resize: none;
   min-height: 40px;
+  height: 40px;
 }
 .task-input:focus {
   outline: none;
