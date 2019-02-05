@@ -16,7 +16,6 @@ let app = new Vue({
     error: '',
   },
   mounted: function () {
-    document.querySelector('body').classList.remove('loading')
     this.token = localStorage.getItem('access_token')
 
     this.online = navigator.onLine
@@ -33,6 +32,7 @@ let app = new Vue({
     })
 
     this.checkLogin()
+    document.querySelector('body').classList.remove('loading')
   },
   directives: {
     focus: {
@@ -307,7 +307,7 @@ let app = new Vue({
       if (this.token && expiresAt && now < expiresAt) {
         this.user = JSON.parse(localStorage.getItem('user'))
         this.getTasks()
-        window.sessionStorage.setItem('activeSession', true)
+        sessionStorage.setItem('activeSession', true)
 
         let expiresIn = expiresAt - now
         window.setTimeout(() => {
@@ -321,16 +321,28 @@ let app = new Vue({
       this.webAuth.authorize()
     },
     logout() {
+      document.querySelector('body').classList.add('loading')
+
       localStorage.removeItem('access_token')
       localStorage.removeItem('id_token')
       localStorage.removeItem('expires_at')
       localStorage.removeItem('user')
+      localStorage.removeItem('user')
+      sessionStorage.removeItem('activeSession')
 
-      window.location.href = '/'
+      // log out to Auth0 ( and if needed google, facebook or whatever id provider they used )
+      let iframe = document.createElement('iframe');
+      iframe.src = 'https://todayapp.eu.auth0.com/v2/logout';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      window.setTimeout(() => {
+        window.top.location.href = "/"
+      }, 2000)
     }
   },
   watch: {
-    'date': function() {
+    'date': function () {
       localStorage.setItem('current-date', this.date)
     }
   }
