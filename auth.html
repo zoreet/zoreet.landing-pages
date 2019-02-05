@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>zoreet - guilt-free to-do app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
+    <script src="/static/js/auth.js"></script>
+
+    <!-- favicon stuff -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/static/img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/static/img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/static/img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/static/img/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/static/img/favicon/safari-pinned-tab.svg"
+      color="#2be4a4"
+    />
+    <link rel="shortcut icon" href="/static/img/favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#0d0106" />
+    <meta
+      name="msapplication-config"
+      content="/static/img/favicon/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#2be4a4" />
+
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        color: #0d0106;
+        font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+      ::selection {
+        background: #2be4a4;
+      }
+
+      @keyframes fadeDown {
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      a {
+        animation: fadeDown 0.3s 5s forwards;
+        background-color: #2be4a4;
+        border-radius: 6px;
+        color: #0d0106;
+        display: inline-block;
+        font-size: 14px;
+        margin: 50px 0 0;
+        opacity: 0;
+        padding: 8px 12px 9px;
+        text-decoration: none;
+        transform: translateY(-50px);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/">Back to homepage</a>
+  </body>
+</html>

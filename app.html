@@ -1,105 +1,210 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>zoreet - guilt-free to-do app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <title>zoreet - guilt-free to-do list</title>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!-- favicon stuff -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/static/img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/static/img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/static/img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/static/img/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/static/img/favicon/safari-pinned-tab.svg"
+      color="#2be4a4"
+    />
+    <link rel="shortcut icon" href="/static/img/favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#0d0106" />
+    <meta
+      name="msapplication-config"
+      content="/static/img/favicon/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#2be4a4" />
 
-  <link rel="stylesheet" type="text/css" href="static/css/app.css">
-  <link rel="stylesheet" type="text/css" href="static/css/login.css">
-  <style>
-    #app.loading {
-      pointer-events: none;
-    }
-    #app.loading:after {
-      background: #dedede;
-      content: "Loading...";
-      display: block;
-      height: 100vh;
-      line-height: 100vh;
-      position: fixed;
-      text-align: center;
-      width: 100vw;
-      z-index: 999;
-    }
-  </style>
+    <!-- Facebook sharing stuff -->
+    <meta property="og:image:width" content="279" />
+    <meta property="og:image:height" content="279" />
+    <meta property="og:title" content="zoreet - guilt-free to-do app" />
+    <meta
+      property="og:description"
+      content="focus what you can achieve today. plan ahead, let go of unfinished tasks and celebrate your achievements."
+    />
+    <meta property="og:url" content="http://zoreet.com" />
+    <meta
+      property="og:image"
+      content="http://zoreet.com/static/img/favicon/facebook.png/og-image.jpg"
+    />
 
-  <link rel="icon" type="image/png" href="/static/img/favicon/favicon-16x16.png" sizes="16x16">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/static/img/favicon/manifest.json">
-  <link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#29e5c9">
-  <meta name="theme-color" content="#ffffff">
-</head>
+    <style>
+      body.loading {
+        pointer-events: none;
+      }
 
-<body>
-  <div id="app" class="loading">
-    <div id="menu" class="pannel">
-      <a href="/" class="pannel--header">
-        <h1><strong>zoreet</strong>.com</h1>
-        <div class="subtitle">Guilt-free To-Do List</div>
-      </a>
-      <div class="pannel--content">
-        <section id="jump" class="section">
-          <h2>Jump to</h2>
+      body.loading:before {
+        background: #dedede;
+        content: '';
+        display: block;
+        height: 100vh;
+        line-height: 100vh;
+        position: fixed;
+        text-align: center;
+        width: 100vw;
+        z-index: 999;
+      }
 
-          <div class="buttons">
-            <a
-              id="yesterday"
-              href="#"
-              class="button"
-              v-if="date !== yesterday"
-              @click.prevent="jumpToYesterday"
-            >Yesterday</a>
+      body.loading:after {
+        border-radius: 50%;
+        content: '';
+        display: block;
+        left: 50%;
+        margin: -14px 0 0 -14px;
+        position: absolute;
+        top: 50%;
+        width: 28px;
+        animation: rotate 0.8s infinite linear;
+        border: 8px solid;
+        border-right-color: transparent;
+        height: 28px;
+        z-index: 999;
+      }
 
-            <a
-              id="today"
-              href="#"
-              class="button"
-              v-if="date !== today"
-              @click.prevent="jumpToToday"
-            >Today</a>
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
 
-            <a
-              id="tomorrow"
-              href="#"
-              class="button"
-              v-if="date !== tomorrow"
-              @click.prevent="jumpToTomorrow"
-            >Tomorrow</a>
-          </div>
-        </section>
-        <section id="pick-a-date" class="section">
-          <h2>Pick a date</h2>
-          <input id="date-picker" type="date" v-model="dateForPicker">
-        </section>
-        <section id="user" class="section">
-          <div id="user--email">{{user.email}}</div>
-          <a id="btn-logout" href="#" class="button">Log out</a>
-        </section>
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="/static/css/app.css"
+    />
+  </head>
+
+  <body>
+    <div id="app" :class="{'show-menu': showMenu}" v-cloak>
+      <div id="menu" class="pannel">
+        <a href="/" class="pannel--header">
+          <h1><strong>zoreet</strong>.com</h1>
+          <div class="subtitle">Guilt-free To-Do List</div>
+        </a>
+        <div class="pannel--content">
+          <section id="jump" class="section">
+            <h2>Jump to</h2>
+
+            <div class="buttons">
+              <a
+                id="yesterday"
+                href="#"
+                class="button"
+                v-if="date !== yesterday"
+                @click.prevent="jumpToYesterday"
+                >Yesterday</a
+              >
+
+              <a
+                id="today"
+                href="#"
+                class="button"
+                v-if="date !== today"
+                @click.prevent="jumpToToday"
+                >Today</a
+              >
+
+              <a
+                id="tomorrow"
+                href="#"
+                class="button"
+                v-if="date !== tomorrow"
+                @click.prevent="jumpToTomorrow"
+                >Tomorrow</a
+              >
+            </div>
+          </section>
+          <section id="pick-a-date" class="section">
+            <h2>Pick a date</h2>
+            <input
+              id="date-picker"
+              type="date"
+              v-model="dateForPicker"
+              @blur="jumpToDay"
+            />
+          </section>
+          <section id="user" class="section">
+            <div id="user--email">{{ user.email }}</div>
+            <a href="#" class="button" @click.prevent="logout">Log out</a>
+          </section>
+        </div>
       </div>
-    </div>
-    <div id="editor" class="pannel">
-      <div class="pannel--header">
-          <a id="open-menu" class="button" href="#menu">☰</a>
+      <div id="editor" class="pannel">
+        <div id="close-menu" v-if="showMenu" @click.prevent="toggleMenu"></div>
+        <div class="pannel--header">
+          <a
+            id="open-menu"
+            class="button"
+            href="#menu"
+            @click.prevent="toggleMenu"
+            >☰</a
+          >
           <h2 id="day-title" v-html="dateTitle"></h2>
-          <h4 id="date">{{dateSubtitle}}</h4>
-      </div>
-      <div class="pannel--content" :class="{isLoading: isLoading}">
-        <section id="planned" class="todos">
-        </section>
-        <section id="done" class="todos">
-        </section>
+          <h4 id="date">{{ dateSubtitle }}</h4>
+        </div>
+        <div class="pannel--content">
+          <div class="errors">
+            <div class="error --offline" v-if="!online">
+              <strong>damn! you're offline.</strong> zoreet requires an internet
+              connection to work :(
+            </div>
+            <div class="error" v-if="error">
+              <strong>error: </strong> {{ error }}
+            </div>
+          </div>
+          <div
+            class="todos"
+            :class="{isLoading: isLoading, 'in-the-past': inThePast}"
+          >
+            <task
+              v-for="(task, index) in tasks"
+              :key="task.id"
+              :task="task"
+              :last="index == (tasks.length - 1)"
+              @toggle-task="sortTasks"
+              @done-edit="saveTasks"
+              @done-edit-with-enter="addTaskAtIndex(index)"
+              @remove-task="removeTask(index)"
+              :autofocus="index == focusedIndex"
+            ></task>
+            <newtask @add-task="addTask"></newtask>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
-<script src="static/js/jquery.min.js"></script>
-<script src="static/js/auth.js"></script>
-<script src="static/js/moment.min.js"></script>
-<script src="static/js/todayApp.js"></script>
-
+    <script src="/static/js/app/vue.min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="static/js/app/moment.min.js"></script>
+    <script src="/static/js/app/app.js"></script>
+  </body>
 </html>
