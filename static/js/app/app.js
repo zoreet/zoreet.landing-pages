@@ -23,21 +23,16 @@ let app = new Vue({
     window.addEventListener('offline', () => { this.online = false })
     window.addEventListener('online', () => { this.online = true })
 
-    let expiresAt = parseInt(localStorage.getItem('expires_at'))
-    let now = new Date().getTime()
+    this.webAuth = new auth0.WebAuth({
+      domain: 'todayapp.eu.auth0.com',
+      clientID: 'Zz9d2EICFe1981TC5Ym7dfva9Y1jECmP',
+      responseType: 'token id_token',
+      scope: 'openid email profile',
+      redirectUri: window.location.origin + '/auth.html',
+      audience: 'todayapp'
+    })
 
-    if (this.token && expiresAt && now < expiresAt) {
-      this.user = JSON.parse(localStorage.getItem('user'))
-      this.getTasks()
-      window.sessionStorage.setItem('activeSession', true)
-
-      let expiresIn = expiresAt - now
-      window.setTimeout(() => {
-        window.location.href = '/'
-      }, expiresIn)
-    } else {
-      window.location.replace('/')
-    }
+    this.checkLogin()
   },
   directives: {
     focus: {
@@ -305,7 +300,27 @@ let app = new Vue({
     // USER
     //
     // ////////////////////////////////////////////////////////////
-    logout () {
+    checkLogin() {
+      let expiresAt = parseInt(localStorage.getItem('expires_at'))
+      let now = new Date().getTime()
+
+      if (this.token && expiresAt && now < expiresAt) {
+        this.user = JSON.parse(localStorage.getItem('user'))
+        this.getTasks()
+        window.sessionStorage.setItem('activeSession', true)
+
+        let expiresIn = expiresAt - now
+        window.setTimeout(() => {
+          this.login()
+        }, expiresIn)
+      } else {
+        this.login()
+      }
+    },
+    login() {
+      this.webAuth.authorize()
+    },
+    logout() {
       localStorage.removeItem('access_token')
       localStorage.removeItem('id_token')
       localStorage.removeItem('expires_at')
