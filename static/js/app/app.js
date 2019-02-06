@@ -110,6 +110,9 @@ Vue.component('task', {
 /* ------------------------------------------------------------------------- */
 
 Vue.component('newtask', {
+  props: {
+    fromtoday: Number
+  },
   template: `
   <div class="task add-task">
     <div class="task-checkbox --add"></div>
@@ -133,14 +136,14 @@ Vue.component('newtask', {
   `,
   computed: {
     addTaskPlaceholder() {
-      // if (this.inThePast) {
-      //   return "Stuff I did";
-      // }
-      // if (this.today == this.date || this.tomorrow == this.date) {
-      return ' I will...'
-      // }
+      if (this.fromtoday < 0) {
+        return 'Stuff I did'
+      }
+      if (this.fromtoday <= 1) {
+        return ' I will...'
+      }
 
-      // return "On this day I will...";
+      return 'On this day I will...'
     }
   },
   data() {
@@ -278,14 +281,11 @@ let app = new Vue({
         return currentDate.format('dddd')
       }
     },
-    inThePast() {
+    fromtoday() {
       let date = moment(this.date)
       let now = moment(this.today)
 
-      if (date.diff(now, 'days') < 0) {
-        return true
-      }
-      return false
+      return date.diff(now, 'days')
     },
     doneTasks() {
       return this.tasks.filter(task => {
@@ -452,15 +452,12 @@ let app = new Vue({
       this.saveTasks()
       if (index) {
         this.focusedIndex = index - 1
-        // debugger
       } else if (this.tasks.length) {
         this.$nextTick(() => {
           this.focusedIndex = index
         })
-        // debugger
       } else {
         document.getElementById('add-task').focus()
-        // debugger
       }
     },
     sortTasks() {

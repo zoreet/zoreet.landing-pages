@@ -183,7 +183,7 @@
           </div>
           <div
             class="todos"
-            :class="{isLoading: isLoading, 'in-the-past': inThePast}"
+            :class="{isLoading: isLoading, 'in-the-past': (fromtoday < 0)}"
           >
             <task
               v-for="(task, index) in unfinishedTasks"
@@ -196,7 +196,7 @@
               @remove-task="removeTask(task.id)"
               :autofocus="index == focusedIndex"
             ></task>
-            <newtask @add-task="addTask"></newtask>
+            <newtask @add-task="addTask" :fromtoday="fromtoday"></newtask>
             <task
               v-for="(task, index) in doneTasks"
               :key="task.id"
