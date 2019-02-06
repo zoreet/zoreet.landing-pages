@@ -45,9 +45,6 @@ Vue.component('task', {
     }
   },
   methods: {
-    yo(a) {
-      alert('da'), console.log('yo', a)
-    },
     editTask() {
       this.beforeEditCache = this.task.title
     },
@@ -93,7 +90,6 @@ Vue.component('task', {
   },
   watch: {
     autofocus() {
-      console.log('x')
       this.input.focus()
     }
   }
