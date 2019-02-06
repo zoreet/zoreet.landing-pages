@@ -306,6 +306,7 @@ let app = new Vue({
     // ////////////////////////////////////////////////////////////
     jumpToToday() {
       this.date = this.today
+      sessionStorage.removeItem('activeSession')
       this.getTasks()
     },
     jumpToTomorrow() {
