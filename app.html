@@ -186,28 +186,17 @@
             :class="{isLoading: isLoading, 'in-the-past': (fromtoday < 0)}"
           >
             <task
-              v-for="(task, index) in unfinishedTasks"
+              v-for="(task, index) in tasks"
               :key="task.id"
               :task="task"
-              :last="index == (unfinishedTasks.length - 1)"
+              :last="index == (tasks.length - 1)"
               @toggle-task="sortTasks"
               @done-edit="saveTasks"
               @done-edit-with-enter="addTaskAtIndex(index)"
-              @remove-task="removeTask(task.id)"
+              @remove-task="removeTask(index)"
               :autofocus="index == focusedIndex"
             ></task>
             <newtask @add-task="addTask" :fromtoday="fromtoday"></newtask>
-            <task
-              v-for="(task, index) in doneTasks"
-              :key="task.id"
-              :task="task"
-              :last="index == (doneTasks.length - 1)"
-              @toggle-task="sortTasks"
-              @done-edit="saveTasks"
-              @done-edit-with-enter="addTaskAtIndex(index)"
-              @remove-task="removeTask(task.id)"
-              :autofocus="index == focusedIndex"
-            ></task>
           </div>
         </div>
       </div>
