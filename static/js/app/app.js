@@ -45,9 +45,6 @@ Vue.component('task', {
     }
   },
   methods: {
-    yo(a) {
-      alert('da'), console.log('yo', a)
-    },
     editTask() {
       this.beforeEditCache = this.task.title
     },
@@ -70,11 +67,14 @@ Vue.component('task', {
       if (this.task.title.length == 0) {
         this.$emit('remove-task')
       }
-      // this.updateHeight()
     },
     toggleTask() {
       this.task.done = !this.task.done
       this.$emit('toggle-task')
+      Vue.nextTick(() => {
+        let el = document.activeElement
+        if (el.classList.contains('task-input')) el.blur()
+      })
     },
     updateHeight() {
       this.$nextTick(() => {
@@ -93,7 +93,6 @@ Vue.component('task', {
   },
   watch: {
     autofocus() {
-      console.log('x')
       this.input.focus()
     }
   }
@@ -393,7 +392,6 @@ let app = new Vue({
       if (!navigator.onLine) {
         return
       }
-
       axios
         .post(
           'https://api.zoreet.com/days/' + this.date,
@@ -443,8 +441,14 @@ let app = new Vue({
         document.getElementById('add-task').focus()
       }
     },
-    removeTask(index) {
-      this.tasks.splice(index, 1)
+    removeTask(id) {
+      let index = 0
+      for (index; index < this.tasks.length; index++) {
+        if (this.tasks[index].id == id) {
+          this.tasks.splice(index, 1)
+          break
+        }
+      }
       this.saveTasks()
       if (index) {
         this.focusedIndex = index - 1
