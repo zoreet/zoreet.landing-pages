@@ -449,11 +449,7 @@ let app = new Vue({
       this.saveTasks()
       if (index) {
         this.focusedIndex = index - 1
-      } else if (this.tasks.length) {
-        this.$nextTick(() => {
-          this.focusedIndex = index
-        })
-      } else {
+      } else if (this.tasks.length == 0) {
         document.getElementById('add-task').focus()
       }
     },
