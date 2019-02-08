@@ -153,6 +153,7 @@ input {
   justify-content: space-between;
   padding-bottom: 16px;
   padding-top: 16px;
+  flex: 0 0 auto;
 }
 
 #editor {
