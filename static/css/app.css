@@ -79,6 +79,7 @@ h6 {
 }
 .buttons {
   display: flex;
+  margin-top: 12px;
 }
 .buttons .button {
   box-sizing: border-box;
@@ -139,11 +140,91 @@ input {
   padding: 0 0 8px;
 }
 
-#pick-a-date {
+#jump {
   flex: 1 0 auto;
 }
-#date-picker {
-  font-size: 16px;
+.month {
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px 0;
+  color: #0d0106;
+}
+.month--header {
+  display: grid;
+  padding: 14px 0 20px;
+  grid-template-columns: 1fr 5fr 1fr;
+  text-align: center;
+}
+.month--title {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+.month--pagination {
+  cursor: pointer;
+  height: 24px;
+  line-height: 24px;
+  margin: 0 auto;
+  position: relative;
+  width: 24px;
+}
+.month--pagination:before {
+  content: '';
+  border-width: 0 0 2px 2px;
+  border-style: solid;
+  width: 10px;
+  height: 10px;
+  display: block;
+  left: calc(50% - 4px);
+  top: calc(50% - 6px);
+  position: absolute;
+  transform: rotate(45deg);
+}
+.month--pagination:last-of-type:before {
+  transform: rotate(225deg) translateX(4px) translateY(-4px);
+}
+.month--days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.month--days.weekdays {
+  border-bottom: 1px solid #eaeaea;
+}
+.weekdays .month--day {
+  font-size: 10px;
+  height: 14px;
+  line-height: 14px;
+  text-transform: capitalize !important;
+}
+.month--day {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.month--day--label {
+  cursor: pointer;
+  border-radius: 50%;
+  display: block;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  width: 28px;
+}
+.month--day--label:hover {
+  background-color: #eaeaea;
+}
+.today .month--day--label {
+  font-weight: bold;
+}
+.active .month--day--label {
+  background-color: #0d0106;
+  color: #fff;
+}
+.today.active .month--day--label {
+  background-color: #2be4a4;
+  color: #0d0106;
 }
 
 #user {

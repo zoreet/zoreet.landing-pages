@@ -202,6 +202,127 @@ Vue.component('newtask', {
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
 
+Vue.component('month', {
+  props: {
+    date: String,
+    today: String
+  },
+  template: `
+    <div class="month">
+      <div class="month--header">
+        <div class="month--pagination" @click="prevMonth"></div>
+        <div class="month--title">
+          {{title}}
+        </div>
+        <div class="month--pagination" @click="nextMonth"></div>
+      </div>
+      <div class="month--days weekdays">
+        <div class="month--day">M</div>
+        <div class="month--day">T</div>
+        <div class="month--day">W</div>
+        <div class="month--day">T</div>
+        <div class="month--day">F</div>
+        <div class="month--day">S</div>
+        <div class="month--day">S</div>
+      </div>
+      <div class="month--days">
+        <div v-for="day in days"
+          class="month--day"
+          :class="{
+            active: ( day.date == date ),
+            today: ( day.date == today )
+          }"
+        >
+          <span class="month--day--label" @click="changeDate(day.date)" v-if="day.id">
+            {{day.id}}
+          </span>
+        </div>
+      </div>
+    </div>
+  `,
+  created() {
+    this.generateData()
+  },
+  data() {
+    return {
+      visibleDateInCalendar: moment(this.date).format('YYYYMMDD'),
+      days: []
+    }
+  },
+  computed: {
+    title() {
+      return moment(this.visibleDateInCalendar).format('MMMM YYYY')
+    },
+    lastDay() {
+      let day = moment(this.visibleDateInCalendar)
+        .endOf('month')
+        .format('DD')
+
+      day = parseInt(day)
+
+      if (day) return day
+      return null
+    }
+  },
+  methods: {
+    generateData() {
+      let days = [...Array(this.lastDay).keys()]
+      this.days = days.map(day => {
+        return {
+          id: day + 1,
+          date: moment(this.visibleDateInCalendar)
+            .set('date', day + 1)
+            .format('YYYYMMDD')
+        }
+      })
+      // hack so that I can align the first day so it coresponds to the right day of the week
+      let i =
+        moment(this.days[0].date)
+          .startOf('month')
+          .isoWeekday() - 1
+      for (; i > 0; i--) {
+        this.days.unshift({
+          id: 0,
+          date: null
+        })
+      }
+    },
+    changeDate(day) {
+      this.$emit('jump-to-day', day)
+    },
+    prevMonth() {
+      this.visibleDateInCalendar = moment(this.visibleDateInCalendar)
+        .subtract(1, 'months')
+        .format('YYYYMMDD')
+      this.generateData()
+    },
+    nextMonth() {
+      this.visibleDateInCalendar = moment(this.visibleDateInCalendar)
+        .add(1, 'months')
+        .format('YYYYMMDD')
+      this.generateData()
+    }
+  },
+  watch: {
+    date(newDate, oldDate) {
+      if (moment(newDate).get('month') !== moment(oldDate).get('month'))
+        this.visibleDateInCalendar = newDate
+      this.generateData()
+    }
+  }
+})
+
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+
 let app = new Vue({
   el: '#app',
   data: {
@@ -247,14 +368,6 @@ let app = new Vue({
     document.querySelector('body').classList.remove('loading')
   },
   computed: {
-    dateForPicker: {
-      get: function() {
-        return moment(this.date).format('YYYY-MM-DD')
-      },
-      set: function(newDate) {
-        this.date = moment(newDate).format('YYYYMMDD')
-      }
-    },
     dateTitle() {
       if (this.date === this.today) {
         return 'Today'
@@ -306,6 +419,11 @@ let app = new Vue({
       sessionStorage.removeItem('activeSession')
       this.getTasks()
     },
+    jumpToToday() {
+      this.date = this.today
+      sessionStorage.removeItem('activeSession')
+      this.getTasks()
+    },
     jumpToTomorrow() {
       this.date = this.tomorrow
       this.getTasks()
@@ -314,20 +432,8 @@ let app = new Vue({
       this.date = this.yesterday
       this.getTasks()
     },
-    jumpToDay() {
-      this.date = this.dateForPicker.replace(/\-/g, '')
-      this.getTasks()
-    },
-    jumpToPrevDay() {
-      this.date = moment(this.date)
-        .subtract(1, 'days')
-        .format('YYYYMMDD')
-      this.getTasks()
-    },
-    jumpToNextDay() {
-      this.date = moment(this.date)
-        .add(1, 'days')
-        .format('YYYYMMDD')
+    jumpToDay(newDate) {
+      this.date = newDate
       this.getTasks()
     },
     toggleMenu() {

@@ -99,7 +99,7 @@
       rel="stylesheet"
       type="text/css"
       media="screen"
-      href="/static/css/app.css?v=2.1.0"
+      href="/static/css/app.css?v=2.1.1"
     />
   </head>
 
@@ -112,24 +112,18 @@
         </a>
         <div class="pannel--content">
           <section id="jump" class="section">
-            <h2>Jump to</h2>
+            <month :date="date" :today="today" @jump-to-day="jumpToDay"></month>
 
             <div class="buttons">
               <a
                 id="yesterday"
                 href="#"
                 class="button"
-                v-if="date !== yesterday"
                 @click.prevent="jumpToYesterday"
                 >Yesterday</a
               >
 
-              <a
-                id="today"
-                href="#"
-                class="button"
-                v-if="date !== today"
-                @click.prevent="jumpToToday"
+              <a id="today" href="#" class="button" @click.prevent="jumpToToday"
                 >Today</a
               >
 
@@ -137,20 +131,10 @@
                 id="tomorrow"
                 href="#"
                 class="button"
-                v-if="date !== tomorrow"
                 @click.prevent="jumpToTomorrow"
                 >Tomorrow</a
               >
             </div>
-          </section>
-          <section id="pick-a-date" class="section">
-            <h2>Pick a date</h2>
-            <input
-              id="date-picker"
-              type="date"
-              v-model="dateForPicker"
-              @blur="jumpToDay"
-            />
           </section>
           <section id="user" class="section">
             <div id="user--email">{{ user.email }}</div>
@@ -205,6 +189,6 @@
     <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="static/js/app/moment.min.js"></script>
-    <script src="/static/js/app/app.js?v=2.1.0"></script>
+    <script src="/static/js/app/app.js?v=2.1.1"></script>
   </body>
 </html>
