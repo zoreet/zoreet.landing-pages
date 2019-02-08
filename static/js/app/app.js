@@ -331,6 +331,7 @@ let app = new Vue({
     isLoading: false,
     showMenu: false,
     focusedIndex: 0,
+    activeTab: 'day',
     date:
       localStorage.getItem('current-date') ||
       moment(Date.now()).format('YYYYMMDD'),

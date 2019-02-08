@@ -99,6 +99,7 @@ input {
 
 .section + .section {
   margin-top: 32px;
+  border-top: 0.5px solid #444;
 }
 
 #menu {
@@ -226,10 +227,17 @@ input {
   background-color: #2be4a4;
   color: #0d0106;
 }
-
+#report {
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+#back {
+  padding-bottom: 16px;
+  padding-top: 16px;
+  flex: 1 0 auto;
+}
 #user {
   align-items: center;
-  border-top: 0.5px solid #444;
   display: flex;
   justify-content: space-between;
   padding-bottom: 16px;
@@ -478,7 +486,7 @@ input {
   input {
     border-color: #fff;
   }
-  #user {
+  .section + .section {
     border-top-color: #ccc;
   }
 

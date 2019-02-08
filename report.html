@@ -111,35 +111,12 @@
           <div class="subtitle">Guilt-free To-Do List</div>
         </a>
         <div class="pannel--content">
-          <section id="jump" class="section">
-            <month :date="date" :today="today" @jump-to-day="jumpToDay"></month>
-
-            <div class="buttons">
-              <a
-                id="yesterday"
-                href="#"
-                class="button"
-                @click.prevent="jumpToYesterday"
-                >Yesterday</a
-              >
-
-              <a id="today" href="#" class="button" @click.prevent="jumpToToday"
-                >Today</a
-              >
-
-              <a
-                id="tomorrow"
-                href="#"
-                class="button"
-                @click.prevent="jumpToTomorrow"
-                >Tomorrow</a
-              >
-            </div>
+          <section id="back" class="section">
+            <a href="/app.html" class="button">Back to the app</a>
           </section>
-          <section id="report" class="section">
-            <h2>Report</h2>
-            <a href="/report.html" class="button">This quarter</a>
-          </section>
+          <!-- <section id="report" class="section">
+            From Till
+          </section> -->
           <section id="user" class="section">
             <div id="user--email">{{ user.email }}</div>
             <a href="#" class="button" @click.prevent="logout">Log out</a>
@@ -156,8 +133,10 @@
             @click.prevent="toggleMenu"
             >☰</a
           >
-          <h2 id="day-title" v-html="dateTitle"></h2>
-          <h4 id="date">{{ dateSubtitle }}</h4>
+          <h2 id="day-title">This Quarter's Report</h2>
+          <h4 id="date">{{ fromDate }} - {{ tillDate }}</h4>
+          <!-- <h2 id="day-title" v-html="fromDateTitle"></h2> -->
+          <!-- <h2 id="day-title" v-html="tillDateTitle"></h2> -->
         </div>
         <div class="pannel--content">
           <div class="errors">
@@ -171,20 +150,20 @@
           </div>
           <div
             class="todos"
-            :class="{isLoading: isLoading, 'in-the-past': (fromtoday < 0)}"
+            :class="{isLoading: isLoading}"
+            v-for="day in days"
+            v-if="day.tasks.length"
           >
-            <task
-              v-for="(task, index) in tasks"
+            <h3>{{ day.date }}</h3>
+            <div
+              v-for="task in day.tasks"
               :key="task.id"
-              :task="task"
-              :last="index == (tasks.length - 1)"
-              @toggle-task="sortTasks"
-              @done-edit="saveTasks"
-              @done-edit-with-enter="addTaskAtIndex(index)"
-              @remove-task="removeTask(index)"
-              :autofocus="index == focusedIndex"
-            ></task>
-            <newtask @add-task="addTask" :fromtoday="fromtoday"></newtask>
+              class="task"
+              :class="{active: task.done}"
+            >
+              <div class="task-checkbox"></div>
+              <div class="task-label">{{ task.title }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -193,6 +172,25 @@
     <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="static/js/app/moment.min.js"></script>
-    <script src="/static/js/app/app.js?v=2.1.1"></script>
+    <script src="/static/js/app/report.js?v=2.1.1"></script>
+    <style>
+      .todos {
+        overflow: initial !important;
+      }
+      h3 {
+        -webkit-user-select: none; /* Chrome all / Safari all */
+        -moz-user-select: none; /* Firefox all */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none; /* Likely future */
+      }
+      .task-label {
+        position: static !important;
+        flex: 1 0 100% !important;
+        opacity: 1 !important;
+      }
+      .task.active {
+        color: inherit !important;
+      }
+    </style>
   </body>
 </html>
