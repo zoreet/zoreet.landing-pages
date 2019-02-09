@@ -112,8 +112,6 @@
         </a>
         <div class="pannel--content">
           <section id="jump" class="section">
-            <month :date="date" :today="today" @jump-to-day="jumpToDay"></month>
-
             <div class="buttons">
               <a
                 id="yesterday"
@@ -135,6 +133,7 @@
                 >Tomorrow</a
               >
             </div>
+            <month :date="date" :today="today" @jump-to-day="jumpToDay"></month>
           </section>
           <section id="report" class="section">
             <h2>Report</h2>
