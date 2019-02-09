@@ -376,6 +376,13 @@ let app = new Vue({
         return 'Tomorrow'
       } else if (this.date === this.yesterday) {
         return 'Yesterday'
+      } else if (moment(this.date).isoWeek() == moment(this.today).isoWeek()) {
+        return moment(this.date).format('dddd')
+      } else if (
+        moment(this.date).isoWeek() ==
+        moment(this.today).isoWeek() + 1
+      ) {
+        return 'next ' + moment(this.date).format('dddd')
       } else {
         return moment(this.date).format('DD MMM Y')
       }
@@ -388,6 +395,15 @@ let app = new Vue({
         return currentDate.format('dddd, DD MMM Y')
       } else if (this.date === this.yesterday) {
         return currentDate.format('dddd, DD MMM Y')
+      } else if (
+        moment(this.date).isoWeek() == moment(this.today).get('week')
+      ) {
+        return moment(this.date).format('DD MMM Y')
+      } else if (
+        moment(this.date).isoWeek() ==
+        moment(this.today).isoWeek() + 1
+      ) {
+        return moment(this.date).format('DD MMM Y')
       } else {
         return currentDate.format('dddd')
       }
