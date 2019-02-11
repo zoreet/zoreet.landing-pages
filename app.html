@@ -175,7 +175,7 @@
             <draggable
               v-model="tasks"
               @end="saveTasks"
-              :options="{handle:'.task-reorder'}"
+              :options="{handle:  window.innerWidth <= 1024 ? '.task' : '.task-reorder'}"
             >
               <task
                 v-for="(task, index) in tasks"
