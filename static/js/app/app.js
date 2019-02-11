@@ -8,21 +8,22 @@ Vue.component('task', {
   <div class="task" :class="{active: task.done}">
     <div class="task-checkbox" @click="toggleTask"></div>
     <textarea
-      class="task-input"
-      type="text"
-      v-model="task.title"
-      @change="updateHeight"
-      @keydown="updateHeight"
-      @blur="doneEdit"
-      @focus="editTask"
-      @keydown.backspace="removeTask"
-      @keydown.enter.prevent="doneEditWithEnter"
-      @keyup.escape="cancelEdit"
-      @paste="paste"
+    class="task-input"
+    type="text"
+    v-model="task.title"
+    @change="updateHeight"
+    @keydown="updateHeight"
+    @blur="doneEdit"
+    @focus="editTask"
+    @keydown.backspace="removeTask"
+    @keydown.enter.prevent="doneEditWithEnter"
+    @keyup.escape="cancelEdit"
+    @paste="paste"
     ></textarea>
     <div class="task-label">
-      {{ task.title }}
+    {{ task.title }}
     </div>
+    <div class="task-reorder"></div>
   </div>
   `,
   mounted() {

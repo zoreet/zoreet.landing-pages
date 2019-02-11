@@ -333,6 +333,19 @@ input {
   position: relative;
   transform: translateY(10px);
 }
+.task.sortable-ghost {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}
+.task.sortable-ghost * {
+  opacity: 0 !important;
+}
+.task.sortable-drag {
+  background-color: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+}
 
 .task-checkbox {
   border-radius: 6px;
@@ -344,6 +357,18 @@ input {
   cursor: pointer;
   flex: 0 0 24px;
   position: relative;
+}
+.task-reorder {
+  border-top: 2px solid #dedede;
+  border-bottom: 2px solid #dedede;
+  box-sizing: border-box;
+  display: block;
+  height: 8px;
+  width: 24px;
+  cursor: pointer;
+  flex: 0 0 24px;
+  position: relative;
+  display: none;
 }
 
 .task.active,
@@ -372,18 +397,19 @@ input {
   width: 10px;
 }
 .task-input {
-  line-height: 20px;
-  margin: 0;
+  background-color: transparent;
   border-radius: 0;
   border: 0 none;
   color: inherit;
-  font-size: inherit;
   font-family: inherit;
-  padding: 10px;
-  width: 100%;
-  resize: none;
-  min-height: 40px;
+  font-size: inherit;
   height: 40px;
+  line-height: 20px;
+  margin: 0;
+  min-height: 40px;
+  padding: 10px;
+  resize: none;
+  width: 100%;
 }
 .task-input:focus {
   outline: none;
@@ -506,6 +532,14 @@ input {
 
   #editor h2 {
     margin-top: 0;
+  }
+
+  .task-reorder {
+    display: block;
+    opacity: 0;
+  }
+  .task:hover .task-reorder {
+    opacity: 1;
   }
 }
 

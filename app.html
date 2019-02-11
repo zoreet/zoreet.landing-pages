@@ -172,17 +172,23 @@
             class="todos"
             :class="{isLoading: isLoading, 'in-the-past': (fromtoday < 0)}"
           >
-            <task
-              v-for="(task, index) in tasks"
-              :key="task.id"
-              :task="task"
-              :last="index == (tasks.length - 1)"
-              @toggle-task="sortTasks"
-              @done-edit="saveTasks"
-              @done-edit-with-enter="addTaskAtIndex(index)"
-              @remove-task="removeTask(index)"
-              :autofocus="index == focusedIndex"
-            ></task>
+            <draggable
+              v-model="tasks"
+              @end="saveTasks"
+              :options="{handle:'.task-reorder'}"
+            >
+              <task
+                v-for="(task, index) in tasks"
+                :key="task.id"
+                :task="task"
+                :last="index == (tasks.length - 1)"
+                @toggle-task="sortTasks"
+                @done-edit="saveTasks"
+                @done-edit-with-enter="addTaskAtIndex(index)"
+                @remove-task="removeTask(index)"
+                :autofocus="index == focusedIndex"
+              ></task>
+            </draggable>
             <newtask @add-task="addTask" :fromtoday="fromtoday"></newtask>
           </div>
         </div>
@@ -192,6 +198,10 @@
     <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="static/js/app/moment.min.js"></script>
+    <!-- CDNJS :: Sortable (https://cdnjs.com/) -->
+    <script src="//cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
+    <!-- CDNJS :: Vue.Draggable (https://cdnjs.com/) -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.17.0/vuedraggable.min.js"></script>
     <script src="/static/js/app/app.js?v=2.1.1"></script>
   </body>
 </html>
