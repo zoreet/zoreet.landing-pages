@@ -36,6 +36,47 @@ let app = new Vue({
     this.checkLogin()
     document.querySelector('body').classList.remove('loading')
   },
+  computed: {
+    dateTitle() {
+      if (this.date === this.today) {
+        return 'Today'
+      } else if (this.date === this.tomorrow) {
+        return 'Tomorrow'
+      } else if (this.date === this.yesterday) {
+        return 'Yesterday'
+      } else {
+        return moment(this.date).format('DD MMM Y')
+      }
+    },
+    dateSubtitle() {
+      currentDate = moment(this.date)
+      if (this.date === this.today) {
+        return currentDate.format('dddd, DD MMM Y')
+      } else if (this.date === this.tomorrow) {
+        return currentDate.format('dddd, DD MMM Y')
+      } else if (this.date === this.yesterday) {
+        return currentDate.format('dddd, DD MMM Y')
+      } else {
+        return currentDate.format('dddd')
+      }
+    },
+    fromtoday() {
+      let date = moment(this.date)
+      let now = moment(this.today)
+
+      return date.diff(now, 'days')
+    },
+    doneTasks() {
+      return this.tasks.filter(task => {
+        return task.done
+      })
+    },
+    unfinishedTasks() {
+      return this.tasks.filter(task => {
+        return !task.done
+      })
+    }
+  },
   methods: {
     // ////////////////////////////////////////////////////////////
     //
@@ -76,13 +117,13 @@ let app = new Vue({
             return 0
           })
 
-          this.days.forEach(element => {
-            let rawTasks = element.tasks
+          this.days.forEach(day => {
+            let rawTasks = day.tasks
             try {
               let tasks = JSON.parse(rawTasks)
-              element.tasks = tasks
+              day.tasks = tasks
             } catch (e) {
-              element.tasks = rawTasks
+              day.tasks = rawTasks
                 .replace(/<br>/g, '')
                 .replace(/\<div class\=\"\s*[a-z]*\s*\"\>\s*\<\/div\>/g, '') // empty divs
                 .split('</div>')
@@ -90,7 +131,7 @@ let app = new Vue({
                 .map((task, index) => {
                   let done = task.indexOf('<div class="active">') !== -1
                   let title = task.trim().replace(/(<([^>]+)>)/gi, '') // all tags
-                  let id = parseInt(element.date) + index
+                  let id = parseInt(day.date) + index
 
                   return {
                     id: id,
@@ -100,8 +141,17 @@ let app = new Vue({
                 })
                 .filter(task => task.title.length)
             }
+          })
 
-            element.tasks = element.tasks.filter(task => task.done)
+          this.days.forEach(day => {
+            day.tasks.forEach(task => {
+              this.tasks.push({
+                id: task.id,
+                title: task.title,
+                done: task.done,
+                date: day.date
+              })
+            })
           })
 
           this.showMenu = false
@@ -197,6 +247,11 @@ let app = new Vue({
       window.setTimeout(() => {
         window.top.location.href = '/'
       }, 2000)
+    }
+  },
+  watch: {
+    date: function() {
+      localStorage.setItem('current-date', this.date)
     }
   }
 })

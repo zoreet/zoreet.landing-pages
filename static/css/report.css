@@ -1,0 +1,33 @@
+.todos {
+  overflow: initial !important;
+}
+.task {
+  align-items: flex-start;
+}
+.task-date {
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+  background: #f2f2f2;
+  border-radius: 4px;
+  color: #666;
+  display: inline-block;
+  font-size: 10px;
+  margin-top: 2px;
+  padding: 1px 4px;
+}
+.task-label {
+  flex: 1 0 100% !important;
+  opacity: 1 !important;
+  padding-top: 0;
+  pointer-events: all;
+  position: static !important;
+}
+.task.active {
+  color: inherit !important;
+}
+
+.task-checkbox {
+  cursor: initial;
+}

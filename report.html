@@ -101,6 +101,12 @@
       media="screen"
       href="/static/css/app.css?v=2.1.1"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="/static/css/report.css?v=2.1.1"
+    />
   </head>
 
   <body>
@@ -148,21 +154,20 @@
               <strong>error: </strong> {{ error }}
             </div>
           </div>
-          <div
-            class="todos"
-            :class="{isLoading: isLoading}"
-            v-for="day in days"
-            v-if="day.tasks.length"
-          >
-            <h3>{{ day.date }}</h3>
+          <div class="todos" :class="{isLoading: isLoading}">
             <div
-              v-for="task in day.tasks"
+              v-for="task in tasks"
               :key="task.id"
               class="task"
               :class="{active: task.done}"
             >
               <div class="task-checkbox"></div>
-              <div class="task-label">{{ task.title }}</div>
+              <div class="task-label">
+                {{ task.title }}
+                <div>
+                  <div class="task-date">{{ task.date }}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -173,24 +178,5 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="static/js/app/moment.min.js"></script>
     <script src="/static/js/app/report.js?v=2.1.1"></script>
-    <style>
-      .todos {
-        overflow: initial !important;
-      }
-      h3 {
-        -webkit-user-select: none; /* Chrome all / Safari all */
-        -moz-user-select: none; /* Firefox all */
-        -ms-user-select: none; /* IE 10+ */
-        user-select: none; /* Likely future */
-      }
-      .task-label {
-        position: static !important;
-        flex: 1 0 100% !important;
-        opacity: 1 !important;
-      }
-      .task.active {
-        color: inherit !important;
-      }
-    </style>
   </body>
 </html>
