@@ -5,8 +5,6 @@ let app = new Vue({
     token: '',
     isLoading: false,
     showMenu: false,
-    focusedIndex: 0,
-    activeTab: 'day',
     fromDate: '20190101',
     tillDate: '20190331',
     tasks: [],
