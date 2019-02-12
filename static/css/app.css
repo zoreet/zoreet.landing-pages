@@ -258,7 +258,7 @@ input {
 }
 
 #editor .pannel--header {
-  padding: 16px 16px 16px 46px;
+  padding: 16px 16px 16px 50px;
   background-color: #2be4a4;
   position: relative;
   text-transform: lowercase;
@@ -297,7 +297,7 @@ input {
   color: inherit;
   display: inline-block;
   font-size: 24px;
-  left: 7px;
+  left: 8px;
   padding: 0;
   position: absolute;
   text-align: center;
@@ -318,7 +318,7 @@ input {
   flex: 1 0 auto;
   height: 100%;
   min-height: 20px;
-  padding: 16px 16px 0;
+  padding: 16px 6px 0;
   outline: 0 none;
   overflow: scroll;
   width: 100%;
@@ -331,6 +331,7 @@ input {
   margin-bottom: 8px;
   min-height: 20px;
   outline: 0 none;
+  padding: 0 10px;
   position: relative;
   transform: translateY(10px);
 }
@@ -343,8 +344,6 @@ input {
 }
 .task.sortable-drag {
   background-color: #fff;
-  padding-left: 10px;
-  padding-right: 10px;
   border-radius: 10px;
 }
 
@@ -435,13 +434,15 @@ input {
 .task-label {
   background: #fff;
   flex: 1 0 auto;
-  left: 24px;
+  left: 34px;
   line-height: 20px;
+  min-height: 40px;
+  opacity: 0;
   padding: 10px;
   pointer-events: none;
   position: absolute;
-  opacity: 0;
-  min-height: 40px;
+  right: 10px;
+  word-break: break-word;
 }
 
 .add-task + .task.active {
@@ -524,11 +525,14 @@ input {
   #open-menu {
     display: none;
   }
-  #editor .pannel--header,
-  #editor .todos,
-  .error {
+  #editor .pannel--header {
     padding-left: 32px;
     padding-right: 32px;
+  }
+  #editor .todos,
+  .error {
+    padding-left: 22px;
+    padding-right: 22px;
   }
 
   #editor h2 {
