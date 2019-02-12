@@ -30,6 +30,8 @@ Vue.component('task', {
     this.input = this.$el.querySelector('.task-input')
     this.label = this.$el.querySelector('.task-label')
 
+    this.label.style.width = this.input.offsetWidth + 'px'
+
     if (this.last) {
       document.getElementById('add-task').focus()
     } else if (this.autofocus) {

@@ -434,14 +434,12 @@ input {
 .task-label {
   background: #fff;
   flex: 1 0 auto;
-  left: 34px;
   line-height: 20px;
   min-height: 40px;
   opacity: 0;
   padding: 10px;
   pointer-events: none;
   position: absolute;
-  right: 10px;
   word-break: break-word;
 }
 
