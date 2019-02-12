@@ -79,15 +79,15 @@ h6 {
   margin-left: 4px;
 }
 .buttons {
-  display: flex;
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: repeat(3, 1fr);
   margin-bottom: 12px;
 }
 .buttons .button {
   box-sizing: border-box;
   display: block;
-  flex: 1 1 auto;
   text-align: center;
-  width: 33%;
 }
 
 input {
@@ -99,7 +99,7 @@ input {
 }
 
 .section + .section {
-  margin-top: 32px;
+  margin-top: 16px;
   border-top: 0.5px solid #444;
 }
 
@@ -117,7 +117,7 @@ input {
   text-transform: lowercase;
 }
 #menu .pannel--header {
-  padding: 16px 16px 32px;
+  padding: 16px 16px 48px;
   text-decoration: none;
   /* border-bottom: 0.5px solid #C7C7CC; */
 }
@@ -506,7 +506,7 @@ input {
     padding-bottom: 16px;
   }
   #jump {
-    margin-top: 16px;
+    margin-top: 34px;
   }
   #menu h1 {
     box-shadow: none;
