@@ -95,15 +95,23 @@
         }
       }
     </style>
+
+    <link rel="dns-prefetch" href="https://todayapp.eu.auth0.com/" />
+  </head>
+
+  <body class="loading">
     <link
       rel="stylesheet"
       type="text/css"
-      media="screen"
+      media="all"
       href="/static/css/app.css?v=2.2"
     />
-  </head>
-
-  <body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="(min-width: 1025px)"
+      href="/static/css/app-desktop.css?v=2.2"
+    />
     <div id="app" :class="{'show-menu': showMenu}" v-cloak>
       <div id="menu" class="pannel">
         <a href="/" class="pannel--header">
