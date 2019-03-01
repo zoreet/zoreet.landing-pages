@@ -53,11 +53,3 @@ input {
 #editor h2 {
   margin-top: 0;
 }
-
-.task-reorder {
-  display: block;
-  opacity: 0;
-}
-.task:hover .task-reorder {
-  opacity: 1;
-}

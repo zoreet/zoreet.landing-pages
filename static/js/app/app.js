@@ -6,6 +6,7 @@ Vue.component('task', {
   },
   template: `
   <div class="task" :class="{active: task.done}">
+    <div class="task-reorder"></div>
     <div class="task-checkbox" @click="toggleTask"></div>
     <textarea
     class="task-input"
@@ -23,7 +24,6 @@ Vue.component('task', {
     <div class="task-label">
     {{ task.title }}
     </div>
-    <div class="task-reorder"></div>
   </div>
   `,
   mounted() {

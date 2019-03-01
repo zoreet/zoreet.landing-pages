@@ -346,6 +346,9 @@ input {
   background-color: #fff;
   border-radius: 10px;
 }
+.add-task {
+  padding-left: 35px;
+}
 
 .task-checkbox {
   border-radius: 6px;
@@ -359,16 +362,17 @@ input {
   position: relative;
 }
 .task-reorder {
-  border-top: 2px solid #dedede;
-  border-bottom: 2px solid #dedede;
+  background-image: linear-gradient( 44deg, #aaa 25%, transparent 25%, transparent 100%), linear-gradient( 44deg, transparent 75%, #aaa 75%, #aaa 100%);
+  background-position: 3px 0, 0 3px;
+  background-size: 6px 6px;
   box-sizing: border-box;
-  display: block;
-  height: 8px;
-  width: 24px;
   cursor: pointer;
-  flex: 0 0 24px;
+  display: block;
+  flex: 0 0 15px;
+  height: 21px;
+  margin-right: 10px;
   position: relative;
-  display: none;
+  width: 15px;
 }
 
 .task.active,
