@@ -509,6 +509,10 @@ let app = new Vue({
           let code = error.response.status
           let message = error.response.data.error.message
 
+          if(message.indexOf('expired') >= 0) {
+            this.silentLogin();
+          }
+
           this.error = message
         })
     },
@@ -529,6 +533,10 @@ let app = new Vue({
         .catch(error => {
           let code = error.response.status
           let message = error.response.data.error.message
+
+          if(message.indexOf('expired') >= 0) {
+            this.silentLogin();
+          }
 
           this.error = message
         })
@@ -595,6 +603,7 @@ let app = new Vue({
     checkLogin() {
       let expiresAt = parseInt(localStorage.getItem('expires_at'))
       let now = new Date().getTime()
+      let expiresIn = expiresAt - now
       this.token = localStorage.getItem('access_token')
 
       if (this.token && expiresAt && now < expiresAt) {
@@ -602,8 +611,16 @@ let app = new Vue({
         this.getTasks()
         sessionStorage.setItem('activeSession', true)
 
-        let expiresIn = expiresAt - now
         this.scheduleRenewal(expiresIn)
+
+        let that = this;
+        window.onfocus = function () {
+          let now = new Date().getTime()
+          if(expiresAt < now) {
+            that.silentLogin();
+          }
+          
+        }
       } else {
         this.login()
       }
