@@ -419,6 +419,9 @@ input {
   outline: none;
   color: #0d0106;
 }
+.task-input::-webkit-input-placeholder { /* Webkit */
+  text-indent: -1px;
+}
 .task-checkbox.--add {
   border-color: transparent;
 }

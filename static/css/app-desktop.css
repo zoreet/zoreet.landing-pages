@@ -53,3 +53,7 @@ input {
 #editor h2 {
   margin-top: 0;
 }
+
+.task-input::-webkit-input-placeholder { /* Webkit */
+  text-indent: -4px;
+}
