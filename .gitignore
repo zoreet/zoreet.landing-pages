@@ -33,3 +33,6 @@ Thumbs.db
 !.gitignore
 !.htaccess
 !.editorconfig
+!.prettierrc
+!.csscomb.json
+!.vscode

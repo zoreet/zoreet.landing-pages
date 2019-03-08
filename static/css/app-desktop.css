@@ -54,6 +54,7 @@ input {
   margin-top: 0;
 }
 
-.task-input::-webkit-input-placeholder { /* Webkit */
+.todos:not(.in-the-past) .task-input::-webkit-input-placeholder {
+  /* Webkit */
   text-indent: -4px;
 }

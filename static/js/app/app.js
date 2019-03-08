@@ -115,7 +115,7 @@ Vue.component('newtask', {
   },
   template: `
   <div class="task add-task">
-    <div class="task-checkbox --add"></div>
+    <div class="task-checkbox task-checkbox--add"></div>
     <textarea
       class="task-input"
       type="text"
@@ -509,8 +509,8 @@ let app = new Vue({
           let code = error.response.status
           let message = error.response.data.error.message
 
-          if(message.indexOf('expired') >= 0) {
-            this.silentLogin();
+          if (message.indexOf('expired') >= 0) {
+            this.silentLogin()
           }
 
           this.error = message
@@ -534,8 +534,8 @@ let app = new Vue({
           let code = error.response.status
           let message = error.response.data.error.message
 
-          if(message.indexOf('expired') >= 0) {
-            this.silentLogin();
+          if (message.indexOf('expired') >= 0) {
+            this.silentLogin()
           }
 
           this.error = message
@@ -613,13 +613,12 @@ let app = new Vue({
 
         this.scheduleRenewal(expiresIn)
 
-        let that = this;
-        window.onfocus = function () {
+        let that = this
+        window.onfocus = function() {
           let now = new Date().getTime()
-          if(expiresAt < now) {
-            that.silentLogin();
+          if (expiresAt < now) {
+            that.silentLogin()
           }
-          
         }
       } else {
         this.login()
