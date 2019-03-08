@@ -8,6 +8,7 @@
   "eof-newline": true,
   "leading-zero": true,
   "quotes": "single",
+  "sort-order": [],
   "sort-order-fallback": "abc",
   "space-before-colon": "",
   "space-after-colon": " ",
