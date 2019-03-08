@@ -7,17 +7,17 @@ body {
   overflow: hidden;
 }
 * {
-  -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  -webkit-font-smoothing: antialiased;
   /* background: #EAEAEA; */
   color: #0d0106;
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
   Arial, sans-serif;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
 }
@@ -49,26 +49,24 @@ h6 {
   flex: 0 0 auto;
   /* Fallback */
   padding: 0 10px;
-
   /* iOS 11 */
   padding-left: constant(safe-area-inset-left);
-  padding-right: constant(safe-area-inset-right);
-
   /* iOS 11.2+ */
   padding-left: env(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
   padding-right: env(safe-area-inset-right);
 }
 .pannel--content {
   display: flex;
-  flex-direction: column;
   flex: 1 1 auto;
+  flex-direction: column;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
 .button {
+  background-color: #fff;
   border-radius: 6px;
-  border: 1px solid;
   color: inherit;
   display: inline-block;
   font-size: 14px;
@@ -91,24 +89,24 @@ h6 {
 }
 
 input {
-  border-radius: 6px;
   border: 1px solid #0d0106;
+  border-radius: 6px;
   box-sizing: border-box;
   padding: 8px 12px;
   width: 100%;
 }
 
 .section + .section {
+  border-top: 0.5px solid #ccc;
   margin-top: 16px;
-  border-top: 0.5px solid #444;
 }
 
 #menu {
-  width: calc(100% - 40px);
+  background-color: #f2f2f2;
+  color: #0d0106;
   transform: translateX(-40px);
   transition: transform 0.3s;
-  background-color: #0d0106;
-  color: #fff;
+  width: calc(100% - 40px);
 }
 .show-menu #menu {
   transform: translateX(0px);
@@ -117,20 +115,22 @@ input {
   text-transform: lowercase;
 }
 #menu .pannel--header {
-  padding: 16px 16px 48px;
+  background: hsla(158, 77%, 49%, 1);
+  color: inherit;
+  margin-bottom: 0;
+  padding: 12px 16px 20px;
   text-decoration: none;
 }
-#menu .pannel--header {
-  color: inherit;
-}
 #menu h1 {
-  box-shadow: 0 -4px 0 0 #2be4a4 inset;
   display: inline-block;
   font-size: 34px;
   font-weight: 300;
-  margin-bottom: 4px;
+  height: 40px;
   text-indent: -1px;
   width: 167px;
+}
+#menu .subtitle {
+  height: 20px;
 }
 #menu .section {
   padding-left: 16px;
@@ -143,17 +143,18 @@ input {
 
 #jump {
   flex: 1 0 auto;
+  margin-top: 34px;
 }
 .month {
   background: #fff;
   border-radius: 10px;
-  padding: 8px 0;
   color: #0d0106;
+  padding: 8px 0;
 }
 .month--header {
   display: grid;
-  padding: 14px 0 20px;
   grid-template-columns: 1fr 5fr 1fr;
+  padding: 14px 0 20px;
   text-align: center;
 }
 .month--title {
@@ -170,16 +171,16 @@ input {
   width: 24px;
 }
 .month--pagination:before {
-  content: '';
-  border-width: 0 0 2px 2px;
   border-style: solid;
-  width: 10px;
-  height: 10px;
+  border-width: 0 0 2px 2px;
+  content: '';
   display: block;
+  height: 10px;
   left: calc(50% - 4px);
-  top: calc(50% - 6px);
   position: absolute;
+  top: calc(50% - 6px);
   transform: rotate(45deg);
+  width: 10px;
 }
 .month--pagination:last-of-type:before {
   transform: rotate(225deg) translateX(4px) translateY(-4px);
@@ -198,15 +199,15 @@ input {
   text-transform: capitalize !important;
 }
 .month--day {
-  height: 38px;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  display: flex;
   font-size: 14px;
+  height: 38px;
+  justify-content: center;
 }
 .month--day--label {
-  cursor: pointer;
   border-radius: 50%;
+  cursor: pointer;
   display: block;
   height: 28px;
   line-height: 28px;
@@ -232,33 +233,33 @@ input {
   padding-top: 16px;
 }
 #back {
+  flex: 1 0 auto;
   padding-bottom: 16px;
   padding-top: 16px;
-  flex: 1 0 auto;
 }
 #user {
   align-items: center;
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-between;
   padding-bottom: 16px;
   padding-top: 16px;
-  flex: 0 0 auto;
 }
 
 #editor {
   background-color: #fff;
-  z-index: 100;
   transition: left 0.3s;
+  z-index: 100;
   /* display: none; */
 }
 .show-menu #editor {
+  box-shadow: -5px 0 12px rgba(0, 0, 0, 0.2);
   left: calc(100% - 40px);
-  box-shadow: -10px 0 12px rgba(0, 0, 0, 0.1);
 }
 
 #editor .pannel--header {
-  padding: 16px 16px 16px 40px;
   background-color: #2be4a4;
+  padding: 12px 16px 20px 40px;
   position: relative;
   text-transform: lowercase;
 }
@@ -266,27 +267,25 @@ input {
   position: relative;
 }
 .day-header {
-  position: relative;
   background-color: #2be4a4;
+  position: relative;
 }
 #editor h2 {
   display: block;
   font-size: 34px;
   font-weight: 700;
   height: 40px;
-  margin-bottom: 4px;
-  margin-top: -2px;
 }
 #editor h3 {
-  font-size: 22px;
-  padding: 12px 0 8px;
   border-top: 0.5px solid #c7c7cc;
+  font-size: 22px;
   margin-top: 12px;
+  padding: 12px 0 8px;
 }
 #editor h4 {
   font-size: 1em;
   font-weight: inherit;
-  height: 18px;
+  height: 20px;
 }
 
 #open-menu {
@@ -300,16 +299,16 @@ input {
   position: absolute;
   text-align: center;
   text-decoration: none;
-  top: 19px;
+  top: 17px;
   width: 40px;
 }
 #close-menu {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  top: 0;
+  background-color: rgba(0, 0, 0, 0.15);
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
   z-index: 100;
 }
 
@@ -317,9 +316,9 @@ input {
   flex: 1 0 auto;
   height: 100%;
   min-height: 20px;
-  padding: 16px 0 0;
   outline: 0 none;
   overflow: scroll;
+  padding: 16px 0 0;
   width: 100%;
 }
 .task {
@@ -350,27 +349,27 @@ input {
 }
 
 .task-checkbox {
-  border-radius: 6px;
   border: 1px solid #dedede;
+  border-radius: 6px;
   box-sizing: border-box;
-  display: block;
-  height: 24px;
-  width: 24px;
   cursor: pointer;
+  display: block;
   flex: 0 0 24px;
+  height: 24px;
   position: relative;
+  width: 24px;
 }
 .task-reorder {
   background-image: linear-gradient(44deg, #aaa 25%, transparent 25%),
   linear-gradient(44deg, transparent 75%, #aaa 75%);
   background-position: 3px 0, 0 3px;
   background-size: 6px 6px;
+  border-left: 10px solid #fff;
+  border-right: 10px solid #fff;
   cursor: pointer;
   display: block;
   flex: 0 0 35px;
   height: 21px;
-  border-left: 10px solid #fff;
-  border-right: 10px solid #fff;
   position: relative;
   width: 35px;
 }
@@ -388,9 +387,9 @@ input {
   border-color: #2be4a4;
 }
 .task.active .task-checkbox:after {
+  border-bottom: 2px solid #fff;
   /* tick */
   border-left: 2px solid #fff;
-  border-bottom: 2px solid #fff;
   content: '';
   display: block;
   height: 5px;
@@ -402,8 +401,8 @@ input {
 }
 .task-input {
   background-color: transparent;
-  border-radius: 0;
   border: 0 none;
+  border-radius: 0;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
@@ -416,8 +415,8 @@ input {
   width: 100%;
 }
 .task-input:focus {
-  outline: none;
   color: #0d0106;
+  outline: none;
 }
 .todos:not(.in-the-past) .task-input::-webkit-input-placeholder {
   /* Webkit */
@@ -449,18 +448,18 @@ input {
 }
 
 .add-task + .task.active {
-  margin-top: 20px;
   border-top: 1px solid #dedede;
+  margin-top: 20px;
   padding-top: 20px;
 }
 
 #saveImportedData {
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
   position: absolute;
   right: 10px;
   top: 10px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #fff;
 }
 
 .flip-list-move {
@@ -475,10 +474,10 @@ input {
 }
 
 .error {
-  font-size: 14px;
-  padding: 16px 46px;
   background-color: #f8d7da;
   color: #721c24;
+  font-size: 14px;
+  padding: 16px 46px;
 }
 .error--offline {
   background-color: #fff3cd;
@@ -489,18 +488,18 @@ input {
   display: none;
 }
 #editor .isLoading:after {
+  animation: rotate 0.8s infinite linear;
+  border: 8px solid;
   border-radius: 50%;
+  border-right-color: transparent;
   content: '';
   display: block;
+  height: 28px;
   left: 50%;
   margin: -14px 0 0 -14px;
   position: absolute;
   top: 50%;
   width: 28px;
-  animation: rotate 0.8s infinite linear;
-  border: 8px solid;
-  border-right-color: transparent;
-  height: 28px;
 }
 
 @keyframes rotate {
