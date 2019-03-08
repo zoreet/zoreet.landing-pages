@@ -41,8 +41,7 @@ input {
   display: none;
 }
 #editor .pannel--header {
-  padding-left: 91px;
-  padding-right: 32px;
+  padding-left: 33px;
 }
 #editor .todos,
 .error {
