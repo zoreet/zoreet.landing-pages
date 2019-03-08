@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>zoreet - guilt-free to-do app</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
 
     <!-- favicon stuff -->
     <link
@@ -164,8 +167,10 @@
             @click.prevent="toggleMenu"
             >☰</a
           >
-          <h2 id="day-title" v-html="dateTitle"></h2>
-          <h4 id="date">{{ dateSubtitle }}</h4>
+          <div>
+            <h2 id="day-title" v-html="dateTitle"></h2>
+            <h4 id="date">{{ dateSubtitle }}</h4>
+          </div>
         </div>
         <div class="pannel--content">
           <div class="errors">

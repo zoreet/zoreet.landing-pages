@@ -259,7 +259,8 @@ input {
 
 #editor .pannel--header {
   background-color: #2be4a4;
-  padding: 12px 16px 20px 40px;
+  display: flex;
+  padding: 12px 16px 20px 0;
   position: relative;
   text-transform: lowercase;
 }
@@ -292,14 +293,12 @@ input {
   background: none;
   border: 0 none;
   color: inherit;
-  display: inline-block;
+  display: block;
   font-size: 24px;
-  left: 2px;
   padding: 0;
-  position: absolute;
   text-align: center;
   text-decoration: none;
-  top: 17px;
+  transform: translateY(4px);
   width: 40px;
 }
 #close-menu {
@@ -508,5 +507,17 @@ input {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+
+/* notch fixes for iPhone */
+@media (orientation: landscape) {
+  #menu .pannel--header,
+  #menu .section,
+  #editor .pannel--header,
+  #editor .pannel--content {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-left);
   }
 }

@@ -4,7 +4,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>zoreet - guilt-free to-do app</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
 
     <!-- favicon stuff -->
     <link
@@ -105,6 +108,12 @@
     <link
       rel="stylesheet"
       type="text/css"
+      media="(min-width: 1025px)"
+      href="/static/css/app-desktop.css?v=2.2"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
       media="screen"
       href="/static/css/report.css?v=2.2"
     />
@@ -140,18 +149,20 @@
             @click.prevent="toggleMenu"
             >☰</a
           >
-          <h2 id="day-title">This Quarter's Report</h2>
           <div>
-            <strong>Show: </strong>
-            <a
-              href="#"
-              v-if="showUnfinishedTasks"
-              @click.prevent="showUnfinishedTasks=false"
-              >Done Only</a
-            >
-            <a href="#" v-else @click.prevent="showUnfinishedTasks=true"
-              >All tasks</a
-            >
+            <h2 id="day-title">This Quarter's Report</h2>
+            <h4>
+              <strong>Show: </strong>
+              <a
+                href="#"
+                v-if="showUnfinishedTasks"
+                @click.prevent="showUnfinishedTasks=false"
+                >Done Only</a
+              >
+              <a href="#" v-else @click.prevent="showUnfinishedTasks=true"
+                >All tasks</a
+              >
+            </h4>
           </div>
         </div>
         <div class="pannel--content">
