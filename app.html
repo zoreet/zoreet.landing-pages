@@ -70,18 +70,18 @@
       }
 
       body.loading:after {
+        animation: rotate 0.8s infinite linear;
+        border: 8px solid;
         border-radius: 50%;
+        border-right-color: transparent;
         content: '';
         display: block;
+        height: 28px;
         left: 50%;
         margin: -14px 0 0 -14px;
         position: absolute;
         top: 50%;
         width: 28px;
-        animation: rotate 0.8s infinite linear;
-        border: 8px solid;
-        border-right-color: transparent;
-        height: 28px;
         z-index: 999;
       }
 
@@ -94,6 +94,7 @@
           transform: rotate(360deg);
         }
       }
+
     </style>
 
     <link rel="dns-prefetch" href="https://todayapp.eu.auth0.com/" />
