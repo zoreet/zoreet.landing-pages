@@ -334,14 +334,12 @@ input {
 }
 .task.sortable-ghost {
   background-color: #f2f2f2;
-  border-radius: 10px;
 }
 .task.sortable-ghost * {
   opacity: 0 !important;
 }
 .task.sortable-drag {
   background-color: #fff;
-  border-radius: 10px;
 }
 .add-task {
   padding-left: 35px;
