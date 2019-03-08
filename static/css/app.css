@@ -421,10 +421,7 @@ input {
 }
 .todos:not(.in-the-past) .task-input::-webkit-input-placeholder {
   /* Webkit */
-  text-indent: -1px;
-}
-.task-checkbox--add {
-  border-color: transparent;
+  text-indent: -2px;
 }
 .task-checkbox--add:after {
   color: #666;
