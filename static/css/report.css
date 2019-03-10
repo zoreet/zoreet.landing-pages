@@ -1,6 +1,6 @@
 .todos {
-  overflow: initial !important;
-  padding: 0 10px;
+  padding-bottom: 32px;
+  padding-top: 32px;
 }
 .task {
   align-items: flex-start;
@@ -19,11 +19,12 @@
           user-select: none; /* Likely future */
 }
 .task-label {
-  flex: 1 0 100% !important;
+  flex: 1 0 auto;
   opacity: 1 !important;
   padding-top: 0;
   pointer-events: all;
   position: static !important;
+  width: calc(100% - 46px);
 }
 .task.active {
   color: inherit !important;
@@ -31,8 +32,4 @@
 
 .task-checkbox {
   cursor: initial;
-}
-
-#open-menu {
-  width: 44px;
 }

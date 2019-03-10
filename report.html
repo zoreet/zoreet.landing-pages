@@ -142,28 +142,20 @@
       <div id="editor" class="pannel">
         <div id="close-menu" v-if="showMenu" @click.prevent="toggleMenu"></div>
         <div class="pannel--header">
-          <a
-            id="open-menu"
-            class="button"
-            href="#menu"
-            @click.prevent="toggleMenu"
-            >☰</a
-          >
-          <div>
-            <h2 id="day-title">This Quarter's Report</h2>
-            <h4>
-              <strong>Show: </strong>
-              <a
-                href="#"
-                v-if="showUnfinishedTasks"
-                @click.prevent="showUnfinishedTasks=false"
-                >Done Only</a
-              >
-              <a href="#" v-else @click.prevent="showUnfinishedTasks=true"
-                >All tasks</a
-              >
-            </h4>
-          </div>
+          <a id="open-menu" href="#menu" @click.prevent="toggleMenu"></a>
+          <h2 id="day-title">This Quarter's Report</h2>
+          <h4>
+            <strong>Show: </strong>
+            <a
+              href="#"
+              v-if="showUnfinishedTasks"
+              @click.prevent="showUnfinishedTasks=false"
+              >Done Only</a
+            >
+            <a href="#" v-else @click.prevent="showUnfinishedTasks=true"
+              >All tasks</a
+            >
+          </h4>
         </div>
         <div class="pannel--content">
           <div class="errors">

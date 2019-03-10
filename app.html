@@ -116,6 +116,13 @@
       media="(min-width: 1025px)"
       href="/static/css/app-desktop.css?v=2.2"
     />
+    <img
+      id="screenshot"
+      src="/static/img/Mobile%20-%20App%20-%20Light.png"
+      width="375"
+      height="821"
+      style="position: fixed;z-index: 999;top: -44px; opacity: 0.2;filter: invert(1); pointer-events: none; display: none"
+    />
     <div id="app" :class="{'show-menu': showMenu}" v-cloak>
       <div id="menu" class="pannel">
         <a href="/" class="pannel--header">
@@ -160,19 +167,11 @@
       <div id="editor" class="pannel">
         <div id="close-menu" v-if="showMenu" @click.prevent="toggleMenu"></div>
         <div class="pannel--header">
-          <a
-            id="open-menu"
-            class="button"
-            href="#menu"
-            @click.prevent="toggleMenu"
-            >☰</a
-          >
-          <div>
-            <h2 id="day-title" v-html="dateTitle"></h2>
-            <h4 id="date">{{ dateSubtitle }}</h4>
-          </div>
+          <a id="open-menu" href="#menu" @click.prevent="toggleMenu"></a>
+          <div class="date-subtitle">{{ dateSubtitle }}</div>
+          <h3 class="date-title">{{ dateTitle }}</h3>
         </div>
-        <div class="pannel--content">
+        <div class="pannel--content" :class="{'in-the-past': inThePast}">
           <div class="errors">
             <div class="error error--offline" v-if="!online">
               <strong>damn! you're offline.</strong> zoreet requires an internet
@@ -182,17 +181,21 @@
               <strong>error: </strong> {{ error }}
             </div>
           </div>
-          <div
-            class="todos"
-            :class="{isLoading: isLoading, 'in-the-past': (fromtoday < 0)}"
-          >
+
+          <!-- If in the past show done tasks first -->
+          <h4
+            class="tasks-title"
+            v-if="doneTasks.length && inThePast"
+            v-html="doneTasksTitle"
+          ></h4>
+          <div class="todos" v-if="inThePast">
             <draggable
               v-model="tasks"
               @end="saveTasks"
-              :options="{handle: '.task-reorder'}"
+              :options="{handle: '.task'}"
             >
               <task
-                v-for="(task, index) in tasks"
+                v-for="(task, index) in doneTasks"
                 :key="task.id"
                 :task="task"
                 :last="index == (tasks.length - 1)"
@@ -203,12 +206,69 @@
                 :autofocus="index == focusedIndex"
               ></task>
             </draggable>
-            <newtask @add-task="addTask" :fromtoday="fromtoday"></newtask>
+            <newtask @add-done-task="addDoneTask" :done="inThePast"></newtask>
+          </div>
+
+          <!-- Unfinished tasks -->
+          <h4
+            class="tasks-title"
+            v-html="unfinishedTasksTitle"
+            v-if="unfinishedTasks.length || !inThePast"
+          ></h4>
+          <div class="todos">
+            <draggable
+              v-model="tasks"
+              @end="saveTasks"
+              :options="{handle: '.task'}"
+            >
+              <task
+                v-for="(task, index) in unfinishedTasks"
+                :key="task.id"
+                :task="task"
+                :last="index == (tasks.length - 1)"
+                @toggle-task="sortTasks"
+                @done-edit="saveTasks"
+                @done-edit-with-enter="addTaskAtIndex(index)"
+                @remove-task="removeTask(index)"
+                :autofocus="index == focusedIndex"
+              ></task>
+            </draggable>
+            <newtask
+              @add-task="addTask"
+              @add-done-task="addDoneTask"
+              v-if="!inThePast "
+            ></newtask>
+          </div>
+
+          <!-- If today/future show done tasks last -->
+          <h4
+            class="tasks-title"
+            v-if="doneTasks.length && !inThePast"
+            v-html="doneTasksTitle"
+          ></h4>
+          <div class="todos" v-if="!inThePast">
+            <draggable
+              v-model="tasks"
+              @end="saveTasks"
+              :options="{handle: '.task'}"
+            >
+              <task
+                v-for="(task, index) in doneTasks"
+                :key="task.id"
+                :task="task"
+                :last="index == (tasks.length - 1)"
+                @toggle-task="sortTasks"
+                @done-edit="saveTasks"
+                @done-edit-with-enter="addTaskAtIndex(index)"
+                @remove-task="removeTask(index)"
+                :autofocus="index == focusedIndex"
+              ></task>
+            </draggable>
           </div>
         </div>
       </div>
     </div>
-    <script src="/static/js/app/vue.min.js"></script>
+    <script src="/static/js/app/vue.js"></script>
     <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="static/js/app/moment.min.js"></script>

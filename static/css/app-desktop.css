@@ -1,4 +1,14 @@
+.pannel--header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 #menu {
+  border-radius: 0;
+  margin: 0;
+  opacity: 1;
+  pointer-events: initial;
+  top: 0;
   transform: translateX(0);
   width: 375px;
 }
@@ -8,6 +18,8 @@
   padding-right: 16px;
 }
 #menu .pannel--header {
+  padding-bottom: 0;
+  padding-top: 0;
   text-decoration: none;
 }
 
@@ -16,19 +28,30 @@ input {
 }
 
 #editor {
+  border-radius: 0;
+  height: 100vh;
   left: 375px;
+  top: 0;
   width: calc(100vw - 375px);
 }
 #open-menu {
   display: none;
 }
-#editor .pannel--header {
-  padding-left: 33px;
+#editor .pannel--header,
+#editor .pannel--content {
+  padding-left: 128px;
+  padding-right: 128px;
 }
-#editor .todos,
 .error {
   padding-left: 22px;
   padding-right: 22px;
+}
+
+.date-title {
+  margin-top: 0;
+}
+.date-subtitle {
+  order: 1;
 }
 
 .todos:not(.in-the-past) .task-input::-webkit-input-placeholder {

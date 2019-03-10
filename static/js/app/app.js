@@ -6,7 +6,6 @@ Vue.component('task', {
   },
   template: `
   <div class="task" :class="{active: task.done}">
-    <div class="task-reorder"></div>
     <div class="task-checkbox" @click="toggleTask"></div>
     <textarea
     class="task-input"
@@ -111,7 +110,7 @@ Vue.component('task', {
 
 Vue.component('newtask', {
   props: {
-    fromtoday: Number
+    done: Boolean
   },
   template: `
   <div class="task add-task">
@@ -120,7 +119,7 @@ Vue.component('newtask', {
       class="task-input"
       type="text"
       id="add-task"
-      :placeholder="addTaskPlaceholder"
+      placeholder=""
       v-model="newTaskTitle"
       @change="updateHeight"
       @keydown="updateHeight"
@@ -134,18 +133,6 @@ Vue.component('newtask', {
     </div>
   </div>
   `,
-  computed: {
-    addTaskPlaceholder() {
-      if (this.fromtoday < 0) {
-        return 'Stuff I did'
-      }
-      if (this.fromtoday <= 1) {
-        return ' I will...'
-      }
-
-      return 'On this day I will...'
-    }
-  },
   data() {
     return {
       newTaskTitle: ''
@@ -169,7 +156,11 @@ Vue.component('newtask', {
       this.newTaskTitle = this.newTaskTitle.trim()
 
       if (this.newTaskTitle.length) {
-        this.$emit('add-task', this.newTaskTitle)
+        if (this.done) {
+          this.$emit('add-done-task', this.newTaskTitle)
+        } else {
+          this.$emit('add-task', this.newTaskTitle)
+        }
         this.newTaskTitle = ''
       }
     },
@@ -373,42 +364,29 @@ let app = new Vue({
   },
   computed: {
     dateTitle() {
-      if (this.date === this.today) {
-        return 'Today'
-      } else if (this.date === this.tomorrow) {
-        return 'Tomorrow'
-      } else if (this.date === this.yesterday) {
-        return 'Yesterday'
-      } else if (moment(this.date).isoWeek() == moment(this.today).isoWeek()) {
-        return moment(this.date).format('dddd')
-      } else if (
-        moment(this.date).isoWeek() ==
-        moment(this.today).isoWeek() + 1
-      ) {
-        return 'next ' + moment(this.date).format('dddd')
-      } else {
-        return moment(this.date).format('DD MMM Y')
-      }
+      return moment(this.date).format('DD MMM Y')
     },
     dateSubtitle() {
-      currentDate = moment(this.date)
+      return moment(this.date).format('dddd')
+    },
+    unfinishedTasksTitle() {
       if (this.date === this.today) {
-        return currentDate.format('dddd, DD MMM Y')
+        return 'Today I will...'
       } else if (this.date === this.tomorrow) {
-        return currentDate.format('dddd, DD MMM Y')
-      } else if (this.date === this.yesterday) {
-        return currentDate.format('dddd, DD MMM Y')
-      } else if (
-        moment(this.date).isoWeek() == moment(this.today).get('week')
-      ) {
-        return moment(this.date).format('DD MMM Y')
-      } else if (
-        moment(this.date).isoWeek() ==
-        moment(this.today).isoWeek() + 1
-      ) {
-        return moment(this.date).format('DD MMM Y')
+        return 'Tomorrow I will...'
+      } else if (this.inThePast) {
+        return 'The rest'
       } else {
-        return currentDate.format('dddd')
+        return 'I will...'
+      }
+    },
+    doneTasksTitle() {
+      if (this.date === this.yesterday) {
+        return 'Yesterday I did'
+      } else if (this.inThePast) {
+        return 'I did'
+      } else {
+        return 'Completed'
       }
     },
     fromtoday() {
@@ -416,6 +394,9 @@ let app = new Vue({
       let now = moment(this.today)
 
       return date.diff(now, 'days')
+    },
+    inThePast() {
+      return this.fromtoday < 0
     },
     doneTasks() {
       return this.tasks.filter(task => {
@@ -547,19 +528,25 @@ let app = new Vue({
     // TASKS
     //
     // ////////////////////////////////////////////////////////////
-    addTask(title) {
+    addTask(title, done) {
       if (title.trim() == '') {
         return
+      }
+      if (!done) {
+        done == false
       }
       let id = new Date().getTime()
       this.tasks.push({
         id: id,
         title: title,
-        done: false
+        done: done
       })
 
       document.getElementById('add-task').focus()
       this.saveTasks()
+    },
+    addDoneTask(title) {
+      this.addTask(title, true)
     },
     addTaskAtIndex(index) {
       if (index < this.tasks.length - 1) {
