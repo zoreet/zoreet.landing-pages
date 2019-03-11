@@ -192,7 +192,7 @@
             <draggable
               v-model="tasks"
               @end="saveTasks"
-              :options="{handle: '.task'}"
+              :options="{handle: '.task', delay: 200}"
             >
               <task
                 v-for="(task, index) in doneTasks"
