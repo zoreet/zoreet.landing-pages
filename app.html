@@ -192,12 +192,11 @@
                   v-for="(task, index) in doneTasks"
                   :key="task.id"
                   :task="task"
-                  :last="index == (tasks.length - 1)"
                   @toggle-task="sortTasks"
                   @done-edit="saveTasks"
                   @done-edit-with-enter="addTaskAtIndex(index)"
-                  @remove-task="removeTask(index)"
-                  :autofocus="index == focusedIndex"
+                  @remove-task="removeTask(task.id)"
+                  :autofocus="task.id == focusedTask"
                 ></task>
               </draggable>
               <newtask @add-done-task="addDoneTask" :done="inThePast"></newtask>
@@ -219,12 +218,11 @@
                   v-for="(task, index) in unfinishedTasks"
                   :key="task.id"
                   :task="task"
-                  :last="index == (tasks.length - 1)"
                   @toggle-task="sortTasks"
                   @done-edit="saveTasks"
                   @done-edit-with-enter="addTaskAtIndex(index)"
-                  @remove-task="removeTask(index)"
-                  :autofocus="index == focusedIndex"
+                  @remove-task="removeTask(task.id)"
+                  :autofocus="task.id == focusedTask"
                 ></task>
               </draggable>
               <newtask
@@ -250,12 +248,11 @@
                   v-for="(task, index) in doneTasks"
                   :key="task.id"
                   :task="task"
-                  :last="index == (tasks.length - 1)"
                   @toggle-task="sortTasks"
                   @done-edit="saveTasks"
                   @done-edit-with-enter="addTaskAtIndex(index)"
-                  @remove-task="removeTask(index)"
-                  :autofocus="index == focusedIndex"
+                  @remove-task="removeTask(task.id)"
+                  :autofocus="task.id == focusedTask"
                 ></task>
               </draggable>
             </div>

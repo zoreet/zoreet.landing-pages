@@ -1,7 +1,6 @@
 Vue.component('task', {
   props: {
     task: Object,
-    last: Boolean,
     autofocus: Boolean
   },
   template: `
@@ -59,11 +58,15 @@ Vue.component('task', {
       this.task.title = this.beforeEditCache
       this.input.blur()
     },
-    removeTask() {
+    removeTask(e) {
       if (this.task.title.length == 0) {
-        this.$emit('remove-task')
+        e.preventDefault()
+        // preventDefault alone didn't work on iOS safari
+        // this does :)
+        setTimeout(() => {
+          this.$emit('remove-task')
+        }, 10)
       }
-      // this.updateHeight()
     },
     toggleTask() {
       this.task.done = !this.task.done
@@ -87,6 +90,10 @@ Vue.component('task', {
   watch: {
     autofocus() {
       this.input.focus()
+      this.input.setSelectionRange(
+        this.input.value.length,
+        this.input.value.length
+      )
     }
   }
 })
@@ -318,7 +325,7 @@ let app = new Vue({
     token: '',
     isLoading: false,
     showMenu: false,
-    focusedIndex: null,
+    focusedTask: null,
     activeTab: '',
     date:
       localStorage.getItem('current-date') ||
@@ -595,12 +602,21 @@ let app = new Vue({
         document.getElementById('add-task').focus()
       }
     },
-    removeTask(index) {
+    findTaskById(id) {
+      for (var i = 0; i < this.tasks.length; i++) {
+        if (this.tasks[i].id === id) {
+          return i
+        }
+      }
+    },
+    removeTask(id) {
+      let index = this.findTaskById(id)
       this.tasks.splice(index, 1)
       this.saveTasks()
       if (index) {
-        this.focusedIndex = index - 1
+        this.focusedTask = this.tasks[index - 1].id
       } else if (this.tasks.length == 0) {
+        this.focusedTask = null
         document.getElementById('add-task').focus()
       }
     },
