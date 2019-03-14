@@ -31,6 +31,14 @@ Vue.component('task', {
     this.label.style.width = this.input.offsetWidth + 'px'
 
     this.updateHeight()
+
+    if (this.autofocus) {
+      this.input.focus()
+      this.input.setSelectionRange(
+        this.input.value.length,
+        this.input.value.length
+      )
+    }
   },
   data() {
     return {
@@ -94,104 +102,6 @@ Vue.component('task', {
         this.input.value.length,
         this.input.value.length
       )
-    }
-  }
-})
-
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------- */
-
-Vue.component('newtask', {
-  props: {
-    done: Boolean
-  },
-  template: `
-  <div class="task add-task">
-    <div class="add-task-icon">
-      <svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g id="edit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g id="icon" transform="translate(0.000000, -1.000000)" fill="#000000" fill-rule="nonzero">
-                <path d="M28,11.0710678 L28,11 C28,8.23857625 25.7614237,6 23,6 L22.1421356,6 L23.1405224,5.0016132 C26.0965773,5.06954968 28.524332,7.27539597 28.9378512,10.1332166 L28,11.0710678 Z" id="Path"></path>
-                <path d="M5.74379366,14 L10.0295079,17 L32.3718968,17 C33.4764663,17 34.3718968,16.1045695 34.3718968,15 L34.3718968,13 C34.3718968,11.8954305 33.4764663,11 32.3718968,11 L10.0295079,11 L5.74379366,14 Z M32.3718968,10 C34.0287511,10 35.3718968,11.3431458 35.3718968,13 L35.3718968,15 C35.3718968,16.6568542 34.0287511,18 32.3718968,18 L9.71428571,18 L4,14 L9.71428571,10 L32.3718968,10 Z" id="Rectangle-Copy-3" transform="translate(19.685948, 14.000000) rotate(-45.000000) translate(-19.685948, -14.000000) "></path>
-                <path d="M28,18.1421356 L29,17.1421356 L29,28 C29,31.3137085 26.3137085,34 23,34 L6,34 C2.6862915,34 0,31.3137085 0,28 L0,11 C0,7.6862915 2.6862915,5 6,5 L16.0710678,5 L15.0710678,6 L6,6 C3.23857625,6 1,8.23857625 1,11 L1,28 C1,30.7614237 3.23857625,33 6,33 L23,33 C25.7614237,33 28,30.7614237 28,28 L28,18.1421356 Z" id="Path"></path>
-            </g>
-        </g>
-    </svg>
-    </div>
-    <textarea
-      class="task-input"
-      type="text"
-      id="add-task"
-      placeholder=""
-      v-model="newTaskTitle"
-      @change="updateHeight"
-      @keydown="updateHeight"
-      @keydown.enter.prevent="doneEdit"
-      @keyup.escape="cancelEdit"
-      @paste="paste"
-      v-focus.lazy="true"
-    ></textarea>
-    <div class="task-label">
-      {{ newTaskTitle }}
-    </div>
-  </div>
-  `,
-  data() {
-    return {
-      newTaskTitle: ''
-    }
-  },
-  mounted() {
-    this.input = this.$el.querySelector('.task-input')
-    this.label = this.$el.querySelector('.task-label')
-
-    this.updateHeight()
-  },
-  directives: {
-    focus: {
-      inserted: function(el) {
-        el.focus()
-      }
-    }
-  },
-  methods: {
-    doneEdit() {
-      this.newTaskTitle = this.newTaskTitle.trim()
-
-      if (this.newTaskTitle.length) {
-        if (this.done) {
-          this.$emit('add-done-task', this.newTaskTitle)
-        } else {
-          this.$emit('add-task', this.newTaskTitle)
-        }
-        this.newTaskTitle = ''
-      }
-    },
-    cancelEdit() {
-      this.newTaskTitle = ''
-      this.input.blur()
-    },
-    updateHeight() {
-      this.$nextTick(() => {
-        // this get's fired too soon, but having it prevents some flickering
-        setTimeout(() => {
-          // it's stupid, I know, but this is the only way I could get the textarea and div in sync
-          this.input.style.height = this.label.offsetHeight + 'px'
-        }, 10)
-      })
-    },
-    paste() {
-      setTimeout(() => {
-        this.updateHeight()
-      }, 50)
     }
   }
 })
@@ -518,6 +428,10 @@ let app = new Vue({
             tasks = JSON.parse(rawTasks)
             this.tasks = tasks
             this.sortTasks()
+
+            if (this.tasks.length == 0) {
+              this.addEmptyTask()
+            }
           } catch (e) {
             this.tasks = rawTasks
               .replace(/<br>/g, '')
@@ -595,24 +509,34 @@ let app = new Vue({
         done: done
       })
 
-      document.getElementById('add-task').focus()
       this.saveTasks()
     },
-    addDoneTask(title) {
-      this.addTask(title, true)
+    addEmptyTask() {
+      let newId = new Date().getTime()
+      this.tasks.push({
+        id: newId,
+        title: '',
+        done: this.inThePast
+      })
+      this.focusedTask = newId
     },
-    addTaskAtIndex(index) {
-      if (index < this.tasks.length - 1) {
-        let id = new Date().getTime()
-        this.tasks.splice(index + 1, 0, {
-          id: new Date().getTime(),
-          title: '',
-          done: false
-        })
-        this.saveTasks()
-      } else {
-        document.getElementById('add-task').focus()
-      }
+    addTaskAfterID(id) {
+      // i first save the existing tasks
+      this.saveTasks()
+
+      // and then I add the new one
+      // so I don't end up with an empty task if the user doesn't input anything
+      let index = this.findTaskById(id)
+      let newId = new Date().getTime()
+
+      this.tasks.splice(index + 1, 0, {
+        id: newId,
+        title: '',
+        done: this.tasks[index].done
+      })
+      this.$nextTick(function() {
+        this.focusedTask = newId
+      })
     },
     findTaskById(id) {
       for (var i = 0; i < this.tasks.length; i++) {
@@ -627,9 +551,10 @@ let app = new Vue({
       this.saveTasks()
       if (index) {
         this.focusedTask = this.tasks[index - 1].id
-      } else if (this.tasks.length == 0) {
-        this.focusedTask = null
-        document.getElementById('add-task').focus()
+      }
+
+      if (this.tasks.length == 0) {
+        this.addEmptyTask()
       }
     },
     sortTasks() {

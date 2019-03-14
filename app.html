@@ -194,12 +194,11 @@
                   :task="task"
                   @toggle-task="sortTasks"
                   @done-edit="saveTasks"
-                  @done-edit-with-enter="addTaskAtIndex(index)"
+                  @done-edit-with-enter="addTaskAfterID(task.id)"
                   @remove-task="removeTask(task.id)"
                   :autofocus="task.id == focusedTask"
                 ></task>
               </draggable>
-              <newtask @add-done-task="addDoneTask" :done="inThePast"></newtask>
             </div>
 
             <!-- Unfinished tasks -->
@@ -220,16 +219,11 @@
                   :task="task"
                   @toggle-task="sortTasks"
                   @done-edit="saveTasks"
-                  @done-edit-with-enter="addTaskAtIndex(index)"
+                  @done-edit-with-enter="addTaskAfterID(task.id)"
                   @remove-task="removeTask(task.id)"
                   :autofocus="task.id == focusedTask"
                 ></task>
               </draggable>
-              <newtask
-                @add-task="addTask"
-                @add-done-task="addDoneTask"
-                v-if="!inThePast "
-              ></newtask>
             </div>
 
             <!-- If today/future show done tasks last -->
@@ -250,7 +244,7 @@
                   :task="task"
                   @toggle-task="sortTasks"
                   @done-edit="saveTasks"
-                  @done-edit-with-enter="addTaskAtIndex(index)"
+                  @done-edit-with-enter="addTaskAfterID(task.id)"
                   @remove-task="removeTask(task.id)"
                   :autofocus="task.id == focusedTask"
                 ></task>
@@ -394,7 +388,7 @@
         </a>
       </div>
     </div>
-    <script src="/static/js/app/vue.min.js"></script>
+    <script src="/static/js/app/vue.js"></script>
     <script src="https://cdn.auth0.com/js/auth0/9.5.1/auth0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="static/js/app/moment.min.js"></script>
