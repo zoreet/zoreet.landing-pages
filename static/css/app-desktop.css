@@ -1,60 +1,9 @@
-.pannel--header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+body {
+  background-color: #dedede;
 }
-#menu {
-  border-radius: 0;
-  margin: 0;
-  opacity: 1;
-  pointer-events: initial;
-  top: 0;
-  transform: translateX(0);
-  width: 375px;
-}
-#menu .pannel--header,
-#menu .section {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-#menu .pannel--header {
-  padding-bottom: 0;
-  padding-top: 0;
-  text-decoration: none;
-}
-
-input {
-  border-color: #fff;
-}
-
-#editor {
-  border-radius: 0;
+#app {
   height: 100vh;
-  left: 375px;
-  top: 0;
-  width: calc(100vw - 375px);
-}
-#open-menu {
-  display: none;
-}
-#editor .pannel--header,
-#editor .pannel--content {
-  padding-left: 128px;
-  padding-right: 128px;
-}
-.error {
-  padding-left: 22px;
-  padding-right: 22px;
-}
-
-.date-title {
-  margin-top: 0;
-}
-.date-subtitle {
-  order: 1;
-}
-
-.todos:not(.in-the-past) .task-input::-webkit-input-placeholder {
-  /* Webkit */
-  text-indent: -4px;
+  margin: 0 auto;
+  max-width: 420px;
+  position: relative;
 }

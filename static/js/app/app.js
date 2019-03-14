@@ -31,12 +31,6 @@ Vue.component('task', {
 
     this.label.style.width = this.input.offsetWidth + 'px'
 
-    if (this.last) {
-      document.getElementById('add-task').focus()
-    } else if (this.autofocus) {
-      this.input.focus()
-    }
-
     this.updateHeight()
   },
   data() {
@@ -324,8 +318,8 @@ let app = new Vue({
     token: '',
     isLoading: false,
     showMenu: false,
-    focusedIndex: 0,
-    activeTab: 'day',
+    focusedIndex: null,
+    activeTab: '',
     date:
       localStorage.getItem('current-date') ||
       moment(Date.now()).format('YYYYMMDD'),
@@ -342,6 +336,7 @@ let app = new Vue({
     webAuth: null
   },
   mounted: function() {
+    // alert(document.querySelector('#app').offsetHeight)
     this.online = navigator.onLine
     window.addEventListener('offline', () => {
       this.online = false
@@ -361,6 +356,14 @@ let app = new Vue({
 
     this.checkLogin()
     document.querySelector('body').classList.remove('loading')
+
+    document.addEventListener(
+      'touchmove',
+      function(e) {
+        if (e.target == document.body) e.preventDefault()
+      },
+      { passive: false }
+    )
   },
   computed: {
     dateTitle() {
@@ -407,6 +410,18 @@ let app = new Vue({
       return this.tasks.filter(task => {
         return !task.done
       })
+    },
+    prevDay() {
+      let prev = moment(this.date).subtract(1, 'days')
+      if (this.date == this.today) return 'Yesterday'
+      if (this.date == this.tomorrow) return 'Today'
+      return prev.format('DD MMMM')
+    },
+    nextDay() {
+      let prev = moment(this.date).add(1, 'days')
+      if (this.date == this.today) return 'Tomorrow'
+      if (this.date == this.yesterday) return 'Today'
+      return prev.format('DD MMMM')
     }
   },
   methods: {
@@ -418,27 +433,46 @@ let app = new Vue({
     jumpToToday() {
       this.date = this.today
       sessionStorage.removeItem('activeSession')
+      this.activeTab = ''
       this.getTasks()
     },
     jumpToToday() {
       this.date = this.today
       sessionStorage.removeItem('activeSession')
+      this.activeTab = ''
       this.getTasks()
     },
     jumpToTomorrow() {
       this.date = this.tomorrow
+      this.activeTab = ''
       this.getTasks()
     },
     jumpToYesterday() {
       this.date = this.yesterday
+      this.activeTab = ''
       this.getTasks()
     },
     jumpToDay(newDate) {
-      this.date = newDate
+      if (newDate == -1) {
+        this.date = moment(this.date)
+          .subtract(1, 'days')
+          .format('YYYYMMDD')
+      } else if (newDate == 1) {
+        this.date = moment(this.date)
+          .add(1, 'days')
+          .format('YYYYMMDD')
+      } else {
+        this.date = newDate
+      }
+      this.activeTab = ''
       this.getTasks()
     },
-    toggleMenu() {
-      this.showMenu = !this.showMenu
+    toggleMenu(menuid) {
+      if (this.activeTab == menuid) {
+        this.activeTab = ''
+      } else {
+        this.activeTab = menuid
+      }
     },
 
     // ////////////////////////////////////////////////////////////
