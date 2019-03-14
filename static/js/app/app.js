@@ -517,6 +517,7 @@ let app = new Vue({
           try {
             tasks = JSON.parse(rawTasks)
             this.tasks = tasks
+            this.sortTasks()
           } catch (e) {
             this.tasks = rawTasks
               .replace(/<br>/g, '')
@@ -535,6 +536,7 @@ let app = new Vue({
                 }
               })
               .filter(task => task.title.length)
+            this.sortTasks()
           }
         })
         .catch(error => {
