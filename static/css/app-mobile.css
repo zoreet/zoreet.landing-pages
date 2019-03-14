@@ -368,6 +368,12 @@
   transform: rotate(-45deg);
   width: 14px;
 }
+.add-task-icon {
+  margin-right: 13px;
+}
+.add-task-icon #icon {
+  fill: #d1d1d6;
+}
 
 .task-input {
   background-color: transparent;
