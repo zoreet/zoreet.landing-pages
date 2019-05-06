@@ -1,170 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>zoreet - guilt-free to-do app</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="/static/css/landing.css"
-    />
 
-    <!-- favicon stuff -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/static/img/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/static/img/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/static/img/favicon/favicon-16x16.png"
-    />
-    <link
-      rel="mask-icon"
-      href="/static/img/favicon/safari-pinned-tab.svg"
-      color="#2be4a4"
-    />
-    <link rel="shortcut icon" href="/static/img/favicon/favicon.ico" />
-    <meta name="msapplication-TileColor" content="#2be4a4" />
-    <meta
-      name="msapplication-config"
-      content="/static/img/favicon/browserconfig.xml"
-    />
-    <meta name="theme-color" content="#2be4a4" />
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>zoreet to-do app - every day a new start</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/css/landing.css" />
 
-    <!-- Facebook sharing stuff -->
-    <meta property="og:image:width" content="279" />
-    <meta property="og:image:height" content="279" />
-    <meta property="og:title" content="zoreet - guilt-free to-do app" />
-    <meta
-      property="og:description"
-      content="focus what you can achieve today. plan ahead, let go of unfinished tasks and celebrate your achievements."
-    />
-    <meta property="og:url" content="http://zoreet.com" />
-    <meta
-      property="og:image"
-      content="http://zoreet.com/static/img/favicon/facebook.png/og-image.jpg"
-    />
-  </head>
-  <body>
+  <!-- favicon stuff -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png" />
+  <link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#82e5cc" />
+  <link rel="shortcut icon" href="/static/img/favicon/favicon.ico" />
+  <meta name="msapplication-TileColor" content="#82e5cc" />
+  <meta name="msapplication-config" content="/static/img/favicon/browserconfig.xml" />
+  <meta name="theme-color" content="#82e5cc" />
+
+  <!-- Facebook sharing stuff -->
+  <meta property="og:image:width" content="279" />
+  <meta property="og:image:height" content="279" />
+  <meta property="og:title" content="zoreet - guilt-free to-do app" />
+  <meta property="og:description"
+    content="focus what you can achieve today. plan ahead, let go of unfinished tasks and celebrate your achievements." />
+  <meta property="og:url" content="http://zoreet.com" />
+  <meta property="og:image" content="http://zoreet.com/static/img/favicon/facebook.png/og-image.jpg" />
+</head>
+
+<body>
+  <div class="hero">
     <div class="header">
       <div class="container">
         <a href="/" class="logo"><strong>zoreet</strong>.com</a>
         <div class="header-actions">
           <a id="login-header" href="https://app.zoreet.com">log in</a>
-          <a
-            id="signup-header"
-            class="header-action button js-login"
-            href="https://app.zoreet.com"
-            >sign up - it's free</a
-          >
+          <a id="signup-header" class="header-action button js-login" href="https://app.zoreet.com">sign up - it's
+            free</a>
         </div>
       </div>
     </div>
-    <div class="hero">
-      <div class="hero-image"></div>
+    <div class="hero-content">
       <div class="container">
-        <div class="hero-content">
-          <h1>
-            <span class="highlight">today I will</span>
-            <div>
-              <div class="word-container">
-                <div class="word" style="animation-delay: 0.5s">book</div>
-              </div>
-              <div class="word-container">
-                <div class="word" style="animation-delay: 0.7s">my</div>
-              </div>
-              <div class="word-container">
-                <div class="word" style="animation-delay: 0.9s">vacation</div>
-              </div>
-            </div>
-          </h1>
-          <p class="hero-lead animate">
-            <strong>zoreet</strong> is a day-by-day to-do list that helps you
-            focus on what you can achieve right now. plan ahead, let go of
-            unfinished tasks and celebrate your achievements.
-          </p>
-          <a
-            id="signup"
-            href="https://app.zoreet.com"
-            class="button --full animate js-login"
-            >sign up - it's free</a
-          >
-          <a
-            id="login"
-            href="https://app.zoreet.com"
-            class="button --secondary animate js-login"
-            >log in</a
-          >
-          <p class="disclaimer animate">
-            after you sign up or log in, this site uses cookies to identify who
-            you are. we also store your to-dos <em>duh!</em> but only until you
-            decide to remove them. that's it :)
-          </p>
-        </div>
+        <h1>
+          <div class="word-container">
+            <div class="word" style="animation-delay: 0.5s">every</div>
+          </div>
+          <div class="word-container">
+            <div class="word" style="animation-delay: 0.7s">day</div>
+          </div>
+          <div class="word-container">
+            <div class="word" style="animation-delay: 0.9s">a</div>
+          </div>
+          <div class="word-container">
+            <div class="word" style="animation-delay: 1.1s">new</div>
+          </div>
+          <div class="word-container">
+            <div class="word" style="animation-delay: 1.3s">start</div>
+          </div>
+        </h1>
+        <p class="hero-lead animate">
+          <strong>zoreet is a to-do app</strong> that helps you focus on what
+          you can achieve right now.<br />plan ahead, let go of unfinished
+          tasks and celebrate your achievements.
+        </p>
+        <a id="signup" href="https://app.zoreet.com" class="button --full animate js-login">sign up - it's free</a>
+        <a id="login" href="https://app.zoreet.com" class="button --secondary animate js-login">log in</a>
+        <p class="disclaimer animate">
+          after you sign up or log in, this site uses cookies to identify who
+          you are. we also store your to-dos <em>duh!</em> but only until you
+          decide to remove them. that's it :)
+        </p>
       </div>
     </div>
-    <div class="container">
-      <div id="how-it-works" class="animate">
-        <h2 class="title2">how it works</h2>
-        <div class="screenshots">
-          <div class="day">
-            <div class="fake-app past">
-              <div class="fake-app-header">yesterday</div>
-              <ul class="fake-app-tasks">
-                <li class="fake-app-task --done">research vacation spots</li>
-                <li class="fake-app-task --done">check who's comming</li>
-                <li class="fake-app-task">decide on a destination</li>
-              </ul>
-            </div>
-            <div class="explain">
-              when you look back at past days zoreet focuses on celebrating what
-              you've acomplished
-            </div>
+    <picture>
+      <source media="(max-width: 450px)" srcset="/static/img/sunsire-900.png">
+      <img src="/static/img/sunsire-1980.png" width="100%" class="hero-image">
+    </picture>
+  </div>
+  <div class="container">
+    <div id="how-it-works" class="animate">
+      <h2 class="title2">how it works</h2>
+      <div class="screenshots">
+        <div class="day">
+          <div class="fake-app past">
+            <div class="fake-app-header">yesterday</div>
+            <ul class="fake-app-tasks">
+              <li class="fake-app-task --done">research vacation spots</li>
+              <li class="fake-app-task --done">check who's comming</li>
+              <li class="fake-app-task">decide on a destination</li>
+            </ul>
           </div>
-          <div class="day">
-            <div class="fake-app">
-              <div class="fake-app-header present">today i will</div>
-              <ul class="fake-app-tasks">
-                <li class="fake-app-task">decide on a destination</li>
-                <li class="fake-app-task">check prices for flights</li>
-                <li class="fake-app-task --done">decide on a date</li>
-              </ul>
-            </div>
-            <div class="explain">
-              today it's time to focus on getting things done
-            </div>
+          <div class="explain">
+            when you look back at past days zoreet focuses on celebrating what
+            you've acomplished
           </div>
-          <div class="day">
-            <div class="fake-app">
-              <div class="fake-app-header">tomorrow i will</div>
-              <ul class="fake-app-tasks">
-                <li class="fake-app-task">book the flight</li>
-                <li class="fake-app-task">decide: hotel or airbnb?</li>
-                <li class="fake-app-task">start up an itinerary</li>
-              </ul>
-            </div>
-            <div class="explain">
-              you can also plan ahead tasks you know you'll need to do on a
-              certain day
-            </div>
+        </div>
+        <div class="day">
+          <div class="fake-app">
+            <div class="fake-app-header present">today</div>
+            <ul class="fake-app-tasks">
+              <li class="fake-app-task">decide on a destination</li>
+              <li class="fake-app-task">check prices for flights</li>
+              <li class="fake-app-task --done">decide on a date</li>
+            </ul>
+          </div>
+          <div class="explain">
+            today it's time to focus on getting things done
+          </div>
+        </div>
+        <div class="day">
+          <div class="fake-app">
+            <div class="fake-app-header">tomorrow</div>
+            <ul class="fake-app-tasks">
+              <li class="fake-app-task">book the flight</li>
+              <li class="fake-app-task">decide: hotel or airbnb?</li>
+              <li class="fake-app-task">start up an itinerary</li>
+            </ul>
+          </div>
+          <div class="explain">
+            you can also plan ahead tasks you know you'll need to do on a
+            certain day
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
