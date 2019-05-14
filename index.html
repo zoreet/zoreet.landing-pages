@@ -68,8 +68,8 @@
         <a id="login" href="https://app.zoreet.com" class="button --secondary animate js-login">log in</a>
         <p class="disclaimer animate">
           after you sign up or log in, this site uses cookies to identify who
-          you are. we also store your to-dos <em>duh!</em> but only until you
-          decide to remove them. that's it :)
+          you are. we store your to-dos <em>duh!</em> but only until you
+          decide to remove them. we also use google analytics for anonymous stats. that's it :)
         </p>
       </div>
     </div>
@@ -126,6 +126,16 @@
       </div>
     </div>
   </div>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140144737-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-140144737-1');
+  </script>
+
 </body>
 
 </html>
